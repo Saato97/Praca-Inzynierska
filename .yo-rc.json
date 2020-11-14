@@ -1,0 +1,43 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.inzynierka.esports",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.10.5",
+    "applicationType": "monolith",
+    "baseName": "esportsApp",
+    "packageName": "com.inzynierka.esports",
+    "packageFolder": "com/inzynierka/esports",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "MDM3MWRkMTU3NTI0MmM4ODFhMTRjZWVmOTRmMDFjNTgzMGZiNTBmNmQ1NzVjZTdlZGI4MjhkNWYyYjY1NDM5M2YxMDk5Y2U3Njk3ZjhiM2M0MTFiOTVmODE0ZTFlY2EyZGJkMTgxZjAwYmJkMzcxNTYxZGEwMDdiZjFmZDUyYTI=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "darkly",
+    "clientThemeVariant": "primary",
+    "creationTimestamp": 1605383977842,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": ["en", "pl"],
+    "blueprints": []
+  }
+}
