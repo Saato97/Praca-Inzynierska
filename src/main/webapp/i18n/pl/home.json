@@ -1,9 +1,9 @@
 {
   "home": {
-    "title": "Witamy, Java Hipsterze!",
+    "title": "Witaj w EsportsApp!",
     "subtitle": "To jest twoja strona domowa",
     "logged": {
-      "message": "Jesteś zalogowany jako użytkownik \"{{username}}\"."
+      "message": "Witaj \"{{username}}\"! Weź udział w jednym z poniższych turniejów i wygraj niesamowite nagrody już dziś!"
     },
     "question": "Jeśli masz jakiekolwiek pytania na temat JHipster:",
     "link": {
