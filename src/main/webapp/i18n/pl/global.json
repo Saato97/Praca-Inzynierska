@@ -49,8 +49,7 @@
       "info": {
         "authenticated": {
           "prefix": "Jeśli chcesz się ",
-          "link": "zalogować",
-          "suffix": ", możesz spróbować któregoś z domyślnych kont:<br/>- Administrator (login=\"admin\" i hasło=\"admin\") <br/>- Użytkownik (login=\"user\" i hasło=\"user\")."
+          "link": "Zaloguj się"
         },
         "register": {
           "noaccount": "Nie masz jeszcze konta?",
@@ -135,5 +134,5 @@
       "not.image": "File was expected to be an image but was found to be \"{{ fileType }}\""
     }
   },
-  "footer": "To jest stopka"
+  "footer": "Aplikacja webowa stworzona przez Tomasza Saar"
 }

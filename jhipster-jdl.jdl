@@ -1,0 +1,70 @@
+
+entity ApplicationUsers {
+    level Long min(1) max(100),
+	points Long,
+    userLogo ImageBlob
+}
+
+entity Organizers {
+	email String,
+	discord String,
+}
+
+entity Tournaments {
+	name String required,
+	gameType Games,
+    description TextBlob,
+    maxParticipants Integer required,
+    currentParticipants Integer,
+    startDate Instant required,
+    tournamentLogo ImageBlob
+}
+
+entity Teams {
+	teamName String required,
+    captainName String required,
+    teamLogo ImageBlob
+}
+
+entity Matches {
+	startDate Instant,
+    teamA Long,
+    teamB Long,
+    winner Long,
+    matchUrl String
+}
+
+enum Games {
+    LOL, CSGO
+}
+
+relationship OneToOne {
+	ApplicationUsers{internalUser} to User,
+	Organizers{applicationUsers} to ApplicationUsers
+}
+
+relationship ManyToOne {
+	Tournaments{organizers} to Organizers
+}
+
+relationship OneToMany {
+	Teams{tournaments} to Tournaments,
+    Matches{tournaments} to Tournaments,
+    Matches{teams} to Teams,
+}
+
+relationship ManyToMany {
+	Teams{applicationUsers} to ApplicationUsers{teams}
+}
+
+// Set pagination options
+paginate all with infinite-scroll
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+// service all with serviceImpl except Employee, Job
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
