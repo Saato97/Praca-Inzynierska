@@ -13,8 +13,8 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     url: jdbc:tc:postgresql:latest:///esportsApp?TC_TMPFS=/testtmpfs:rw
-    username: esportsApp
-    password:
+    username: postgres
+    password: postgres
     hikari:
       poolName: Hikari
       auto-commit: false
