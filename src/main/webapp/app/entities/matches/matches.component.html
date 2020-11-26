@@ -1,0 +1,69 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="esportsApp.matches.home.title">Matches</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-matches" [routerLink]="['/matches/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span  jhiTranslate="esportsApp.matches.home.createLabel">
+            Create a new Matches
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="matches?.length === 0">
+        <span jhiTranslate="esportsApp.matches.home.notFound">No matches found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="matches && matches.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="startDate"><span jhiTranslate="esportsApp.matches.startDate">Start Date</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="teamA"><span jhiTranslate="esportsApp.matches.teamA">Team A</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="teamB"><span jhiTranslate="esportsApp.matches.teamB">Team B</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="winner"><span jhiTranslate="esportsApp.matches.winner">Winner</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="matchUrl"><span jhiTranslate="esportsApp.matches.matchUrl">Match Url</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let matches of matches ;trackBy: trackId">
+                    <td><a [routerLink]="['/matches', matches.id, 'view']">{{ matches.id }}</a></td>
+                    <td>{{ matches.startDate | date:'medium' }}</td>
+                    <td>{{ matches.teamA }}</td>
+                    <td>{{ matches.teamB }}</td>
+                    <td>{{ matches.winner }}</td>
+                    <td>{{ matches.matchUrl }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/matches', matches.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/matches', matches.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(matches)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

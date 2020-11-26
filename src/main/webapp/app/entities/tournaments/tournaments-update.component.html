@@ -1,0 +1,133 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-tournaments-heading" jhiTranslate="esportsApp.tournaments.home.createOrEditLabel">Create or edit a Tournaments</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.name" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.gameType" for="field_gameType">Game Type</label>
+                    <select class="form-control" name="gameType" formControlName="gameType" id="field_gameType">
+                        <option value="LOL">{{ 'esportsApp.Games.LOL' | translate }}</option>
+                        <option value="CSGO">{{ 'esportsApp.Games.CSGO' | translate }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.description" for="field_description">Description</label>
+                    <textarea class="form-control" name="description" id="field_description"
+                              formControlName="description"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.maxParticipants" for="field_maxParticipants">Max Participants</label>
+                    <input type="number" class="form-control" name="maxParticipants" id="field_maxParticipants"
+                           formControlName="maxParticipants"/>
+                    <div *ngIf="editForm.get('maxParticipants')!.invalid && (editForm.get('maxParticipants')!.dirty || editForm.get('maxParticipants')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('maxParticipants')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('maxParticipants')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.currentParticipants" for="field_currentParticipants">Current Participants</label>
+                    <input type="number" class="form-control" name="currentParticipants" id="field_currentParticipants"
+                           formControlName="currentParticipants"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.startDate" for="field_startDate">Start Date</label>
+                    <div class="d-flex">
+                        <input id="field_startDate" type="datetime-local" class="form-control" name="startDate" formControlName="startDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('startDate')!.invalid && (editForm.get('startDate')!.dirty || editForm.get('startDate')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('startDate')?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('startDate')?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.tournamentLogo" for="field_tournamentLogo">Tournament Logo</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('tournamentLogoContentType')!.value + ';base64,' + editForm.get('tournamentLogo')!.value" style="max-height: 100px;" *ngIf="editForm.get('tournamentLogo')!.value" alt="tournaments image"/>
+                        <div *ngIf="editForm.get('tournamentLogo')!.value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{ editForm.get('tournamentLogoContentType')!.value }}, {{ byteSize(editForm.get('tournamentLogo')!.value) }}</span>
+                            <button type="button" (click)="clearInputImage('tournamentLogo', 'tournamentLogoContentType', 'file_tournamentLogo')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_tournamentLogo" (change)="setFileData($event, 'tournamentLogo', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="tournamentLogo" id="field_tournamentLogo"
+                           formControlName="tournamentLogo"/>
+                    <input type="hidden" class="form-control" name="tournamentLogoContentType" id="field_tournamentLogoContentType"
+                           formControlName="tournamentLogoContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.organizers" for="field_organizers">Organizers</label>
+                    <select class="form-control" id="field_organizers" name="organizers" formControlName="organizers">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="organizersOption.id === editForm.get('organizers')!.value?.id ? editForm.get('organizers')!.value : organizersOption" *ngFor="let organizersOption of organizers; trackBy: trackById">{{ organizersOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.teams" for="field_teams">Teams</label>
+                    <select class="form-control" id="field_teams" name="teams" formControlName="teams">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="teamsOption.id === editForm.get('teams')!.value?.id ? editForm.get('teams')!.value : teamsOption" *ngFor="let teamsOption of teams; trackBy: trackById">{{ teamsOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.matches" for="field_matches">Matches</label>
+                    <select class="form-control" id="field_matches" name="matches" formControlName="matches">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="matchesOption.id === editForm.get('matches')!.value?.id ? editForm.get('matches')!.value : matchesOption" *ngFor="let matchesOption of matches; trackBy: trackById">{{ matchesOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

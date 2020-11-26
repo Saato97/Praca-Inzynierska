@@ -1,0 +1,26 @@
+{
+  "esportsApp": {
+    "applicationUsers": {
+      "home": {
+        "title": "Application Users",
+        "createLabel": "Dodaj Application Users",
+        "createOrEditLabel": "Dodaj lub edytuj: Application Users",
+        "notFound": "No Application Users found"
+      },
+      "created": "Utworzono nowy obiekt typu Application Users z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Application Users z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Application Users z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Application Users {{ id }}?"
+      },
+      "detail": {
+        "title": "Application Users"
+      },
+      "level": "Level",
+      "points": "Points",
+      "userLogo": "User Logo",
+      "internalUser": "Internal User",
+      "teams": "Teams"
+    }
+  }
+}

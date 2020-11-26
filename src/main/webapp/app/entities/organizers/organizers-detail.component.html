@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="organizers">
+            <h2><span jhiTranslate="esportsApp.organizers.detail.title">Organizers</span> {{ organizers.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="esportsApp.organizers.email">Email</span></dt>
+                <dd>
+                    <span>{{ organizers.email }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.organizers.discord">Discord</span></dt>
+                <dd>
+                    <span>{{ organizers.discord }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.organizers.applicationUsers">Application Users</span></dt>
+                <dd>
+                    <div *ngIf="organizers.applicationUsers">
+                        <a [routerLink]="['/application-users', organizers.applicationUsers?.id, 'view']">{{ organizers.applicationUsers?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/organizers', organizers.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

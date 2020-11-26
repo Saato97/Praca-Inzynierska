@@ -1,0 +1,78 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-application-users-heading" jhiTranslate="esportsApp.applicationUsers.home.createOrEditLabel">Create or edit a Application Users</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.applicationUsers.level" for="field_level">Level</label>
+                    <input type="number" class="form-control" name="level" id="field_level"
+                           formControlName="level"/>
+                    <div *ngIf="editForm.get('level')!.invalid && (editForm.get('level')!.dirty || editForm.get('level')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('level')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 1 }">
+                            This field should be at least 1.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('level')?.errors?.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 100 }">
+                            This field cannot be more than 100.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('level')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.applicationUsers.points" for="field_points">Points</label>
+                    <input type="number" class="form-control" name="points" id="field_points"
+                           formControlName="points"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.applicationUsers.userLogo" for="field_userLogo">User Logo</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('userLogoContentType')!.value + ';base64,' + editForm.get('userLogo')!.value" style="max-height: 100px;" *ngIf="editForm.get('userLogo')!.value" alt="applicationUsers image"/>
+                        <div *ngIf="editForm.get('userLogo')!.value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{ editForm.get('userLogoContentType')!.value }}, {{ byteSize(editForm.get('userLogo')!.value) }}</span>
+                            <button type="button" (click)="clearInputImage('userLogo', 'userLogoContentType', 'file_userLogo')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_userLogo" (change)="setFileData($event, 'userLogo', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="userLogo" id="field_userLogo"
+                           formControlName="userLogo"/>
+                    <input type="hidden" class="form-control" name="userLogoContentType" id="field_userLogoContentType"
+                           formControlName="userLogoContentType" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.applicationUsers.internalUser" for="field_internalUser">Internal User</label>
+                    <select class="form-control" id="field_internalUser" name="internalUser" formControlName="internalUser">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === editForm.get('internalUser')!.value?.id ? editForm.get('internalUser')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{ userOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

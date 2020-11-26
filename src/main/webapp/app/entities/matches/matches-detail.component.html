@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="matches">
+            <h2><span jhiTranslate="esportsApp.matches.detail.title">Matches</span> {{ matches.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="esportsApp.matches.startDate">Start Date</span></dt>
+                <dd>
+                    <span>{{ matches.startDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.matches.teamA">Team A</span></dt>
+                <dd>
+                    <span>{{ matches.teamA }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.matches.teamB">Team B</span></dt>
+                <dd>
+                    <span>{{ matches.teamB }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.matches.winner">Winner</span></dt>
+                <dd>
+                    <span>{{ matches.winner }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.matches.matchUrl">Match Url</span></dt>
+                <dd>
+                    <span>{{ matches.matchUrl }}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/matches', matches.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
