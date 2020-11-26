@@ -1,0 +1,31 @@
+{
+  "esportsApp": {
+    "tournaments": {
+      "home": {
+        "title": "Tournaments",
+        "createLabel": "Dodaj Tournaments",
+        "createOrEditLabel": "Dodaj lub edytuj: Tournaments",
+        "notFound": "No Tournaments found"
+      },
+      "created": "Utworzono nowy obiekt typu Tournaments z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Tournaments z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Tournaments z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Tournaments {{ id }}?"
+      },
+      "detail": {
+        "title": "Tournaments"
+      },
+      "name": "Name",
+      "gameType": "Game Type",
+      "description": "Description",
+      "maxParticipants": "Max Participants",
+      "currentParticipants": "Current Participants",
+      "startDate": "Start Date",
+      "tournamentLogo": "Tournament Logo",
+      "organizers": "Organizers",
+      "teams": "Teams",
+      "matches": "Matches"
+    }
+  }
+}

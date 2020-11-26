@@ -1,0 +1,28 @@
+{
+  "esportsApp": {
+    "matches": {
+      "home": {
+        "title": "Matches",
+        "createLabel": "Dodaj Matches",
+        "createOrEditLabel": "Dodaj lub edytuj: Matches",
+        "notFound": "No Matches found"
+      },
+      "created": "Utworzono nowy obiekt typu Matches z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Matches z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Matches z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Matches {{ id }}?"
+      },
+      "detail": {
+        "title": "Matches"
+      },
+      "startDate": "Start Date",
+      "teamA": "Team A",
+      "teamB": "Team B",
+      "winner": "Winner",
+      "matchUrl": "Match Url",
+      "tournaments": "Tournaments",
+      "teams": "Teams"
+    }
+  }
+}

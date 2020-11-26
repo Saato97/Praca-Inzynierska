@@ -3,6 +3,7 @@
         <div class="col-md-8">
             <h1 class="display-4" jhiTranslate="home.title">Welcome to EsportsApp!</h1>
             <div [ngSwitch]="isAuthenticated()">
+                <br>
                 <div class="alert alert-success" *ngSwitchCase="true">
                     <h2>
                         <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message"
@@ -12,10 +13,12 @@
                 <div *ngSwitchCase="false">
                     <a (click)="login()" class="btn btn-success btn-lg" role="button" jhiTranslate="global.messages.info.authenticated.link">Sign in</a>
                 </div>
-                <p></p>
-                <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
-                <p></p>
                 <div *ngSwitchCase="false">
+                    <br>
+                    <h3>
+                        <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
+                    </h3>
+                    <br>
                     <a routerLink="account/register" class="btn btn-primary btn-lg" role="button" jhiTranslate="global.messages.info.register.link">Register a new account</a>
                 </div> 
             </div>

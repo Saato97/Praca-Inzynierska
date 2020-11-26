@@ -1,0 +1,27 @@
+{
+  "esportsApp": {
+    "teams": {
+      "home": {
+        "title": "Teams",
+        "createLabel": "Create a new Teams",
+        "createOrEditLabel": "Create or edit a Teams",
+        "notFound": "No Teams found"
+      },
+      "created": "A new Teams is created with identifier {{ param }}",
+      "updated": "A Teams is updated with identifier {{ param }}",
+      "deleted": "A Teams is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Teams {{ id }}?"
+      },
+      "detail": {
+        "title": "Teams"
+      },
+      "teamName": "Team Name",
+      "captainName": "Captain Name",
+      "teamLogo": "Team Logo",
+      "tournaments": "Tournaments",
+      "applicationUsers": "Application Users",
+      "matches": "Matches"
+    }
+  }
+}

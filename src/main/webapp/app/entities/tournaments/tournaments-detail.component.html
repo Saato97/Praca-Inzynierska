@@ -1,0 +1,77 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="tournaments">
+            <h2><span jhiTranslate="esportsApp.tournaments.detail.title">Tournaments</span> {{ tournaments.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="esportsApp.tournaments.name">Name</span></dt>
+                <dd>
+                    <span>{{ tournaments.name }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.tournaments.gameType">Game Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'esportsApp.Games.' + tournaments.gameType }}">{{ tournaments.gameType }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.tournaments.description">Description</span></dt>
+                <dd>
+                    <span>{{ tournaments.description }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.tournaments.maxParticipants">Max Participants</span></dt>
+                <dd>
+                    <span>{{ tournaments.maxParticipants }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.tournaments.currentParticipants">Current Participants</span></dt>
+                <dd>
+                    <span>{{ tournaments.currentParticipants }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.tournaments.startDate">Start Date</span></dt>
+                <dd>
+                    <span>{{ tournaments.startDate }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.tournaments.tournamentLogo">Tournament Logo</span></dt>
+                <dd>
+                    <div *ngIf="tournaments.tournamentLogo">
+                        <a (click)="openFile(tournaments.tournamentLogoContentType, tournaments.tournamentLogo)">
+                            <img [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" style="max-width: 100%;" alt="tournaments image"/>
+                        </a>
+                        {{ tournaments.tournamentLogoContentType }}, {{ byteSize(tournaments.tournamentLogo) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.tournaments.organizers">Organizers</span></dt>
+                <dd>
+                    <div *ngIf="tournaments.organizers">
+                        <a [routerLink]="['/organizers', tournaments.organizers?.id, 'view']">{{ tournaments.organizers?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.tournaments.teams">Teams</span></dt>
+                <dd>
+                    <div *ngIf="tournaments.teams">
+                        <a [routerLink]="['/teams', tournaments.teams?.id, 'view']">{{ tournaments.teams?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.tournaments.matches">Matches</span></dt>
+                <dd>
+                    <div *ngIf="tournaments.matches">
+                        <a [routerLink]="['/matches', tournaments.matches?.id, 'view']">{{ tournaments.matches?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/tournaments', tournaments.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

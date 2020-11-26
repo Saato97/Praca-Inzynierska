@@ -1,0 +1,50 @@
+{
+  "name": "Matches",
+  "fields": [
+    {
+      "fieldName": "startDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "teamA",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "teamB",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "winner",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "matchUrl",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "tournaments",
+      "otherEntityRelationshipName": "matches",
+      "relationshipName": "tournaments"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "teams",
+      "otherEntityRelationshipName": "matches",
+      "relationshipName": "teams"
+    }
+  ],
+  "changelogDate": "20201123200636",
+  "entityTableName": "matches",
+  "dto": "no",
+  "pagination": "infinite-scroll",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

@@ -1,0 +1,24 @@
+{
+  "esportsApp": {
+    "organizers": {
+      "home": {
+        "title": "Organizers",
+        "createLabel": "Dodaj Organizers",
+        "createOrEditLabel": "Dodaj lub edytuj: Organizers",
+        "notFound": "No Organizers found"
+      },
+      "created": "Utworzono nowy obiekt typu Organizers z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Organizers z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Organizers z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Organizers {{ id }}?"
+      },
+      "detail": {
+        "title": "Organizers"
+      },
+      "email": "Email",
+      "discord": "Discord",
+      "applicationUsers": "Application Users"
+    }
+  }
+}

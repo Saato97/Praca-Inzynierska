@@ -1,0 +1,53 @@
+{
+  "name": "ApplicationUsers",
+  "fields": [
+    {
+      "fieldName": "level",
+      "fieldType": "Long",
+      "fieldValidateRules": [
+        "min",
+        "max"
+      ],
+      "fieldValidateRulesMin": "1",
+      "fieldValidateRulesMax": "100"
+    },
+    {
+      "fieldName": "points",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "userLogo",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "applicationUsers",
+      "relationshipName": "internalUser",
+      "otherEntityField": "id",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-many",
+      "otherEntityName": "teams",
+      "otherEntityRelationshipName": "applicationUsers",
+      "relationshipName": "teams",
+      "otherEntityField": "id",
+      "ownerSide": false
+    }
+  ],
+  "changelogDate": "20201123200236",
+  "entityTableName": "application_users",
+  "dto": "no",
+  "pagination": "infinite-scroll",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

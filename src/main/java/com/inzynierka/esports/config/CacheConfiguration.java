@@ -48,6 +48,16 @@ public class CacheConfiguration {
             createCache(cm, com.inzynierka.esports.domain.User.class.getName());
             createCache(cm, com.inzynierka.esports.domain.Authority.class.getName());
             createCache(cm, com.inzynierka.esports.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.inzynierka.esports.domain.ApplicationUsers.class.getName());
+            createCache(cm, com.inzynierka.esports.domain.ApplicationUsers.class.getName() + ".teams");
+            createCache(cm, com.inzynierka.esports.domain.Organizers.class.getName());
+            createCache(cm, com.inzynierka.esports.domain.Tournaments.class.getName());
+            createCache(cm, com.inzynierka.esports.domain.Teams.class.getName());
+            createCache(cm, com.inzynierka.esports.domain.Teams.class.getName() + ".tournaments");
+            createCache(cm, com.inzynierka.esports.domain.Teams.class.getName() + ".applicationUsers");
+            createCache(cm, com.inzynierka.esports.domain.Matches.class.getName());
+            createCache(cm, com.inzynierka.esports.domain.Matches.class.getName() + ".tournaments");
+            createCache(cm, com.inzynierka.esports.domain.Matches.class.getName() + ".teams");
             // jhipster-needle-ehcache-add-entry
         };
     }

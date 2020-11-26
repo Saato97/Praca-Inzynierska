@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="teams">
+            <h2><span jhiTranslate="esportsApp.teams.detail.title">Teams</span> {{ teams.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="esportsApp.teams.teamName">Team Name</span></dt>
+                <dd>
+                    <span>{{ teams.teamName }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.teams.captainName">Captain Name</span></dt>
+                <dd>
+                    <span>{{ teams.captainName }}</span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.teams.teamLogo">Team Logo</span></dt>
+                <dd>
+                    <div *ngIf="teams.teamLogo">
+                        <a (click)="openFile(teams.teamLogoContentType, teams.teamLogo)">
+                            <img [src]="'data:' + teams.teamLogoContentType + ';base64,' + teams.teamLogo" style="max-width: 100%;" alt="teams image"/>
+                        </a>
+                        {{ teams.teamLogoContentType }}, {{ byteSize(teams.teamLogo) }}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.teams.applicationUsers">Application Users</span></dt>
+                <dd>
+                    <span *ngFor="let applicationUsers of teams.applicationUsers; let last = last">
+                        <a [routerLink]="['/application-users', applicationUsers?.id, 'view']">{{ applicationUsers.id }}</a>{{ last ? '' : ', ' }}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="esportsApp.teams.matches">Matches</span></dt>
+                <dd>
+                    <div *ngIf="teams.matches">
+                        <a [routerLink]="['/matches', teams.matches?.id, 'view']">{{ teams.matches?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/teams', teams.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
