@@ -41,8 +41,7 @@ public class ApplicationUsers implements Serializable {
     private String userLogoContentType;
 
     @OneToOne
-    @MapsId("id")
-    //@JoinColumn(unique = true)
+    @JoinColumn(unique = true)
     private User internalUser;
 
     @ManyToMany(mappedBy = "applicationUsers")

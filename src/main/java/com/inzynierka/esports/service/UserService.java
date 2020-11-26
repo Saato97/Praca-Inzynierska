@@ -130,7 +130,9 @@ public class UserService {
 
         ApplicationUsers newApplicationUser = new ApplicationUsers();
         newApplicationUser.setInternalUser(newUser);
+        newApplicationUser.setId(newUser.getId());
         newApplicationUser.setLevel(1L);
+        newApplicationUser.setPoints(0L);
         applicationUsersRepository.save(newApplicationUser);
         log.debug("Created Information for ApplicationUser: {}", newApplicationUser);
 
