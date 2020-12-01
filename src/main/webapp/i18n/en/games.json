@@ -2,8 +2,8 @@
   "esportsApp": {
     "Games": {
       "null": "",
-      "LOL": "LOL",
-      "CSGO": "CSGO"
+      "LOL": "League of Legends",
+      "CSGO": "Counter-Strike: Global Offensive"
     }
   }
 }

@@ -47,7 +47,6 @@
                         <a *ngIf="tournaments.tournamentLogo" (click)="openFile(tournaments.tournamentLogoContentType, tournaments.tournamentLogo)">
                             <img [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" style="max-height: 30px;" alt="tournaments image"/>
                         </a>
-                        <span *ngIf="tournaments.tournamentLogo">{{ tournaments.tournamentLogoContentType }}, {{ byteSize(tournaments.tournamentLogo) }}</span>
                     </td>
                     <td>
                         <div *ngIf="tournaments.organizers">
