@@ -28,6 +28,7 @@
                     <th scope="col"  jhiSortBy="teamB"><span jhiTranslate="esportsApp.matches.teamB">Team B</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="winner"><span jhiTranslate="esportsApp.matches.winner">Winner</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="matchUrl"><span jhiTranslate="esportsApp.matches.matchUrl">Match Url</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="tournaments.id"><span jhiTranslate="esportsApp.matches.tournaments">Tournaments</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -39,6 +40,11 @@
                     <td>{{ matches.teamB }}</td>
                     <td>{{ matches.winner }}</td>
                     <td>{{ matches.matchUrl }}</td>
+                    <td>
+                        <div *ngIf="matches.tournaments">
+                            <a [routerLink]="['/tournaments', matches.tournaments?.id, 'view']" >{{ matches.tournaments?.id }}</a>
+                        </div>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

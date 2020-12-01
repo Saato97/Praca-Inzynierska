@@ -11,10 +11,12 @@ import { TeamsService } from './teams.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { IApplicationUsers } from 'app/shared/model/application-users.model';
 import { ApplicationUsersService } from 'app/entities/application-users/application-users.service';
+import { ITournaments } from 'app/shared/model/tournaments.model';
+import { TournamentsService } from 'app/entities/tournaments/tournaments.service';
 import { IMatches } from 'app/shared/model/matches.model';
 import { MatchesService } from 'app/entities/matches/matches.service';
 
-type SelectableEntity = IApplicationUsers | IMatches;
+type SelectableEntity = IApplicationUsers | ITournaments | IMatches;
 
 @Component({
   selector: 'jhi-teams-update',
@@ -23,6 +25,7 @@ type SelectableEntity = IApplicationUsers | IMatches;
 export class TeamsUpdateComponent implements OnInit {
   isSaving = false;
   applicationusers: IApplicationUsers[] = [];
+  tournaments: ITournaments[] = [];
   matches: IMatches[] = [];
 
   editForm = this.fb.group({
@@ -32,6 +35,7 @@ export class TeamsUpdateComponent implements OnInit {
     teamLogo: [],
     teamLogoContentType: [],
     applicationUsers: [],
+    tournaments: [],
     matches: [],
   });
 
@@ -40,6 +44,7 @@ export class TeamsUpdateComponent implements OnInit {
     protected eventManager: JhiEventManager,
     protected teamsService: TeamsService,
     protected applicationUsersService: ApplicationUsersService,
+    protected tournamentsService: TournamentsService,
     protected matchesService: MatchesService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
@@ -51,6 +56,8 @@ export class TeamsUpdateComponent implements OnInit {
       this.updateForm(teams);
 
       this.applicationUsersService.query().subscribe((res: HttpResponse<IApplicationUsers[]>) => (this.applicationusers = res.body || []));
+
+      this.tournamentsService.query().subscribe((res: HttpResponse<ITournaments[]>) => (this.tournaments = res.body || []));
 
       this.matchesService.query().subscribe((res: HttpResponse<IMatches[]>) => (this.matches = res.body || []));
     });
@@ -64,6 +71,7 @@ export class TeamsUpdateComponent implements OnInit {
       teamLogo: teams.teamLogo,
       teamLogoContentType: teams.teamLogoContentType,
       applicationUsers: teams.applicationUsers,
+      tournaments: teams.tournaments,
       matches: teams.matches,
     });
   }
@@ -117,6 +125,7 @@ export class TeamsUpdateComponent implements OnInit {
       teamLogoContentType: this.editForm.get(['teamLogoContentType'])!.value,
       teamLogo: this.editForm.get(['teamLogo'])!.value,
       applicationUsers: this.editForm.get(['applicationUsers'])!.value,
+      tournaments: this.editForm.get(['tournaments'])!.value,
       matches: this.editForm.get(['matches'])!.value,
     };
   }

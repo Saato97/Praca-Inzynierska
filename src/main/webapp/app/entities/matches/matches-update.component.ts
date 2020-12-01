@@ -9,6 +9,8 @@ import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { IMatches, Matches } from 'app/shared/model/matches.model';
 import { MatchesService } from './matches.service';
+import { ITournaments } from 'app/shared/model/tournaments.model';
+import { TournamentsService } from 'app/entities/tournaments/tournaments.service';
 
 @Component({
   selector: 'jhi-matches-update',
@@ -16,6 +18,7 @@ import { MatchesService } from './matches.service';
 })
 export class MatchesUpdateComponent implements OnInit {
   isSaving = false;
+  tournaments: ITournaments[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -24,9 +27,15 @@ export class MatchesUpdateComponent implements OnInit {
     teamB: [],
     winner: [],
     matchUrl: [],
+    tournaments: [],
   });
 
-  constructor(protected matchesService: MatchesService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    protected matchesService: MatchesService,
+    protected tournamentsService: TournamentsService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ matches }) => {
@@ -36,6 +45,8 @@ export class MatchesUpdateComponent implements OnInit {
       }
 
       this.updateForm(matches);
+
+      this.tournamentsService.query().subscribe((res: HttpResponse<ITournaments[]>) => (this.tournaments = res.body || []));
     });
   }
 
@@ -47,6 +58,7 @@ export class MatchesUpdateComponent implements OnInit {
       teamB: matches.teamB,
       winner: matches.winner,
       matchUrl: matches.matchUrl,
+      tournaments: matches.tournaments,
     });
   }
 
@@ -73,6 +85,7 @@ export class MatchesUpdateComponent implements OnInit {
       teamB: this.editForm.get(['teamB'])!.value,
       winner: this.editForm.get(['winner'])!.value,
       matchUrl: this.editForm.get(['matchUrl'])!.value,
+      tournaments: this.editForm.get(['tournaments'])!.value,
     };
   }
 
@@ -90,5 +103,9 @@ export class MatchesUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
+  }
+
+  trackById(index: number, item: ITournaments): any {
+    return item.id;
   }
 }

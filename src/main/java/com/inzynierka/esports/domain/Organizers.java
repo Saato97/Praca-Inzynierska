@@ -6,6 +6,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Organizers.
@@ -31,6 +33,10 @@ public class Organizers implements Serializable {
     @OneToOne
     @JoinColumn(unique = true)
     private ApplicationUsers applicationUsers;
+
+    @OneToMany(mappedBy = "organizers")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<Tournaments> tournaments = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -78,6 +84,31 @@ public class Organizers implements Serializable {
 
     public void setApplicationUsers(ApplicationUsers applicationUsers) {
         this.applicationUsers = applicationUsers;
+    }
+
+    public Set<Tournaments> getTournaments() {
+        return tournaments;
+    }
+
+    public Organizers tournaments(Set<Tournaments> tournaments) {
+        this.tournaments = tournaments;
+        return this;
+    }
+
+    public Organizers addTournaments(Tournaments tournaments) {
+        this.tournaments.add(tournaments);
+        tournaments.setOrganizers(this);
+        return this;
+    }
+
+    public Organizers removeTournaments(Tournaments tournaments) {
+        this.tournaments.remove(tournaments);
+        tournaments.setOrganizers(null);
+        return this;
+    }
+
+    public void setTournaments(Set<Tournaments> tournaments) {
+        this.tournaments = tournaments;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

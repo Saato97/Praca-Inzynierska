@@ -20,6 +20,12 @@
                                  referencedColumnNames="id"
                                  referencedTableName="application_users"/>
         
+        <addForeignKeyConstraint baseColumnNames="tournaments_id"
+                                 baseTableName="teams"
+                                 constraintName="fk_teams_tournaments_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tournaments"/>
+
         <addForeignKeyConstraint baseColumnNames="matches_id"
                                  baseTableName="teams"
                                  constraintName="fk_teams_matches_id"

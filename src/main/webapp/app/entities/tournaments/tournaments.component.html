@@ -31,8 +31,6 @@
                     <th scope="col"  jhiSortBy="startDate"><span jhiTranslate="esportsApp.tournaments.startDate">Start Date</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="tournamentLogo"><span jhiTranslate="esportsApp.tournaments.tournamentLogo">Tournament Logo</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="organizers.id"><span jhiTranslate="esportsApp.tournaments.organizers">Organizers</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="teams.id"><span jhiTranslate="esportsApp.tournaments.teams">Teams</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="matches.id"><span jhiTranslate="esportsApp.tournaments.matches">Matches</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -54,16 +52,6 @@
                     <td>
                         <div *ngIf="tournaments.organizers">
                             <a [routerLink]="['/organizers', tournaments.organizers?.id, 'view']" >{{ tournaments.organizers?.id }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="tournaments.teams">
-                            <a [routerLink]="['/teams', tournaments.teams?.id, 'view']" >{{ tournaments.teams?.id }}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngIf="tournaments.matches">
-                            <a [routerLink]="['/matches', tournaments.matches?.id, 'view']" >{{ tournaments.matches?.id }}</a>
                         </div>
                     </td>
                     <td class="text-right">

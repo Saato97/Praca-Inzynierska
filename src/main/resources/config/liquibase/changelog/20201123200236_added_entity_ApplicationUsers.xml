@@ -15,10 +15,10 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="level" type="bigint">
+            <column name="level" type="bigint" defaultValue="1">
                 <constraints nullable="true" />
             </column>
-            <column name="points" type="bigint">
+            <column name="points" type="bigint" defaultValue="0">
                 <constraints nullable="true" />
             </column>
             <column name="user_logo" type="longblob">

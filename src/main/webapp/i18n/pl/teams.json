@@ -19,8 +19,8 @@
       "teamName": "Team Name",
       "captainName": "Captain Name",
       "teamLogo": "Team Logo",
-      "tournaments": "Tournaments",
       "applicationUsers": "Application Users",
+      "tournaments": "Tournaments",
       "matches": "Matches"
     }
   }

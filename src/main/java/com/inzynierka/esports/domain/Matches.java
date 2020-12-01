@@ -1,5 +1,6 @@
 package com.inzynierka.esports.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -42,11 +43,11 @@ public class Matches implements Serializable {
 
     @OneToMany(mappedBy = "matches")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Tournaments> tournaments = new HashSet<>();
-
-    @OneToMany(mappedBy = "matches")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Teams> teams = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "matches", allowSetters = true)
+    private Tournaments tournaments;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -122,31 +123,6 @@ public class Matches implements Serializable {
         this.matchUrl = matchUrl;
     }
 
-    public Set<Tournaments> getTournaments() {
-        return tournaments;
-    }
-
-    public Matches tournaments(Set<Tournaments> tournaments) {
-        this.tournaments = tournaments;
-        return this;
-    }
-
-    public Matches addTournaments(Tournaments tournaments) {
-        this.tournaments.add(tournaments);
-        tournaments.setMatches(this);
-        return this;
-    }
-
-    public Matches removeTournaments(Tournaments tournaments) {
-        this.tournaments.remove(tournaments);
-        tournaments.setMatches(null);
-        return this;
-    }
-
-    public void setTournaments(Set<Tournaments> tournaments) {
-        this.tournaments = tournaments;
-    }
-
     public Set<Teams> getTeams() {
         return teams;
     }
@@ -170,6 +146,19 @@ public class Matches implements Serializable {
 
     public void setTeams(Set<Teams> teams) {
         this.teams = teams;
+    }
+
+    public Tournaments getTournaments() {
+        return tournaments;
+    }
+
+    public Matches tournaments(Tournaments tournaments) {
+        this.tournaments = tournaments;
+        return this;
+    }
+
+    public void setTournaments(Tournaments tournaments) {
+        this.tournaments = tournaments;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

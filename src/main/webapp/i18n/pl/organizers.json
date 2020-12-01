@@ -18,7 +18,8 @@
       },
       "email": "Email",
       "discord": "Discord",
-      "applicationUsers": "Application Users"
+      "applicationUsers": "Application Users",
+      "tournaments": "Tournaments"
     }
   }
 }

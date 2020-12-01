@@ -3,8 +3,10 @@ package com.inzynierka.esports.service;
 import com.inzynierka.esports.config.Constants;
 import com.inzynierka.esports.domain.Authority;
 import com.inzynierka.esports.domain.User;
+import com.inzynierka.esports.domain.ApplicationUsers;
 import com.inzynierka.esports.repository.AuthorityRepository;
 import com.inzynierka.esports.repository.UserRepository;
+import com.inzynierka.esports.repository.ApplicationUsersRepository;
 import com.inzynierka.esports.security.AuthoritiesConstants;
 import com.inzynierka.esports.security.SecurityUtils;
 import com.inzynierka.esports.service.dto.UserDTO;
@@ -37,17 +39,20 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final ApplicationUsersRepository applicationUsersRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager, ApplicationUsersRepository applicationUsersRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.applicationUsersRepository = applicationUsersRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -122,6 +127,15 @@ public class UserService {
         userRepository.save(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
+
+        ApplicationUsers newApplicationUser = new ApplicationUsers();
+        newApplicationUser.setInternalUser(newUser);
+        newApplicationUser.setId(newUser.getId());
+        newApplicationUser.setLevel(1L);
+        newApplicationUser.setPoints(0L);
+        applicationUsersRepository.save(newApplicationUser);
+        log.debug("Created Information for ApplicationUser: {}", newApplicationUser);
+
         return newUser;
     }
 

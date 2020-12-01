@@ -13,12 +13,6 @@ import { TournamentsService } from './tournaments.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { IOrganizers } from 'app/shared/model/organizers.model';
 import { OrganizersService } from 'app/entities/organizers/organizers.service';
-import { ITeams } from 'app/shared/model/teams.model';
-import { TeamsService } from 'app/entities/teams/teams.service';
-import { IMatches } from 'app/shared/model/matches.model';
-import { MatchesService } from 'app/entities/matches/matches.service';
-
-type SelectableEntity = IOrganizers | ITeams | IMatches;
 
 @Component({
   selector: 'jhi-tournaments-update',
@@ -27,8 +21,6 @@ type SelectableEntity = IOrganizers | ITeams | IMatches;
 export class TournamentsUpdateComponent implements OnInit {
   isSaving = false;
   organizers: IOrganizers[] = [];
-  teams: ITeams[] = [];
-  matches: IMatches[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -41,8 +33,6 @@ export class TournamentsUpdateComponent implements OnInit {
     tournamentLogo: [],
     tournamentLogoContentType: [],
     organizers: [],
-    teams: [],
-    matches: [],
   });
 
   constructor(
@@ -50,8 +40,6 @@ export class TournamentsUpdateComponent implements OnInit {
     protected eventManager: JhiEventManager,
     protected tournamentsService: TournamentsService,
     protected organizersService: OrganizersService,
-    protected teamsService: TeamsService,
-    protected matchesService: MatchesService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -67,10 +55,6 @@ export class TournamentsUpdateComponent implements OnInit {
       this.updateForm(tournaments);
 
       this.organizersService.query().subscribe((res: HttpResponse<IOrganizers[]>) => (this.organizers = res.body || []));
-
-      this.teamsService.query().subscribe((res: HttpResponse<ITeams[]>) => (this.teams = res.body || []));
-
-      this.matchesService.query().subscribe((res: HttpResponse<IMatches[]>) => (this.matches = res.body || []));
     });
   }
 
@@ -86,8 +70,6 @@ export class TournamentsUpdateComponent implements OnInit {
       tournamentLogo: tournaments.tournamentLogo,
       tournamentLogoContentType: tournaments.tournamentLogoContentType,
       organizers: tournaments.organizers,
-      teams: tournaments.teams,
-      matches: tournaments.matches,
     });
   }
 
@@ -144,8 +126,6 @@ export class TournamentsUpdateComponent implements OnInit {
       tournamentLogoContentType: this.editForm.get(['tournamentLogoContentType'])!.value,
       tournamentLogo: this.editForm.get(['tournamentLogo'])!.value,
       organizers: this.editForm.get(['organizers'])!.value,
-      teams: this.editForm.get(['teams'])!.value,
-      matches: this.editForm.get(['matches'])!.value,
     };
   }
 
@@ -165,7 +145,7 @@ export class TournamentsUpdateComponent implements OnInit {
     this.isSaving = false;
   }
 
-  trackById(index: number, item: SelectableEntity): any {
+  trackById(index: number, item: IOrganizers): any {
     return item.id;
   }
 }

@@ -23,18 +23,19 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "tournaments",
-      "otherEntityRelationshipName": "teams",
-      "relationshipName": "tournaments"
-    },
-    {
       "relationshipType": "many-to-many",
       "otherEntityName": "applicationUsers",
       "otherEntityRelationshipName": "teams",
       "relationshipName": "applicationUsers",
       "otherEntityField": "id",
       "ownerSide": true
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tournaments",
+      "otherEntityRelationshipName": "teams",
+      "relationshipName": "tournaments",
+      "otherEntityField": "id"
     },
     {
       "relationshipType": "many-to-one",

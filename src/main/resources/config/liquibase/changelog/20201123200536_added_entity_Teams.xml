@@ -27,6 +27,9 @@
             <column name="team_logo_content_type" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="tournaments_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <column name="matches_id" type="bigint">
                 <constraints nullable="true" />
             </column>

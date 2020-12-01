@@ -43,14 +43,11 @@ relationship OneToOne {
 	Organizers{applicationUsers} to ApplicationUsers
 }
 
-relationship ManyToOne {
-	Tournaments{organizers} to Organizers
-}
-
 relationship OneToMany {
-	Teams{tournaments} to Tournaments,
-    Matches{tournaments} to Tournaments,
-    Matches{teams} to Teams,
+	Tournaments{teams} to Teams{tournaments},
+    Tournaments{matches} to Matches{tournaments},
+    Matches{teams} to Teams{matches},
+    Organizers{tournaments} to Tournaments{organizers}
 }
 
 relationship ManyToMany {

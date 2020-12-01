@@ -47,18 +47,6 @@
                         <a [routerLink]="['/organizers', tournaments.organizers?.id, 'view']">{{ tournaments.organizers?.id }}</a>
                     </div>
                 </dd>
-                <dt><span jhiTranslate="esportsApp.tournaments.teams">Teams</span></dt>
-                <dd>
-                    <div *ngIf="tournaments.teams">
-                        <a [routerLink]="['/teams', tournaments.teams?.id, 'view']">{{ tournaments.teams?.id }}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="esportsApp.tournaments.matches">Matches</span></dt>
-                <dd>
-                    <div *ngIf="tournaments.matches">
-                        <a [routerLink]="['/matches', tournaments.matches?.id, 'view']">{{ tournaments.matches?.id }}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

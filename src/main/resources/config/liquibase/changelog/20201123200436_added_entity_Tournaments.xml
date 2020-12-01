@@ -42,12 +42,6 @@
             <column name="organizers_id" type="bigint">
                 <constraints nullable="true" />
             </column>
-            <column name="teams_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
-            <column name="matches_id" type="bigint">
-                <constraints nullable="true" />
-            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="tournaments" columnName="start_date" columnDataType="datetime"/>

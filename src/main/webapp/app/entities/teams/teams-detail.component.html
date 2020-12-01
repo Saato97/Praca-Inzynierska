@@ -31,6 +31,12 @@
                         <a [routerLink]="['/application-users', applicationUsers?.id, 'view']">{{ applicationUsers.id }}</a>{{ last ? '' : ', ' }}
                     </span>
                 </dd>
+                <dt><span jhiTranslate="esportsApp.teams.tournaments">Tournaments</span></dt>
+                <dd>
+                    <div *ngIf="teams.tournaments">
+                        <a [routerLink]="['/tournaments', teams.tournaments?.id, 'view']">{{ teams.tournaments?.id }}</a>
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="esportsApp.teams.matches">Matches</span></dt>
                 <dd>
                     <div *ngIf="teams.matches">

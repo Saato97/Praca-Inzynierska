@@ -44,24 +44,22 @@
   ],
   "relationships": [
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "teams",
+      "otherEntityRelationshipName": "tournaments",
+      "relationshipName": "teams"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "matches",
+      "otherEntityRelationshipName": "tournaments",
+      "relationshipName": "matches"
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "organizers",
       "otherEntityRelationshipName": "tournaments",
       "relationshipName": "organizers",
-      "otherEntityField": "id"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "teams",
-      "otherEntityRelationshipName": "tournaments",
-      "relationshipName": "teams",
-      "otherEntityField": "id"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "matches",
-      "otherEntityRelationshipName": "tournaments",
-      "relationshipName": "matches",
       "otherEntityField": "id"
     }
   ],

@@ -41,16 +41,16 @@ public class Teams implements Serializable {
     @Column(name = "team_logo_content_type")
     private String teamLogoContentType;
 
-    @OneToMany(mappedBy = "teams")
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    private Set<Tournaments> tournaments = new HashSet<>();
-
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(name = "teams_application_users",
                joinColumns = @JoinColumn(name = "teams_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "application_users_id", referencedColumnName = "id"))
     private Set<ApplicationUsers> applicationUsers = new HashSet<>();
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = "teams", allowSetters = true)
+    private Tournaments tournaments;
 
     @ManyToOne
     @JsonIgnoreProperties(value = "teams", allowSetters = true)
@@ -117,31 +117,6 @@ public class Teams implements Serializable {
         this.teamLogoContentType = teamLogoContentType;
     }
 
-    public Set<Tournaments> getTournaments() {
-        return tournaments;
-    }
-
-    public Teams tournaments(Set<Tournaments> tournaments) {
-        this.tournaments = tournaments;
-        return this;
-    }
-
-    public Teams addTournaments(Tournaments tournaments) {
-        this.tournaments.add(tournaments);
-        tournaments.setTeams(this);
-        return this;
-    }
-
-    public Teams removeTournaments(Tournaments tournaments) {
-        this.tournaments.remove(tournaments);
-        tournaments.setTeams(null);
-        return this;
-    }
-
-    public void setTournaments(Set<Tournaments> tournaments) {
-        this.tournaments = tournaments;
-    }
-
     public Set<ApplicationUsers> getApplicationUsers() {
         return applicationUsers;
     }
@@ -165,6 +140,19 @@ public class Teams implements Serializable {
 
     public void setApplicationUsers(Set<ApplicationUsers> applicationUsers) {
         this.applicationUsers = applicationUsers;
+    }
+
+    public Tournaments getTournaments() {
+        return tournaments;
+    }
+
+    public Teams tournaments(Tournaments tournaments) {
+        this.tournaments = tournaments;
+        return this;
+    }
+
+    public void setTournaments(Tournaments tournaments) {
+        this.tournaments = tournaments;
     }
 
     public Matches getMatches() {
