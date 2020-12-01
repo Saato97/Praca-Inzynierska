@@ -18,6 +18,12 @@
       "relationshipName": "applicationUsers",
       "otherEntityField": "id",
       "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "tournaments",
+      "otherEntityRelationshipName": "organizers",
+      "relationshipName": "tournaments"
     }
   ],
   "changelogDate": "20201123200336",

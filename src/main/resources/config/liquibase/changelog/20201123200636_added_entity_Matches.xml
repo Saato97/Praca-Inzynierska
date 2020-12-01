@@ -30,6 +30,9 @@
             <column name="match_url" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="tournaments_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="matches" columnName="start_date" columnDataType="datetime"/>

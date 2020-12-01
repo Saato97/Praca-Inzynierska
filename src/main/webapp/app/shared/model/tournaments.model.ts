@@ -1,7 +1,7 @@
 import { Moment } from 'moment';
-import { IOrganizers } from 'app/shared/model/organizers.model';
 import { ITeams } from 'app/shared/model/teams.model';
 import { IMatches } from 'app/shared/model/matches.model';
+import { IOrganizers } from 'app/shared/model/organizers.model';
 import { Games } from 'app/shared/model/enumerations/games.model';
 
 export interface ITournaments {
@@ -14,9 +14,9 @@ export interface ITournaments {
   startDate?: Moment;
   tournamentLogoContentType?: string;
   tournamentLogo?: any;
+  teams?: ITeams[];
+  matches?: IMatches[];
   organizers?: IOrganizers;
-  teams?: ITeams;
-  matches?: IMatches;
 }
 
 export class Tournaments implements ITournaments {
@@ -30,8 +30,8 @@ export class Tournaments implements ITournaments {
     public startDate?: Moment,
     public tournamentLogoContentType?: string,
     public tournamentLogo?: any,
-    public organizers?: IOrganizers,
-    public teams?: ITeams,
-    public matches?: IMatches
+    public teams?: ITeams[],
+    public matches?: IMatches[],
+    public organizers?: IOrganizers
   ) {}
 }

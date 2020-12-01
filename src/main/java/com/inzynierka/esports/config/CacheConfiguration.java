@@ -58,6 +58,9 @@ public class CacheConfiguration {
             createCache(cm, com.inzynierka.esports.domain.Matches.class.getName());
             createCache(cm, com.inzynierka.esports.domain.Matches.class.getName() + ".tournaments");
             createCache(cm, com.inzynierka.esports.domain.Matches.class.getName() + ".teams");
+            createCache(cm, com.inzynierka.esports.domain.Organizers.class.getName() + ".tournaments");
+            createCache(cm, com.inzynierka.esports.domain.Tournaments.class.getName() + ".teams");
+            createCache(cm, com.inzynierka.esports.domain.Tournaments.class.getName() + ".matches");
             // jhipster-needle-ehcache-add-entry
         };
     }

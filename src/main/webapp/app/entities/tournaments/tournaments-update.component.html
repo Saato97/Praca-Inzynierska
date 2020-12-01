@@ -101,22 +101,6 @@
                         <option [ngValue]="organizersOption.id === editForm.get('organizers')!.value?.id ? editForm.get('organizers')!.value : organizersOption" *ngFor="let organizersOption of organizers; trackBy: trackById">{{ organizersOption.id }}</option>
                     </select>
                 </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.teams" for="field_teams">Teams</label>
-                    <select class="form-control" id="field_teams" name="teams" formControlName="teams">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="teamsOption.id === editForm.get('teams')!.value?.id ? editForm.get('teams')!.value : teamsOption" *ngFor="let teamsOption of teams; trackBy: trackById">{{ teamsOption.id }}</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.matches" for="field_matches">Matches</label>
-                    <select class="form-control" id="field_matches" name="matches" formControlName="matches">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="matchesOption.id === editForm.get('matches')!.value?.id ? editForm.get('matches')!.value : matchesOption" *ngFor="let matchesOption of matches; trackBy: trackById">{{ matchesOption.id }}</option>
-                    </select>
-                </div>
             </div>
 
             <div>

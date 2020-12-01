@@ -1,5 +1,5 @@
-import { ITournaments } from 'app/shared/model/tournaments.model';
 import { IApplicationUsers } from 'app/shared/model/application-users.model';
+import { ITournaments } from 'app/shared/model/tournaments.model';
 import { IMatches } from 'app/shared/model/matches.model';
 
 export interface ITeams {
@@ -8,8 +8,8 @@ export interface ITeams {
   captainName?: string;
   teamLogoContentType?: string;
   teamLogo?: any;
-  tournaments?: ITournaments[];
   applicationUsers?: IApplicationUsers[];
+  tournaments?: ITournaments;
   matches?: IMatches;
 }
 
@@ -20,8 +20,8 @@ export class Teams implements ITeams {
     public captainName?: string,
     public teamLogoContentType?: string,
     public teamLogo?: any,
-    public tournaments?: ITournaments[],
     public applicationUsers?: IApplicationUsers[],
+    public tournaments?: ITournaments,
     public matches?: IMatches
   ) {}
 }

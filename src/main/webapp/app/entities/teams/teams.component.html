@@ -26,6 +26,7 @@
                     <th scope="col"  jhiSortBy="teamName"><span jhiTranslate="esportsApp.teams.teamName">Team Name</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="captainName"><span jhiTranslate="esportsApp.teams.captainName">Captain Name</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="teamLogo"><span jhiTranslate="esportsApp.teams.teamLogo">Team Logo</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="tournaments.id"><span jhiTranslate="esportsApp.teams.tournaments">Tournaments</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="matches.id"><span jhiTranslate="esportsApp.teams.matches">Matches</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
@@ -40,6 +41,11 @@
                             <img [src]="'data:' + teams.teamLogoContentType + ';base64,' + teams.teamLogo" style="max-height: 30px;" alt="teams image"/>
                         </a>
                         <span *ngIf="teams.teamLogo">{{ teams.teamLogoContentType }}, {{ byteSize(teams.teamLogo) }}</span>
+                    </td>
+                    <td>
+                        <div *ngIf="teams.tournaments">
+                            <a [routerLink]="['/tournaments', teams.tournaments?.id, 'view']" >{{ teams.tournaments?.id }}</a>
+                        </div>
                     </td>
                     <td>
                         <div *ngIf="teams.matches">

@@ -25,15 +25,16 @@
   "relationships": [
     {
       "relationshipType": "one-to-many",
-      "otherEntityName": "tournaments",
-      "otherEntityRelationshipName": "matches",
-      "relationshipName": "tournaments"
-    },
-    {
-      "relationshipType": "one-to-many",
       "otherEntityName": "teams",
       "otherEntityRelationshipName": "matches",
       "relationshipName": "teams"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "tournaments",
+      "otherEntityRelationshipName": "matches",
+      "relationshipName": "tournaments",
+      "otherEntityField": "id"
     }
   ],
   "changelogDate": "20201123200636",

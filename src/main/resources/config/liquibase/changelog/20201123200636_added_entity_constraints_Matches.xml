@@ -4,15 +4,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
     <!--
-        Added the constraints for entity Tournaments.
+        Added the constraints for entity Matches.
     -->
-    <changeSet id="20201123200436-2" author="jhipster">
+    <changeSet id="20201123200636-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="organizers_id"
-                                 baseTableName="tournaments"
-                                 constraintName="fk_tournaments_organizers_id"
+        <addForeignKeyConstraint baseColumnNames="tournaments_id"
+                                 baseTableName="matches"
+                                 constraintName="fk_matches_tournaments_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="organizers"/>
+                                 referencedTableName="tournaments"/>
 
     </changeSet>
 </databaseChangeLog>

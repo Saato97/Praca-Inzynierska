@@ -23,9 +23,9 @@
       "currentParticipants": "Current Participants",
       "startDate": "Start Date",
       "tournamentLogo": "Tournament Logo",
-      "organizers": "Organizers",
       "teams": "Teams",
-      "matches": "Matches"
+      "matches": "Matches",
+      "organizers": "Organizers"
     }
   }
 }

@@ -10,6 +10,8 @@ import javax.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.inzynierka.esports.domain.enumeration.Games;
 
@@ -59,17 +61,17 @@ public class Tournaments implements Serializable {
     @Column(name = "tournament_logo_content_type")
     private String tournamentLogoContentType;
 
+    @OneToMany(mappedBy = "tournaments")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<Teams> teams = new HashSet<>();
+
+    @OneToMany(mappedBy = "tournaments")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    private Set<Matches> matches = new HashSet<>();
+
     @ManyToOne
     @JsonIgnoreProperties(value = "tournaments", allowSetters = true)
     private Organizers organizers;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = "tournaments", allowSetters = true)
-    private Teams teams;
-
-    @ManyToOne
-    @JsonIgnoreProperties(value = "tournaments", allowSetters = true)
-    private Matches matches;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -184,6 +186,56 @@ public class Tournaments implements Serializable {
         this.tournamentLogoContentType = tournamentLogoContentType;
     }
 
+    public Set<Teams> getTeams() {
+        return teams;
+    }
+
+    public Tournaments teams(Set<Teams> teams) {
+        this.teams = teams;
+        return this;
+    }
+
+    public Tournaments addTeams(Teams teams) {
+        this.teams.add(teams);
+        teams.setTournaments(this);
+        return this;
+    }
+
+    public Tournaments removeTeams(Teams teams) {
+        this.teams.remove(teams);
+        teams.setTournaments(null);
+        return this;
+    }
+
+    public void setTeams(Set<Teams> teams) {
+        this.teams = teams;
+    }
+
+    public Set<Matches> getMatches() {
+        return matches;
+    }
+
+    public Tournaments matches(Set<Matches> matches) {
+        this.matches = matches;
+        return this;
+    }
+
+    public Tournaments addMatches(Matches matches) {
+        this.matches.add(matches);
+        matches.setTournaments(this);
+        return this;
+    }
+
+    public Tournaments removeMatches(Matches matches) {
+        this.matches.remove(matches);
+        matches.setTournaments(null);
+        return this;
+    }
+
+    public void setMatches(Set<Matches> matches) {
+        this.matches = matches;
+    }
+
     public Organizers getOrganizers() {
         return organizers;
     }
@@ -195,32 +247,6 @@ public class Tournaments implements Serializable {
 
     public void setOrganizers(Organizers organizers) {
         this.organizers = organizers;
-    }
-
-    public Teams getTeams() {
-        return teams;
-    }
-
-    public Tournaments teams(Teams teams) {
-        this.teams = teams;
-        return this;
-    }
-
-    public void setTeams(Teams teams) {
-        this.teams = teams;
-    }
-
-    public Matches getMatches() {
-        return matches;
-    }
-
-    public Tournaments matches(Matches matches) {
-        this.matches = matches;
-        return this;
-    }
-
-    public void setMatches(Matches matches) {
-        this.matches = matches;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

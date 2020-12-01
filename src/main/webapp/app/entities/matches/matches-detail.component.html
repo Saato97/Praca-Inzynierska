@@ -28,6 +28,12 @@
                 <dd>
                     <span>{{ matches.matchUrl }}</span>
                 </dd>
+                <dt><span jhiTranslate="esportsApp.matches.tournaments">Tournaments</span></dt>
+                <dd>
+                    <div *ngIf="matches.tournaments">
+                        <a [routerLink]="['/tournaments', matches.tournaments?.id, 'view']">{{ matches.tournaments?.id }}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"
