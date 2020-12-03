@@ -7,11 +7,11 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Encje",
-        "applicationUsers": "Application Users",
-        "organizers": "Organizers",
-        "tournaments": "Tournaments",
-        "teams": "Teams",
-        "matches": "Matches",
+        "applicationUsers": "Użytkownicy",
+        "organizers": "Organizatorzy",
+        "tournaments": "Turnieje",
+        "teams": "Drużyny",
+        "matches": "Mecze",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -50,7 +50,7 @@
                     </td>
                     <td>
                         <div *ngIf="tournaments.organizers">
-                            <a [routerLink]="['/organizers', tournaments.organizers?.id, 'view']" >{{ tournaments.organizers?.id }}</a>
+                            <a [routerLink]="['/organizers', tournaments.organizers?.id, 'view']" >{{ tournaments.organizers?.email }}</a>
                         </div>
                     </td>
                     <td class="text-right">
