@@ -47,11 +47,10 @@
                         <a *ngIf="tournaments.tournamentLogo" (click)="openFile(tournaments.tournamentLogoContentType, tournaments.tournamentLogo)">
                             <img [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" style="max-height: 30px;" alt="tournaments image"/>
                         </a>
-                        <span *ngIf="tournaments.tournamentLogo">{{ tournaments.tournamentLogoContentType }}, {{ byteSize(tournaments.tournamentLogo) }}</span>
                     </td>
                     <td>
                         <div *ngIf="tournaments.organizers">
-                            <a [routerLink]="['/organizers', tournaments.organizers?.id, 'view']" >{{ tournaments.organizers?.id }}</a>
+                            <a [routerLink]="['/organizers', tournaments.organizers?.id, 'view']" >{{ tournaments.organizers?.email }}</a>
                         </div>
                     </td>
                     <td class="text-right">
@@ -80,5 +79,24 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <div class="tiles" *ngIf="tournaments && tournaments.length > 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4" *ngFor="let tournaments of tournaments ;trackBy: trackId">
+                    <div class="card mb-4 text-white border-light">
+                        <img class="card-img-top" [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" data-holder-rendered="true" alt="tournament logo">
+                        <div class="card-body bg-secondary">
+                            <p class="text-hyphenate overflow-ellipsis game-name-pill">League of Legends</p>
+                            <p class=card-text>Tekst jakiś lul</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">10 min</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

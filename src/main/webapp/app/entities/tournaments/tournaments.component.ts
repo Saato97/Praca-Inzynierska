@@ -13,6 +13,7 @@ import { TournamentsDeleteDialogComponent } from './tournaments-delete-dialog.co
 @Component({
   selector: 'jhi-tournaments',
   templateUrl: './tournaments.component.html',
+  styleUrls: ['tournaments.scss'],
 })
 export class TournamentsComponent implements OnInit, OnDestroy {
   tournaments: ITournaments[];

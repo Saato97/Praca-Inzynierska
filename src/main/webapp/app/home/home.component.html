@@ -1,16 +1,21 @@
 <div class="homepage">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h1 class="display-4" jhiTranslate="home.title">Welcome to EsportsApp!</h1>
             <div [ngSwitch]="isAuthenticated()">
+                <h1 class="display-4" *ngSwitchCase="false" jhiTranslate="home.title">Welcome to EsportsApp!</h1>
                 <br>
-                <div class="alert alert-success" *ngSwitchCase="true">
+                <div *ngSwitchCase="true">
                     <h2>
                         <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message"
-                        [translateValues]="{ username: account.login }">Welcome "{{ account.login }}"! Join one of the tournaments below and win amazing prizes today!</span>
+                        [translateValues]="{ username: account.login }">Welcome "{{ account.login }}"! Join one of the tournaments and win amazing prizes today!</span>
                     </h2>
+                    <br>
+                    <a routerLink="/tournaments" class="btn btn-primary btn-lg" role="button" jhiTranslate="home.logged.tournaments">Browse tournaments</a>
                 </div>
                 <div *ngSwitchCase="false">
+                    <h3>
+                        <span jhiTranslate="home.guest.signin">To view and participate in tournaments please sign in:</span>
+                    </h3>
                     <a (click)="login()" class="btn btn-success btn-lg" role="button" jhiTranslate="global.messages.info.authenticated.link">Sign in</a>
                 </div>
                 <div *ngSwitchCase="false">
@@ -23,5 +28,8 @@
                 </div> 
             </div>
         </div>
+    </div>
+    <div class="row justify-content-center">
+        
     </div>
 </div>

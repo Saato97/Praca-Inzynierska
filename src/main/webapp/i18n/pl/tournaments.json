@@ -2,30 +2,30 @@
   "esportsApp": {
     "tournaments": {
       "home": {
-        "title": "Tournaments",
-        "createLabel": "Dodaj Tournaments",
-        "createOrEditLabel": "Dodaj lub edytuj: Tournaments",
-        "notFound": "No Tournaments found"
+        "title": "Turnieje",
+        "createLabel": "Utwórz nowy Turniej",
+        "createOrEditLabel": "Utwórz nowy Turniej",
+        "notFound": "Nie znaleziono Turniejów"
       },
-      "created": "Utworzono nowy obiekt typu Tournaments z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Tournaments z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Tournaments z identyfikatorem {{ param }}",
+      "created": "Utworzono nowy Turniej z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono Turniej z identyfikatorem {{ param }}",
+      "deleted": "Usunięto Turniej z identyfikatorem {{ param }}",
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Tournaments {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć ten Turniej?!"
       },
       "detail": {
-        "title": "Tournaments"
+        "title": "Turniej"
       },
-      "name": "Name",
-      "gameType": "Game Type",
-      "description": "Description",
-      "maxParticipants": "Max Participants",
-      "currentParticipants": "Current Participants",
-      "startDate": "Start Date",
-      "tournamentLogo": "Tournament Logo",
-      "teams": "Teams",
-      "matches": "Matches",
-      "organizers": "Organizers"
+      "name": "Nazwa",
+      "gameType": "Rodzaj gry",
+      "description": "Opis",
+      "maxParticipants": "Maksymalna liczba uczestników",
+      "currentParticipants": "Aktualna liczba uczestników",
+      "startDate": "Data rozpoczęcia",
+      "tournamentLogo": "Logo Turnieju",
+      "teams": "Drużyny",
+      "matches": "Mecze",
+      "organizers": "Organizator"
     }
   }
 }
