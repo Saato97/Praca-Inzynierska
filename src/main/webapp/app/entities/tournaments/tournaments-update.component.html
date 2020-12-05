@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-            <h2 id="jhi-tournaments-heading" jhiTranslate="esportsApp.tournaments.home.createOrEditLabel">Create a Tournament</h2>
+            <h2 id="jhi-tournaments-heading" jhiTranslate="esportsApp.tournaments.home.createOrEditLabel">Create or edit a Tournament</h2>
 
             <div>
                 <jhi-alert-error></jhi-alert-error>
@@ -82,15 +82,6 @@
                     <input type="hidden" class="form-control" name="tournamentLogoContentType" id="field_tournamentLogoContentType"
                            formControlName="tournamentLogoContentType" />
                 </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.organizers" for="field_organizers">Organizer</label>
-                    <select class="form-control" id="field_organizers" name="organizers" formControlName="organizers">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="organizersOption.id === editForm.get('organizers')!.value?.id ? editForm.get('organizers')!.value : organizersOption" *ngFor="let organizersOption of organizers; trackBy: trackById">{{ organizersOption.email }}</option>
-                    </select>
-                </div>
-            </div>
 
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">

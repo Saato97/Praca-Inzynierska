@@ -3,6 +3,20 @@
         <span class="logo-img"></span>
         <span jhiTranslate="global.title" class="navbar-title">EsportsApp</span> <span class="navbar-version">{{ version }}</span>
     </a>
+    <div [ngSwitch]="isAuthenticated()">
+        <div *ngSwitchCase="true" class="navbar-nav">
+            <span *ngIf="account" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="user"></fa-icon>
+                        <strong>
+                        <span jhiTranslate="global.loggedAs" [translateValues]="{ username: account.login }">Logged As: {{account.login}}</span>
+                        </strong>
+                    </span>
+                </a>
+            </span>
+        </div>
+    </div>
     <a class="navbar-toggler d-lg-none" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
         <fa-icon icon="bars"></fa-icon>
     </a>

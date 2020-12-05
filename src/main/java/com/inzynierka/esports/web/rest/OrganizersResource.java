@@ -1,7 +1,10 @@
 package com.inzynierka.esports.web.rest;
 
+import com.inzynierka.esports.domain.ApplicationUsers;
 import com.inzynierka.esports.domain.Organizers;
+import com.inzynierka.esports.repository.ApplicationUsersRepository;
 import com.inzynierka.esports.repository.OrganizersRepository;
+import com.inzynierka.esports.service.UserService;
 import com.inzynierka.esports.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -41,8 +44,14 @@ public class OrganizersResource {
 
     private final OrganizersRepository organizersRepository;
 
-    public OrganizersResource(OrganizersRepository organizersRepository) {
+    private final ApplicationUsersRepository applicationUsersRepository;
+
+    private final UserService userService;
+
+    public OrganizersResource(OrganizersRepository organizersRepository, UserService userServise, ApplicationUsersRepository applicationUsersRepository){
         this.organizersRepository = organizersRepository;
+        this.userService = userServise;
+        this.applicationUsersRepository = applicationUsersRepository;
     }
 
     /**
@@ -57,6 +66,12 @@ public class OrganizersResource {
         log.debug("REST request to save Organizers : {}", organizers);
         if (organizers.getId() != null) {
             throw new BadRequestAlertException("A new organizers cannot already have an ID", ENTITY_NAME, "idexists");
+        }
+        if (organizers.getApplicationUsers() == null) {
+            Long userId = userService.getUserWithAuthorities().get().getId();
+            Optional<ApplicationUsers> optApplicationUsers = applicationUsersRepository.findById(userId);
+            ApplicationUsers applicationUsers = optApplicationUsers.get();
+            organizers.setApplicationUsers(applicationUsers);
         }
         Organizers result = organizersRepository.save(organizers);
         return ResponseEntity.created(new URI("/api/organizers/" + result.getId()))

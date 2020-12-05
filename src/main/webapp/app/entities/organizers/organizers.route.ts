@@ -39,7 +39,7 @@ export const organizersRoute: Routes = [
     path: '',
     component: OrganizersComponent,
     data: {
-      authorities: [Authority.ADMIN],
+      authorities: [Authority.USER],
       pageTitle: 'esportsApp.organizers.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const organizersRoute: Routes = [
       organizers: OrganizersResolve,
     },
     data: {
-      authorities: [Authority.ADMIN],
+      authorities: [Authority.USER],
       pageTitle: 'esportsApp.organizers.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -63,7 +63,7 @@ export const organizersRoute: Routes = [
       organizers: OrganizersResolve,
     },
     data: {
-      authorities: [Authority.ADMIN],
+      authorities: [Authority.USER],
       pageTitle: 'esportsApp.organizers.home.title',
     },
     canActivate: [UserRouteAccessService],
@@ -75,7 +75,7 @@ export const organizersRoute: Routes = [
       organizers: OrganizersResolve,
     },
     data: {
-      authorities: [Authority.ADMIN],
+      authorities: [Authority.USER],
       pageTitle: 'esportsApp.organizers.home.title',
     },
     canActivate: [UserRouteAccessService],
