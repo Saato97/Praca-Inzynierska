@@ -18,7 +18,7 @@
                            formControlName="discord"/>
                 </div>
 
-                <div class="form-group">
+                <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="form-group">
                     <label class="form-control-label" jhiTranslate="esportsApp.organizers.applicationUsers" for="field_applicationUsers">Application Users</label>
                     <select class="form-control" id="field_applicationUsers" name="applicationUsers" formControlName="applicationUsers">
                         <option [ngValue]="null"></option>
