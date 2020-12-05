@@ -6,7 +6,7 @@
       "signin": "Aby przeglądać i wziąć udział w turniejach zaloguj się:"
     },
     "logged": {
-      "message": "Witaj \"{{username}}\"! Weź udział w jednym z turniejów i wygraj niesamowite nagrody już dziś!",
+      "message": "Witaj {{username}}! Weź udział w jednym z turniejów i wygraj niesamowite nagrody już dziś!",
       "tournaments": "Przeglądaj turnieje"
     },
     "question": "Jeśli masz jakiekolwiek pytania na temat JHipster:",

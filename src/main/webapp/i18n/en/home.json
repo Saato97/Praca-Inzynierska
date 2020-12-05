@@ -6,7 +6,7 @@
       "signin": "To view and participate in tournaments please sign in:"
     },
     "logged": {
-      "message": "Welcome \"{{username}}\"! Join one of the tournaments and win amazing prizes today!",
+      "message": "Welcome {{username}}! Join one of the tournaments and win amazing prizes today!",
       "tournaments": "Browse tournaments"
     },
     "question": "If you have any question on JHipster:",
