@@ -6,12 +6,12 @@
             <div>
                 <jhi-alert-error></jhi-alert-error>
 
-                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="form-group" [hidden]="!editForm.get('id')!.value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
                 </div>
 
-                <div class="form-group">
+                <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="form-group">
                     <label class="form-control-label" jhiTranslate="esportsApp.applicationUsers.level" for="field_level">Level</label>
                     <input type="number" class="form-control" name="level" id="field_level"
                            formControlName="level"/>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="form-group">
                     <label class="form-control-label" jhiTranslate="esportsApp.applicationUsers.points" for="field_points">Points</label>
                     <input type="number" class="form-control" name="points" id="field_points"
                            formControlName="points"/>
@@ -55,7 +55,7 @@
                            formControlName="userLogoContentType" />
                 </div>
 
-                <div class="form-group">
+                <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="form-group">
                     <label class="form-control-label" jhiTranslate="esportsApp.applicationUsers.internalUser" for="field_internalUser">Internal User</label>
                     <select class="form-control" id="field_internalUser" name="internalUser" formControlName="internalUser">
                         <option [ngValue]="null"></option>

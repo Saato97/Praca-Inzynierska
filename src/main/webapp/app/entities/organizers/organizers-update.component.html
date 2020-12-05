@@ -6,11 +6,6 @@
             <div>
                 <jhi-alert-error></jhi-alert-error>
 
-                <div class="form-group" [hidden]="!editForm.get('id')!.value">
-                    <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
-                </div>
-
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="esportsApp.organizers.email" for="field_email">Email</label>
                     <input type="text" class="form-control" name="email" id="field_email"
