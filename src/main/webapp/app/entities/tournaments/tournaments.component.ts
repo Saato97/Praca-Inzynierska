@@ -123,6 +123,7 @@ export class TournamentsComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(user => {
               this.user = user;
+              this.predicate = 'id';
               this.organizersService
                 .query({
                   page: this.page,
