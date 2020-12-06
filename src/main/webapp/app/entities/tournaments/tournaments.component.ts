@@ -52,7 +52,7 @@ export class TournamentsComponent implements OnInit, OnDestroy {
     this.links = {
       last: 0,
     };
-    this.predicate = 'id';
+    this.predicate = 'startDate';
     this.ascending = true;
   }
 

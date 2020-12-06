@@ -3,6 +3,7 @@
     "tournaments": {
       "home": {
         "title": "Turnieje",
+        "upcoming": "Nadchodzące turnieje",
         "createLabel": "Utwórz nowy Turniej",
         "createOrEditLabel": "Utwórz nowy Turniej",
         "notFound": "Nie znaleziono Turniejów"
