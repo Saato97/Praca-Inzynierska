@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -30,6 +30,7 @@ export class OrganizersUpdateComponent implements OnInit {
     protected organizersService: OrganizersService,
     protected applicationUsersService: ApplicationUsersService,
     protected activatedRoute: ActivatedRoute,
+    protected router: Router,
     private fb: FormBuilder
   ) {}
 
@@ -74,13 +75,17 @@ export class OrganizersUpdateComponent implements OnInit {
     window.history.back();
   }
 
+  tournamentCreate(): void {
+    this.router.navigate(['/tournaments/new']);
+  }
+
   save(): void {
     this.isSaving = true;
     const organizers = this.createFromForm();
     if (organizers.id !== undefined) {
       this.subscribeToSaveResponse(this.organizersService.update(organizers));
     } else {
-      this.subscribeToSaveResponse(this.organizersService.create(organizers));
+      this.subscribeToSaveResponseCreate(this.organizersService.create(organizers));
     }
   }
 
@@ -101,9 +106,21 @@ export class OrganizersUpdateComponent implements OnInit {
     );
   }
 
+  protected subscribeToSaveResponseCreate(result: Observable<HttpResponse<IOrganizers>>): void {
+    result.subscribe(
+      () => this.onSaveSuccessCreate(),
+      () => this.onSaveError()
+    );
+  }
+
   protected onSaveSuccess(): void {
     this.isSaving = false;
     this.previousState();
+  }
+
+  protected onSaveSuccessCreate(): void {
+    this.isSaving = false;
+    this.tournamentCreate();
   }
 
   protected onSaveError(): void {

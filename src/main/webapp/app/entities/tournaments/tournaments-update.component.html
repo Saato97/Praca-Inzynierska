@@ -34,8 +34,15 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="esportsApp.tournaments.maxParticipants" for="field_maxParticipants">Max Participants</label>
-                    <input type="number" class="form-control" name="maxParticipants" id="field_maxParticipants"
-                           formControlName="maxParticipants"/>
+                    <select class="form-control" name="maxParticipants" id="field_maxParticipants" formControlName="maxParticipants">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="8">8</option>
+                        <option [ngValue]="16">16</option>
+                        <option [ngValue]="32">32</option>
+                        <option [ngValue]="64">64</option>
+                        <option [ngValue]="128">128</option>
+                        <option [ngValue]="256">256</option>
+                    </select>
                     <div *ngIf="editForm.get('maxParticipants')!.invalid && (editForm.get('maxParticipants')!.dirty || editForm.get('maxParticipants')!.touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('maxParticipants')?.errors?.required" jhiTranslate="entity.validation.required">
@@ -81,6 +88,14 @@
                            formControlName="tournamentLogo"/>
                     <input type="hidden" class="form-control" name="tournamentLogoContentType" id="field_tournamentLogoContentType"
                            formControlName="tournamentLogoContentType" />
+                </div>
+
+                <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="form-group">
+                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.organizers" for="field_organizers">Organizers</label>
+                    <select class="form-control" id="field_organizers" name="organizers" formControlName="organizers">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="organizersOption.id === editForm.get('organizers')!.value?.id ? editForm.get('organizers')!.value : organizersOption" *ngFor="let organizersOption of organizers; trackBy: trackById">{{ organizersOption.id }}</option>
+                    </select>
                 </div>
 
             <div>

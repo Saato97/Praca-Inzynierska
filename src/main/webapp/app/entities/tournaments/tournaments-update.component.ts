@@ -1,9 +1,9 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiDataUtils, JhiFileLoadError, JhiEventManager, JhiEventWithContent } from 'ng-jhipster';
@@ -13,14 +13,21 @@ import { TournamentsService } from './tournaments.service';
 import { AlertError } from 'app/shared/alert/alert-error.model';
 import { IOrganizers } from 'app/shared/model/organizers.model';
 import { OrganizersService } from 'app/entities/organizers/organizers.service';
+import { IUser } from 'app/core/user/user.model';
+import { UserService } from 'app/core/user/user.service';
+import { AccountService } from 'app/core/auth/account.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'jhi-tournaments-update',
   templateUrl: './tournaments-update.component.html',
 })
-export class TournamentsUpdateComponent implements OnInit {
+export class TournamentsUpdateComponent implements OnInit, OnDestroy {
   isSaving = false;
   organizers: IOrganizers[] = [];
+  tournaments!: ITournaments;
+  user!: IUser;
+  private ngUnsubscribe = new Subject();
 
   editForm = this.fb.group({
     id: [],
@@ -42,6 +49,9 @@ export class TournamentsUpdateComponent implements OnInit {
     protected organizersService: OrganizersService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
+    protected router: Router,
+    protected accountService: AccountService,
+    protected userService: UserService,
     private fb: FormBuilder
   ) {}
 
@@ -54,8 +64,16 @@ export class TournamentsUpdateComponent implements OnInit {
 
       this.updateForm(tournaments);
 
-      this.organizersService.query().subscribe((res: HttpResponse<IOrganizers[]>) => (this.organizers = res.body || []));
+      this.organizersService
+        .query()
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((res: HttpResponse<IOrganizers[]>) => (this.organizers = res.body || []));
     });
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   updateForm(tournaments: ITournaments): void {
@@ -103,13 +121,36 @@ export class TournamentsUpdateComponent implements OnInit {
     window.history.back();
   }
 
+  tournamentCreated(): void {
+    this.router.navigate(['/tournaments']);
+  }
+
   save(): void {
     this.isSaving = true;
-    const tournaments = this.createFromForm();
-    if (tournaments.id !== undefined) {
-      this.subscribeToSaveResponse(this.tournamentsService.update(tournaments));
+    this.tournaments = this.createFromForm();
+    if (this.tournaments.id !== undefined) {
+      this.subscribeToSaveResponse(this.tournamentsService.update(this.tournaments));
     } else {
-      this.subscribeToSaveResponse(this.tournamentsService.create(tournaments));
+      this.accountService
+        .getAuthenticationState()
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(account => {
+          if (account) {
+            this.userService
+              .find(account.login)
+              .pipe(takeUntil(this.ngUnsubscribe))
+              .subscribe(user => {
+                this.user = user;
+                for (let i = 0; i < this.organizers.length; i++) {
+                  if (this.organizers[i].applicationUsers?.id === this.user.id) {
+                    this.tournaments.organizers = this.organizers[i];
+                    break;
+                  }
+                }
+                this.subscribeToSaveResponse(this.tournamentsService.create(this.tournaments));
+              });
+          }
+        });
     }
   }
 
@@ -138,7 +179,7 @@ export class TournamentsUpdateComponent implements OnInit {
 
   protected onSaveSuccess(): void {
     this.isSaving = false;
-    this.previousState();
+    this.tournamentCreated();
   }
 
   protected onSaveError(): void {
