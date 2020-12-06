@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiDataUtils } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -9,6 +9,13 @@ import { ITournaments } from 'app/shared/model/tournaments.model';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { TournamentsService } from './tournaments.service';
 import { TournamentsDeleteDialogComponent } from './tournaments-delete-dialog.component';
+import { Router } from '@angular/router';
+import { OrganizersService } from '../organizers/organizers.service';
+import { IOrganizers } from 'app/shared/model/organizers.model';
+import { UserService } from 'app/core/user/user.service';
+import { IUser } from 'app/core/user/user.model';
+import { AccountService } from 'app/core/auth/account.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'jhi-tournaments',
@@ -17,21 +24,29 @@ import { TournamentsDeleteDialogComponent } from './tournaments-delete-dialog.co
 })
 export class TournamentsComponent implements OnInit, OnDestroy {
   tournaments: ITournaments[];
+  organizers: IOrganizers[];
   eventSubscriber?: Subscription;
   itemsPerPage: number;
   links: any;
   page: number;
   predicate: string;
   ascending: boolean;
+  user!: IUser;
+  private ngUnsubscribe = new Subject();
 
   constructor(
     protected tournamentsService: TournamentsService,
     protected dataUtils: JhiDataUtils,
     protected eventManager: JhiEventManager,
     protected modalService: NgbModal,
+    protected router: Router,
+    protected organizersService: OrganizersService,
+    protected accountService: AccountService,
+    protected userService: UserService,
     protected parseLinks: JhiParseLinks
   ) {
     this.tournaments = [];
+    this.organizers = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.page = 0;
     this.links = {
@@ -71,6 +86,8 @@ export class TournamentsComponent implements OnInit, OnDestroy {
     if (this.eventSubscriber) {
       this.eventManager.destroy(this.eventSubscriber);
     }
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   trackId(index: number, item: ITournaments): number {
@@ -93,6 +110,41 @@ export class TournamentsComponent implements OnInit, OnDestroy {
   delete(tournaments: ITournaments): void {
     const modalRef = this.modalService.open(TournamentsDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.tournaments = tournaments;
+  }
+
+  createTournament(): void {
+    this.accountService
+      .getAuthenticationState()
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(account => {
+        if (account) {
+          this.userService
+            .find(account.login)
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe(user => {
+              this.user = user;
+              this.organizersService
+                .query({
+                  page: this.page,
+                  size: this.itemsPerPage,
+                  sort: this.sort(),
+                })
+                .pipe(takeUntil(this.ngUnsubscribe))
+                .subscribe((res: HttpResponse<IOrganizers[]>) => {
+                  if (res.body) {
+                    for (let i = 0; i < res.body.length; i++) {
+                      if (res.body[i].applicationUsers?.id === this.user.id) {
+                        this.router.navigate(['/tournaments/new']);
+                        return;
+                      }
+                    }
+                  }
+                  this.router.navigate(['/organizers/new']);
+                  return;
+                });
+            });
+        }
+      });
   }
 
   sort(): string[] {

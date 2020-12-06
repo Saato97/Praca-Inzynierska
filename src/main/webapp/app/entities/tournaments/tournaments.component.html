@@ -2,7 +2,7 @@
     <h2 id="page-heading">
         <span jhiTranslate="esportsApp.tournaments.home.title">Tournaments</span>
 
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tournaments" [routerLink]="['/tournaments/new']">
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tournaments" (click)="createTournament()">
             <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="esportsApp.tournaments.home.createLabel">
             Create a new Tournaments
