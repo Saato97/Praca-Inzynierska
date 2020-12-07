@@ -2,24 +2,24 @@
   "esportsApp": {
     "organizers": {
       "home": {
-        "title": "Organizers",
-        "createLabel": "Dodaj Organizers",
-        "createOrEditLabel": "Dodaj lub edytuj: Organizers",
-        "notFound": "No Organizers found"
+        "title": "Organizatorzy",
+        "createLabel": "Podaj dane kontaktowe Organizatora",
+        "createOrEditLabel": "Wprowadź dane kontaktowe Organizatora",
+        "notFound": "Nie znaleziono Organizatorów"
       },
-      "created": "Utworzono nowy obiekt typu Organizers z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Organizers z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Organizers z identyfikatorem {{ param }}",
+      "created": "Utworzono Organizatora z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono dane Organizatora z identyfikatorem {{ param }}",
+      "deleted": "Usunięto Organizatora z identyfikatorem {{ param }}",
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Organizers {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć Organizatora {{ id }}?"
       },
       "detail": {
-        "title": "Organizers"
+        "title": "Organizator"
       },
       "email": "Email",
       "discord": "Discord",
-      "applicationUsers": "Application Users",
-      "tournaments": "Tournaments"
+      "applicationUsers": "Użytkownik aplikacji",
+      "tournaments": "Turnieje"
     }
   }
 }

@@ -1,14 +1,19 @@
 <div>
-    <h2 id="page-heading">
-        <span jhiTranslate="esportsApp.tournaments.home.title">Tournaments</span>
-
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-tournaments" (click)="createTournament()">
+    <h1 id="page-heading" class="display-3">
+        <p class="text-center" jhiTranslate="esportsApp.tournaments.home.title">Tournaments</p>
+    </h1>
+    <div class="d-flex justify-content-center">
+        <button id="jh-create-entity" class="btn btn-primary  jh-create-entity create-tournaments" (click)="createTournament()">
             <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="esportsApp.tournaments.home.createLabel">
             Create a new Tournaments
             </span>
         </button>
-    </h2>
+    </div>
+    <br>
+    <h1 class="tournaments-upcoming">
+       <p jhiTranslate="esportsApp.tournaments.home.upcoming">Upcoming tournaments</p>     
+    </h1>
 
     <jhi-alert-error></jhi-alert-error>
 
@@ -18,85 +23,88 @@
         <span jhiTranslate="esportsApp.tournaments.home.notFound">No tournaments found</span>
     </div>
 
-    <div class="table-responsive" id="entities" *ngIf="tournaments && tournaments.length > 0">
-        <table class="table table-striped" aria-describedby="page-heading">
-            <thead>
-                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="name"><span jhiTranslate="esportsApp.tournaments.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="gameType"><span jhiTranslate="esportsApp.tournaments.gameType">Game Type</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="description"><span jhiTranslate="esportsApp.tournaments.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="maxParticipants"><span jhiTranslate="esportsApp.tournaments.maxParticipants">Max Participants</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="currentParticipants"><span jhiTranslate="esportsApp.tournaments.currentParticipants">Current Participants</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="startDate"><span jhiTranslate="esportsApp.tournaments.startDate">Start Date</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="tournamentLogo"><span jhiTranslate="esportsApp.tournaments.tournamentLogo">Tournament Logo</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"  jhiSortBy="organizers.id"><span jhiTranslate="esportsApp.tournaments.organizers">Organizers</span> <fa-icon icon="sort"></fa-icon></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-                <tr *ngFor="let tournaments of tournaments ;trackBy: trackId">
-                    <td><a [routerLink]="['/tournaments', tournaments.id, 'view']">{{ tournaments.id }}</a></td>
-                    <td>{{ tournaments.name }}</td>
-                    <td jhiTranslate="{{ 'esportsApp.Games.' + tournaments.gameType }}">{{ tournaments.gameType }}</td>
-                    <td>{{ tournaments.description }}</td>
-                    <td>{{ tournaments.maxParticipants }}</td>
-                    <td>{{ tournaments.currentParticipants }}</td>
-                    <td>{{ tournaments.startDate | date:'medium' }}</td>
-                    <td>
-                        <a *ngIf="tournaments.tournamentLogo" (click)="openFile(tournaments.tournamentLogoContentType, tournaments.tournamentLogo)">
-                            <img [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" style="max-height: 30px;" alt="tournaments image"/>
-                        </a>
-                    </td>
-                    <td>
-                        <div *ngIf="tournaments.organizers">
-                            <a [routerLink]="['/organizers', tournaments.organizers?.id, 'view']" >{{ tournaments.organizers?.email }}</a>
-                        </div>
-                    </td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <button type="submit"
-                                    [routerLink]="['/tournaments', tournaments.id, 'view']"
-                                    class="btn btn-info btn-sm">
-                                <fa-icon icon="eye"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                            </button>
-
-                            <button type="submit"
-                                    [routerLink]="['/tournaments', tournaments.id, 'edit']"
-                                    class="btn btn-primary btn-sm">
-                                <fa-icon icon="pencil-alt"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
-
-                            <button type="submit" (click)="delete(tournaments)"
-                                    class="btn btn-danger btn-sm">
-                                <fa-icon icon="times"></fa-icon>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
     <div class="tiles" *ngIf="tournaments && tournaments.length > 0">
-        <div class="container">
+        <div class="container" infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <div class="row">
                 <div class="col-md-4" *ngFor="let tournaments of tournaments ;trackBy: trackId">
                     <div class="card mb-4 text-white border-light">
-                        <img class="card-img-top" [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" data-holder-rendered="true" alt="tournament logo">
+                        <img class="card-img-top" [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" data-holder-rendered="true" alt="">
                         <div class="card-body bg-secondary">
-                            <p class="text-hyphenate overflow-ellipsis game-name-pill">League of Legends</p>
-                            <p class=card-text>Tekst jakiś lul</p>
+                            <div class="badge badge-primary game-name-badge" jhiTranslate="{{ 'esportsApp.Games.' + tournaments.gameType }}">{{ tournaments.gameType}}</div>
+                                <div class="card-title"><h4>{{ tournaments.name }}</h4></div>
                             <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">10 min</small>
+                                <span class="start-date-badge"><fa-icon icon="calendar-alt"></fa-icon> {{ tournaments.startDate | date:'dd/MM/yyyy HH:mm' }}</span>
                             </div>
+                            <a [routerLink]="['/tournaments', tournaments.id, 'view']" class="stretched-link"></a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+        <div class="table-responsive" id="entities" *ngIf="tournaments && tournaments.length > 0">
+            <table class="table table-striped" aria-describedby="page-heading">
+                <thead>
+                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                        <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                        <th scope="col"  jhiSortBy="name"><span jhiTranslate="esportsApp.tournaments.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+                        <th scope="col"  jhiSortBy="gameType"><span jhiTranslate="esportsApp.tournaments.gameType">Game Type</span> <fa-icon icon="sort"></fa-icon></th>
+                        <th scope="col"  jhiSortBy="description"><span jhiTranslate="esportsApp.tournaments.description">Description</span> <fa-icon icon="sort"></fa-icon></th>
+                        <th scope="col"  jhiSortBy="maxParticipants"><span jhiTranslate="esportsApp.tournaments.maxParticipants">Max Participants</span> <fa-icon icon="sort"></fa-icon></th>
+                        <th scope="col"  jhiSortBy="currentParticipants"><span jhiTranslate="esportsApp.tournaments.currentParticipants">Current Participants</span> <fa-icon icon="sort"></fa-icon></th>
+                        <th scope="col"  jhiSortBy="startDate"><span jhiTranslate="esportsApp.tournaments.startDate">Start Date</span> <fa-icon icon="sort"></fa-icon></th>
+                        <th scope="col"  jhiSortBy="tournamentLogo"><span jhiTranslate="esportsApp.tournaments.tournamentLogo">Tournament Logo</span> <fa-icon icon="sort"></fa-icon></th>
+                        <th scope="col"  jhiSortBy="organizers.id"><span jhiTranslate="esportsApp.tournaments.organizers">Organizers</span> <fa-icon icon="sort"></fa-icon></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                    <tr *ngFor="let tournaments of tournaments ;trackBy: trackId">
+                        <td><a [routerLink]="['/tournaments', tournaments.id, 'view']">{{ tournaments.id }}</a></td>
+                        <td>{{ tournaments.name }}</td>
+                        <td jhiTranslate="{{ 'esportsApp.Games.' + tournaments.gameType }}">{{ tournaments.gameType }}</td>
+                        <td>{{ tournaments.description }}</td>
+                        <td>{{ tournaments.maxParticipants }}</td>
+                        <td>{{ tournaments.currentParticipants }}</td>
+                        <td>{{ tournaments.startDate | date:'dd/MM/yyyy HH:mm' }}</td>
+                        <td>
+                            <a *ngIf="tournaments.tournamentLogo" (click)="openFile(tournaments.tournamentLogoContentType, tournaments.tournamentLogo)">
+                                <img [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" style="max-height: 30px;" alt="tournaments image"/>
+                            </a>
+                        </td>
+                        <td>
+                            <div *ngIf="tournaments.organizers">
+                                <a [routerLink]="['/organizers', tournaments.organizers?.id, 'view']" >{{ tournaments.organizers?.email }}</a>
+                            </div>
+                        </td>
+                        <td class="text-right">
+                            <div class="btn-group">
+                                <button type="submit"
+                                        [routerLink]="['/tournaments', tournaments.id, 'view']"
+                                        class="btn btn-info btn-sm">
+                                    <fa-icon icon="eye"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                </button>
+
+                                <button type="submit"
+                                        [routerLink]="['/tournaments', tournaments.id, 'edit']"
+                                        class="btn btn-primary btn-sm">
+                                    <fa-icon icon="pencil-alt"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                </button>
+
+                                <button type="submit" (click)="delete(tournaments)"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon icon="times"></fa-icon>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

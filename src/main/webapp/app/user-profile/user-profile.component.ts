@@ -1,28 +1,25 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Subject, Subscription } from 'rxjs';
-import { JhiEventManager, JhiParseLinks, JhiDataUtils } from 'ng-jhipster';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
-import { ITournaments } from 'app/shared/model/tournaments.model';
-
-import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
-import { TournamentsService } from './tournaments.service';
-import { TournamentsDeleteDialogComponent } from './tournaments-delete-dialog.component';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrganizersService } from '../organizers/organizers.service';
-import { IOrganizers } from 'app/shared/model/organizers.model';
-import { UserService } from 'app/core/user/user.service';
-import { IUser } from 'app/core/user/user.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountService } from 'app/core/auth/account.service';
-import { takeUntil } from 'rxjs/operators';
+import { IUser } from 'app/core/user/user.model';
+import { UserService } from 'app/core/user/user.service';
+import { OrganizersService } from 'app/entities/organizers/organizers.service';
+import { TournamentsService } from 'app/entities/tournaments/tournaments.service';
+import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
+import { IOrganizers } from 'app/shared/model/organizers.model';
+import { ITournaments } from 'app/shared/model/tournaments.model';
+import { JhiDataUtils, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { Subscription, Subject } from 'rxjs';
 
 @Component({
-  selector: 'jhi-tournaments',
-  templateUrl: './tournaments.component.html',
-  styleUrls: ['tournaments.scss'],
+  selector: 'jhi-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['user-profile.component.scss'],
 })
-export class TournamentsComponent implements OnInit, OnDestroy {
+export class UserProfileComponent implements OnInit, OnDestroy {
+  active = 1;
   tournaments: ITournaments[];
   organizers: IOrganizers[];
   eventSubscriber?: Subscription;
@@ -105,47 +102,6 @@ export class TournamentsComponent implements OnInit, OnDestroy {
 
   registerChangeInTournaments(): void {
     this.eventSubscriber = this.eventManager.subscribe('tournamentsListModification', () => this.reset());
-  }
-
-  delete(tournaments: ITournaments): void {
-    const modalRef = this.modalService.open(TournamentsDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.tournaments = tournaments;
-  }
-
-  createTournament(): void {
-    this.accountService
-      .getAuthenticationState()
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(account => {
-        if (account) {
-          this.userService
-            .find(account.login)
-            .pipe(takeUntil(this.ngUnsubscribe))
-            .subscribe(user => {
-              this.user = user;
-              this.predicate = 'id';
-              this.organizersService
-                .query({
-                  page: this.page,
-                  size: this.itemsPerPage,
-                  sort: this.sort(),
-                })
-                .pipe(takeUntil(this.ngUnsubscribe))
-                .subscribe((res: HttpResponse<IOrganizers[]>) => {
-                  if (res.body) {
-                    for (let i = 0; i < res.body.length; i++) {
-                      if (res.body[i].applicationUsers?.id === this.user.id) {
-                        this.router.navigate(['/tournaments/new']);
-                        return;
-                      }
-                    }
-                  }
-                  this.router.navigate(['/organizers/new']);
-                  return;
-                });
-            });
-        }
-      });
   }
 
   sort(): string[] {

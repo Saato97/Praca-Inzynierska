@@ -1,0 +1,17 @@
+{
+  "user-profile": {
+    "title": "My Profile",
+    "tabs": {
+      "player": "Player",
+      "organizer": "Organizer"
+    },
+    "tournaments": {
+      "tournamentLogo": "Tournament Logo",
+      "name": "Name",
+      "gameType": "Game Type",
+      "startDate": "Start Date",
+      "teams": "Teams",
+      "matches": "Matches"
+    }
+  }
+}

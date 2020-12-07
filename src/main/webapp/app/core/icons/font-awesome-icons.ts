@@ -34,6 +34,8 @@ import {
   faTasks,
   faHandSpock,
   faTrophy,
+  faCog,
+  faAngleRight,
   // jhipster-needle-add-icon-import
   faHome,
 } from '@fortawesome/free-solid-svg-icons';
@@ -74,6 +76,8 @@ export const fontAwesomeIcons = [
   faTrashAlt,
   faHandSpock,
   faTrophy,
+  faCog,
+  faAngleRight,
   // jhipster-needle-add-icon-import
   faAsterisk,
 ];

@@ -1,6 +1,24 @@
 /* ==========================================================================
 Tournament page styles
 ========================================================================== */
+.tournaments-title {
+  text-align: center;
+}
+
+.tournaments-upcoming {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.card {
+  max-height: 348px;
+  transition: box-shadow 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 0 15px rgba($color: rgb(196, 195, 195), $alpha: 1);
+}
 
 .card-img-top {
   width: 100%;
@@ -10,4 +28,16 @@ Tournament page styles
 
 .card-img-bottom {
   width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
+}
+
+.game-name-badge {
+  margin-bottom: 6px;
+}
+
+.card-title {
+  white-space: wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 54px;
+  margin-bottom: 6px;
 }

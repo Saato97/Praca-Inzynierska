@@ -3,18 +3,18 @@
     "organizers": {
       "home": {
         "title": "Organizers",
-        "createLabel": "Create a new Organizers",
-        "createOrEditLabel": "Create or edit a Organizers",
+        "createLabel": "Enter the contact details of a new Organizer",
+        "createOrEditLabel": "Enter the contact details of the Organizer",
         "notFound": "No Organizers found"
       },
-      "created": "A new Organizers is created with identifier {{ param }}",
-      "updated": "A Organizers is updated with identifier {{ param }}",
-      "deleted": "A Organizers is deleted with identifier {{ param }}",
+      "created": "A new Organizer is created with identifier {{ param }}",
+      "updated": "The Organizer is updated with identifier {{ param }}",
+      "deleted": "The Organizer is deleted with identifier {{ param }}",
       "delete": {
         "question": "Are you sure you want to delete Organizers {{ id }}?"
       },
       "detail": {
-        "title": "Organizers"
+        "title": "Organizer"
       },
       "email": "Email",
       "discord": "Discord",

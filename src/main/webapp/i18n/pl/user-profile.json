@@ -1,0 +1,17 @@
+{
+  "user-profile": {
+    "title": "Profil użytkownika",
+    "tabs": {
+      "player": "Zawodnik",
+      "organizer": "Organizator"
+    },
+    "tournaments": {
+      "tournamentLogo": "Logo Turnieju",
+      "name": "Nazwa",
+      "gameType": "Rodzaj gry",
+      "startDate": "Data rozpoczęcia",
+      "teams": "Drużyny",
+      "matches": "Mecze"
+    }
+  }
+}
