@@ -7,6 +7,7 @@ import { EsportsAppCoreModule } from 'app/core/core.module';
 import { EsportsAppAppRoutingModule } from './app-routing.module';
 import { EsportsAppHomeModule } from './home/home.module';
 import { EsportsAppEntityModule } from './entities/entity.module';
+import { EsportsAppUserProfileModule } from './user-profile/user-profile.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { MainComponent } from './layouts/main/main.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
@@ -21,6 +22,7 @@ import { ErrorComponent } from './layouts/error/error.component';
     EsportsAppSharedModule,
     EsportsAppCoreModule,
     EsportsAppHomeModule,
+    EsportsAppUserProfileModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     EsportsAppEntityModule,
     EsportsAppAppRoutingModule,
