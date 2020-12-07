@@ -24,7 +24,7 @@
     </div>
 
     <div class="tiles" *ngIf="tournaments && tournaments.length > 0">
-        <div class="container">
+        <div class="container" infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <div class="row">
                 <div class="col-md-4" *ngFor="let tournaments of tournaments ;trackBy: trackId">
                     <div class="card mb-4 text-white border-light">

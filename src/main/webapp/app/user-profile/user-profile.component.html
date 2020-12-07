@@ -1,10 +1,65 @@
 <div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-10">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
     <h1 class="text-capitalize text-center" jhiTranslate="user-profile.title">Title</h1>
-    <h5 class="text-center" jhiTranslate="user-profile.subtitle">Subtitle</h5>
     <hr/>
-    <p class="text-justify" jhiTranslate="user-profile.content">Content</p>
+
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink jhiTranslate="user-profile.tabs.player">Player</a>
+        <ng-template ngbNavContent>
+
+        </ng-template>
+      </li>
+
+      <li [ngbNavItem]="2">
+        <a ngbNavLink jhiTranslate="user-profile.tabs.organizer">Organizer</a>
+        <ng-template ngbNavContent>
+          
+          <div class="alert alert-warning" id="no-result" *ngIf="tournaments?.length === 0">
+            <span jhiTranslate="esportsApp.tournaments.home.notFound">No tournaments found</span>
+          </div>
+
+          <div class="table-responsive" id="entities" *ngIf="tournaments && tournaments.length > 0">
+            <table class="table table-striped" aria-describedby="page-heading">
+              <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                  <th scope="col"  ><span jhiTranslate="user-profile.tournaments.tournamentLogo">Tournament Logo</span></th>
+                  <th scope="col"  jhiSortBy="name"><span jhiTranslate="user-profile.tournaments.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+                  <th scope="col"  jhiSortBy="gameType"><span jhiTranslate="user-profile.tournaments.gameType">Game Type</span> <fa-icon icon="sort"></fa-icon></th>
+                  <th scope="col"  jhiSortBy="startDate"><span jhiTranslate="user-profile.tournaments.startDate">Start Date</span> <fa-icon icon="sort"></fa-icon></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let tournaments of tournaments ;trackBy: trackId">
+                  <td>
+                    <img [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" style="max-height: 30px;" alt="tournaments image"/>
+                  </td>
+                  <td>{{ tournaments.name }}</td>
+                  <td jhiTranslate="{{ 'esportsApp.Games.' + tournaments.gameType }}">{{ tournaments.gameType }}</td>
+                  <td>{{ tournaments.startDate | date:'dd/MM/yyyy HH:mm' }}</td>
+                  <td class="text-right">
+                    <div class="btn-group">
+                    <button type="submit" [routerLink]="['/tournaments', tournaments.id, 'view']" class="btn btn-info btn-sm">
+                      <fa-icon icon="eye"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+    
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
   </div>
-  <div class="col-md-1"></div>
+  <div class="col-md-2"></div>
 </div>
