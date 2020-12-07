@@ -5,15 +5,13 @@
     </a>
     <div [ngSwitch]="isAuthenticated()">
         <div *ngSwitchCase="true" class="navbar-nav">
-            <span *ngIf="account" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
-                    <span>
-                        <fa-icon icon="user"></fa-icon>
-                        <strong>
-                        <span jhiTranslate="global.loggedAs" [translateValues]="{ username: account.login }">Logged As: {{account.login}}</span>
-                        </strong>
-                    </span>
-                </a>
+            <span *ngIf="account" class="nav-item">
+                <span>
+                    <fa-icon icon="angle-right"></fa-icon>
+                    <strong>
+                    <span jhiTranslate="global.loggedAs" [translateValues]="{ username: account.login }">Logged As: {{account.login}}</span>
+                    </strong>
+                </span>
             </span>
         </div>
     </div>
@@ -30,18 +28,22 @@
                     </span>
                 </a>
             </li>
-            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                                <a class="nav-link" routerLink="tournaments" (click)="collapseNavbar()">
-                                    <fa-icon icon="trophy" [fixedWidth]="true"></fa-icon>
-                                    <span jhiTranslate="global.menu.entities.tournaments">Tournaments</span>
-                                </a>
-                            </li>
-            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                                <a class="nav-link" routerLink="user-profile" (click)="collapseNavbar()">
-                                    <fa-icon icon="hand-spock" [fixedWidth]="true"></fa-icon>
-                                    <span jhiTranslate="global.menu.user-profile">User Profile</span>
-                                </a>
-                            </li>
+            <li *ngSwitchCase="true" class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" routerLink="user-profile" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="user" [fixedWidth]="true"></fa-icon>
+                        <span jhiTranslate="global.menu.user-profile">Profile</span>
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                <a class="nav-link" routerLink="tournaments" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="trophy" [fixedWidth]="true"></fa-icon>
+                        <span jhiTranslate="global.menu.entities.tournaments">Tournaments</span>
+                    </span>
+                </a>
+            </li>
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
@@ -155,7 +157,7 @@
             <li ngbDropdown class="nav-item dropdown pointer" display="dynamic" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
                     <span *ngIf="!getImageUrl()">
-                        <fa-icon icon="user"></fa-icon>
+                        <fa-icon icon="cog"></fa-icon>
                         <span jhiTranslate="global.menu.account.main">
                             Account
                         </span>
