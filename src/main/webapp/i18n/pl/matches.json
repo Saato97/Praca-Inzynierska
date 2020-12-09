@@ -16,13 +16,13 @@
       "detail": {
         "title": "Matches"
       },
-      "startDate": "Start Date",
-      "teamA": "Team A",
-      "teamB": "Team B",
-      "winner": "Winner",
-      "matchUrl": "Match Url",
-      "teams": "Teams",
-      "tournaments": "Tournaments"
+      "startDate": "Date rozpoczęcia",
+      "teamA": "Drużyna A",
+      "teamB": "Drużyna B",
+      "winner": "Zwycięzca",
+      "matchUrl": "Url Meczu",
+      "teams": "Drużyna",
+      "tournaments": "Turniej"
     }
   }
 }
