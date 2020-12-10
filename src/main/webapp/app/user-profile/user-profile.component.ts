@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AccountService } from 'app/core/auth/account.service';
 import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
+import { UserProfileService } from 'app/user-profile/user-profile.service';
 import { MatchesService } from 'app/entities/matches/matches.service';
 import { OrganizersService } from 'app/entities/organizers/organizers.service';
 import { TournamentsService } from 'app/entities/tournaments/tournaments.service';
@@ -46,6 +47,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     protected organizersService: OrganizersService,
     protected matchesService: MatchesService,
     protected accountService: AccountService,
+    protected userProfileService: UserProfileService,
     protected userService: UserService,
     protected parseLinks: JhiParseLinks
   ) {
@@ -100,24 +102,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   loadMyMatches(): void {
-    this.matchesService
-      .query({
+    this.userProfileService
+      .myMatches({
         page: this.pageM,
         size: this.itemsPerPage,
         sort: this.sort(),
       })
       .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((res: HttpResponse<IMatches[]>) => {
-        if (res.body) {
-          const matches: IMatches[] = [];
-          for (let i = 0; i < res.body.length; i++) {
-            // if () {
-            //   matches.push(res.body[i]);
-            // }
-          }
-          this.paginateMatches(matches, res.headers);
-        }
-      });
+      .subscribe((res: HttpResponse<IMatches[]>) => this.paginateMatches(res.body, res.headers));
   }
 
   reset(): void {
@@ -180,7 +172,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInMatches(): void {
-    this.eventSubscriber = this.eventManager.subscribe('matchesListModification', () => this.reset());
+    this.eventSubscriber = this.eventManager.subscribe('matchesListModification', () => this.resetM());
   }
 
   sort(): string[] {
