@@ -12,7 +12,6 @@ import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { IMatches } from 'app/shared/model/matches.model';
 import { IOrganizers } from 'app/shared/model/organizers.model';
 import { ITournaments } from 'app/shared/model/tournaments.model';
-import { ITeams } from 'app/shared/model/teams.model';
 import { JhiDataUtils, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { Subscription, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
