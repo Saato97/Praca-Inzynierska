@@ -21,8 +21,8 @@
       "teamB": "Team B",
       "winner": "Winner",
       "matchUrl": "Match Url",
-      "teams": "Teams",
-      "tournaments": "Tournaments"
+      "teams": "Team",
+      "tournaments": "Tournament"
     }
   }
 }

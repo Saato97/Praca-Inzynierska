@@ -4,18 +4,56 @@
     <h1 class="text-capitalize text-center" jhiTranslate="user-profile.title">Title</h1>
     <hr/>
 
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
     <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
       <li [ngbNavItem]="1">
         <a ngbNavLink jhiTranslate="user-profile.tabs.player">Player</a>
         <ng-template ngbNavContent>
+          <h2 class=" text-capitalize text-center" jhiTranslate="user-profile.myMatches">My Matches</h2>         
+          <div class="alert alert-warning" id="no-result" *ngIf="matches?.length === 0">
+            <span jhiTranslate="esportsApp.matches.home.notFound">No matches found</span>
+          </div>
 
+          <div class="table-responsive" id="entities" *ngIf="matches && matches.length > 0">
+            <table class="table table-striped" aria-describedby="page-heading">
+              <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="resetM.bind(this)">
+                  <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+                  <th scope="col"><span jhiTranslate="user-profile.matches.tournament">Tournament</span></th>
+                  <th scope="col"><span jhiTranslate="user-profile.matches.startDate">Start Date</span><fa-icon icon="sort"></fa-icon></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody infinite-scroll (scrolled)="loadPageM(pageM + 1)" [infiniteScrollDisabled]="pageM >= linksM['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let matches of matches ;trackBy: trackIdM">
+                  <td><a [routerLink]="['/matches', matches.id, 'view']">{{ matches.id }}</a></td>
+                  <td>
+                    <div *ngIf="matches.tournaments != null; then thenBlock else elseBlock"></div>
+                    <ng-template #thenBlock><a [routerLink]="['/tournaments', matches.tournaments?.id, 'view']">{{ matches.tournaments?.name }}</a></ng-template>
+                    <ng-template #elseBlock></ng-template>
+                  </td>
+                  <td>{{ matches.startDate | date:'dd/MM/yyyy HH:mm' }}</td>
+                  <td class="text-right">
+                    <div class="btn-group">
+                    <button type="submit" [routerLink]="['/matches', matches.id, 'view']" class="btn btn-info btn-sm">
+                      <fa-icon icon="eye"></fa-icon>
+                      <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </ng-template>
       </li>
 
       <li [ngbNavItem]="2">
         <a ngbNavLink jhiTranslate="user-profile.tabs.organizer">Organizer</a>
         <ng-template ngbNavContent>
-          
+          <h2 class=" text-capitalize text-center" jhiTranslate="user-profile.myTournaments">My Tournaments</h2>         
           <div class="alert alert-warning" id="no-result" *ngIf="tournaments?.length === 0">
             <span jhiTranslate="esportsApp.tournaments.home.notFound">No tournaments found</span>
           </div>
@@ -31,8 +69,8 @@
                   <th scope="col"></th>
                 </tr>
               </thead>
-              <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-                <tr *ngFor="let tournaments of tournaments ;trackBy: trackId">
+              <tbody infinite-scroll (scrolled)="loadPageT(pageT + 1)" [infiniteScrollDisabled]="pageT >= linksT['last']" [infiniteScrollDistance]="0">
+                <tr *ngFor="let tournaments of tournaments ;trackBy: trackIdT">
                   <td>
                     <img [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" style="max-height: 30px;" alt="tournaments image"/>
                   </td>
@@ -55,10 +93,6 @@
     </ul>
     
     <div [ngbNavOutlet]="nav" class="mt-2"></div>
-
-    <jhi-alert-error></jhi-alert-error>
-
-    <jhi-alert></jhi-alert>
 
   </div>
   <div class="col-md-2"></div>

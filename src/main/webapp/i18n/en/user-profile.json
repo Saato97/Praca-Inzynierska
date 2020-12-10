@@ -1,6 +1,8 @@
 {
   "user-profile": {
     "title": "My Profile",
+    "myTournaments": "My Tournaments",
+    "myMatches": "My Matches",
     "tabs": {
       "player": "Player",
       "organizer": "Organizer"
@@ -12,6 +14,10 @@
       "startDate": "Start Date",
       "teams": "Teams",
       "matches": "Matches"
+    },
+    "matches": {
+      "startDate": "Start Date",
+      "tournament": "Tournament"
     }
   }
 }
