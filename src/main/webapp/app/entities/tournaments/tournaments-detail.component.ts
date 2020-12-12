@@ -16,6 +16,7 @@ import { HttpHeaders, HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'jhi-tournaments-detail',
   templateUrl: './tournaments-detail.component.html',
+  styleUrls: ['tournaments.scss'],
 })
 export class TournamentsDetailComponent implements OnInit, OnDestroy {
   tournaments: ITournaments | null = null;
