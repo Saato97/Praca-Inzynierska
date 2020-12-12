@@ -1,7 +1,6 @@
-<div class="row">
-  <div class="col-md-2"></div>
+<div class="row justify-content-center">
   <div class="col-md-8">
-    <h1 class="text-capitalize text-center" jhiTranslate="user-profile.title">Title</h1>
+    <h2 class="text-center" jhiTranslate="user-profile.title">Title</h2>
     <hr/>
 
     <jhi-alert-error></jhi-alert-error>
@@ -12,7 +11,7 @@
       <li [ngbNavItem]="1">
         <a ngbNavLink jhiTranslate="user-profile.tabs.player">Player</a>
         <ng-template ngbNavContent>
-          <h2 class=" text-capitalize text-center" jhiTranslate="user-profile.myMatches">My Matches</h2>         
+          <h3 class="text-center" jhiTranslate="user-profile.myMatches">My Matches</h3>         
           <div class="alert alert-warning" id="no-result" *ngIf="matches?.length === 0">
             <span jhiTranslate="esportsApp.matches.home.notFound">No matches found</span>
           </div>
@@ -53,7 +52,7 @@
       <li [ngbNavItem]="2">
         <a ngbNavLink jhiTranslate="user-profile.tabs.organizer">Organizer</a>
         <ng-template ngbNavContent>
-          <h2 class=" text-capitalize text-center" jhiTranslate="user-profile.myTournaments">My Tournaments</h2>         
+          <h3 class="text-center" jhiTranslate="user-profile.myTournaments">My Tournaments</h3>         
           <div class="alert alert-warning" id="no-result" *ngIf="tournaments?.length === 0">
             <span jhiTranslate="esportsApp.tournaments.home.notFound">No tournaments found</span>
           </div>
@@ -95,5 +94,4 @@
     <div [ngbNavOutlet]="nav" class="mt-2"></div>
 
   </div>
-  <div class="col-md-2"></div>
 </div>

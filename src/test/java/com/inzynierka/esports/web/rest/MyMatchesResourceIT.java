@@ -24,7 +24,7 @@ public class MyMatchesResourceIT {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        MyMatchesResource myMatchesResource = new MyMatchesResource();
+        MyMatchesResource myMatchesResource = new MyMatchesResource(null, null);
         restMockMvc = MockMvcBuilders
             .standaloneSetup(myMatchesResource)
             .build();

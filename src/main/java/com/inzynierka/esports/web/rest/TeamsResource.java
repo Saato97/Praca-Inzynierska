@@ -20,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.io.Console;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -101,6 +103,26 @@ public class TeamsResource {
             page = teamsRepository.findAllWithEagerRelationships(pageable);
         } else {
             page = teamsRepository.findAll(pageable);
+        }
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /teams/tournament} : get the tournaments teams.
+     *
+     * @param pageable the pagination information.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of teams in body.
+     */
+    @GetMapping("/teams/tournament")
+    public ResponseEntity<List<Teams>> getTournamentTeams(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload, @RequestParam Long tournamentId) {
+        log.debug("REST request to get a page of Tournament Teams");
+        Page<Teams> page;
+        if (eagerload) {
+            page = teamsRepository.findTournamentTeamsWithEagerRelationships(pageable, tournamentId);
+        } else {
+            page = teamsRepository.findTournamentTeams(pageable, tournamentId);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

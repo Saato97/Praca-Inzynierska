@@ -48,7 +48,7 @@ public class Teams implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "application_users_id", referencedColumnName = "id"))
     private Set<ApplicationUsers> applicationUsers = new HashSet<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnoreProperties(value = "teams", allowSetters = true)
     private Tournaments tournaments;
 

@@ -1,4 +1,100 @@
 <div class="row justify-content-center">
+    <div class="col-md-8" *ngIf="tournaments">
+
+        <div class="tournament-logo" *ngIf="tournaments.tournamentLogo">
+            <a (click)="openFile(tournaments.tournamentLogoContentType, tournaments.tournamentLogo)">
+                <img class="img-fluid rounded mx-auto d-block" [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" alt="Tournament logo"/>
+            </a>
+        </div>
+        <br>
+        <h2 class="text-center">{{ tournaments.name }}</h2>
+        <br>
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+        
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+            <li [ngbNavItem]="1">
+            <a ngbNavLink jhiTranslate="esportsApp.tournaments.detail.details">Details</a>
+            <ng-template ngbNavContent>
+                <ul class="list-group">
+                    <li class="list-group-item d-flex flex-column">
+                        <p class="mb-1" jhiTranslate="esportsApp.tournaments.gameType">Game Type</p>
+                        <h5 class="mb-1" jhiTranslate="{{ 'esportsApp.Games.' + tournaments.gameType }}">{{ tournaments.gameType }}</h5>
+                    </li>
+                    <li class="list-group-item d-flex flex-column">
+                        <p class="mb-1" jhiTranslate="esportsApp.tournaments.startDate">Start Date</p>
+                        <h5 class="mb-1">{{ tournaments.startDate | date:'dd/MM/yyyy HH:mm' }}</h5>
+                    </li>
+                    <li class="list-group-item d-flex flex-column">
+                        <p class="mb-1" jhiTranslate="esportsApp.tournaments.description">Description</p>
+                        <h5 class="mb-1">{{ tournaments.description }}</h5>
+                    </li>
+                </ul>
+            </ng-template>
+            </li>
+    
+            <li [ngbNavItem]="2">
+            <a ngbNavLink jhiTranslate="esportsApp.tournaments.teams">Teams</a>
+            <ng-template ngbNavContent>    
+                <div *ngIf="teams?.length === 0; then thenBlock else elseBlock"></div>
+                <ng-template #thenBlock>
+                    <div class="alert alert-warning" id="no-result">
+                        <span jhiTranslate="esportsApp.tournaments.detail.teamsNotFound">No teams found</span>
+                    </div>
+                </ng-template>
+                <ng-template #elseBlock>
+                    <div class="container" infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                        <div class="row">
+                            <div class="col-md-3" *ngFor="let teams of teams ;trackBy: trackId">
+                                <div class="card mb-4 text-white border-light">
+                                    <img class="card-img-top" [src]="'data:' + teams.teamLogoContentType + ';base64,' + teams.teamLogo" data-holder-rendered="true" alt="">
+                                    <div class="card-body bg-secondary">
+                                        <div class="card-title"><h4>{{ teams.teamName }}</h4></div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span>{{ teams.captainName }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-template>
+            </li>
+
+            <li [ngbNavItem]="3">
+                <a ngbNavLink jhiTranslate="esportsApp.tournaments.detail.bracket">Bracket</a>
+                <ng-template ngbNavContent>
+                    <h2 class="text-center" jhiTranslate="esportsApp.tournaments.detail.noBracket">Bracket is currently unavailable</h2>
+                </ng-template>
+            </li>
+
+            <li [ngbNavItem]="4">
+                <a ngbNavLink jhiTranslate="esportsApp.tournaments.detail.contact">Contact</a>
+                <ng-template ngbNavContent>
+                    <ul class="list-group" *ngIf="tournaments.organizers">
+                        <li class="list-group-item d-flex flex-column">
+                            <p class="mb-1" jhiTranslate="esportsApp.tournaments.detail.email">Email</p>
+                            <h5 class="mb-1">{{ tournaments.organizers.email }}</h5>
+                        </li>
+                        <li class="list-group-item d-flex flex-column">
+                            <p class="mb-1" jhiTranslate="esportsApp.tournaments.detail.discord">Discord</p>
+                            <a class="mb-1" href="{{ tournaments.organizers.discord }}">{{ tournaments.organizers.discord }}</a>
+                        </li>
+                    </ul>
+                </ng-template>
+            </li>
+        </ul>
+      
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  
+    </div>
+  </div>
+  
+
+<div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="tournaments">
             <h2><span jhiTranslate="esportsApp.tournaments.detail.title">Tournament</span> {{ tournaments.id }}</h2>
@@ -20,13 +116,9 @@
                 <dd>
                     <span>{{ tournaments.description }}</span>
                 </dd>
-                <dt><span jhiTranslate="esportsApp.tournaments.maxParticipants">Max Participants</span></dt>
-                <dd>
-                    <span>{{ tournaments.maxParticipants }}</span>
-                </dd>
                 <dt><span jhiTranslate="esportsApp.tournaments.currentParticipants">Current Participants</span></dt>
                 <dd>
-                    <span>{{ tournaments.currentParticipants }}</span>
+                    <span>{{ tournaments.currentParticipants }}/{{ tournaments.maxParticipants }}</span>
                 </dd>
                 <dt><span jhiTranslate="esportsApp.tournaments.startDate">Start Date</span></dt>
                 <dd>
@@ -55,11 +147,13 @@
                 <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 
-            <button type="button"
-                    [routerLink]="['/tournaments', tournaments.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
-            </button>
+            <div *ngIf="this.tournaments?.organizers?.applicationUsers?.id === this.user.id">
+                <button type="button"
+                        [routerLink]="['/tournaments', tournaments.id, 'edit']"
+                        class="btn btn-primary">
+                    <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+            </div>
         </div>
     </div>
 </div>
