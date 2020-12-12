@@ -2,9 +2,7 @@
     <div class="col-md-8" *ngIf="tournaments">
 
         <div class="tournament-logo" *ngIf="tournaments.tournamentLogo">
-            <a (click)="openFile(tournaments.tournamentLogoContentType, tournaments.tournamentLogo)">
-                <img class="img-fluid rounded mx-auto d-block" [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" alt="Tournament logo"/>
-            </a>
+            <img class="img-fluid rounded mx-auto d-block" [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" alt="Tournament logo"/>
         </div>
         <br>
         <h2 class="text-center">{{ tournaments.name }}</h2>
