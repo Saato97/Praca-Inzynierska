@@ -15,7 +15,14 @@
         "question": "Are you sure you want to delete this Tournament?!"
       },
       "detail": {
-        "title": "Tournament"
+        "details": "Details",
+        "title": "Tournament",
+        "bracket": "Bracket",
+        "noBracket": "Bracket is currently unavailable",
+        "contact": "Contact",
+        "email": "Email",
+        "discord": "Discord",
+        "teamsNotFound": "No Teams found"
       },
       "name": "Name",
       "gameType": "Game Type",

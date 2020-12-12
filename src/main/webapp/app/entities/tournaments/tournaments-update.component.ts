@@ -162,7 +162,7 @@ export class TournamentsUpdateComponent implements OnInit, OnDestroy {
       gameType: this.editForm.get(['gameType'])!.value,
       description: this.editForm.get(['description'])!.value,
       maxParticipants: this.editForm.get(['maxParticipants'])!.value,
-      currentParticipants: this.editForm.get(['currentParticipants'])!.value,
+      currentParticipants: 0,
       startDate: this.editForm.get(['startDate'])!.value ? moment(this.editForm.get(['startDate'])!.value, DATE_TIME_FORMAT) : undefined,
       tournamentLogoContentType: this.editForm.get(['tournamentLogoContentType'])!.value,
       tournamentLogo: this.editForm.get(['tournamentLogo'])!.value,

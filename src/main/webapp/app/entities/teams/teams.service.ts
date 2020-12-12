@@ -32,6 +32,11 @@ export class TeamsService {
     return this.http.get<ITeams[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
+  findTournamentTeams(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<ITeams[]>(this.resourceUrl + '/tournament', { params: options, observe: 'response' });
+  }
+
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
