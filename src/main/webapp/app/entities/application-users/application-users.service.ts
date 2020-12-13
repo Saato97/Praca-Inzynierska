@@ -27,6 +27,10 @@ export class ApplicationUsersService {
     return this.http.get<IApplicationUsers>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  findParticipant(options: any): Observable<EntityResponseType> {
+    return this.http.get<IApplicationUsers>(this.resourceUrl + '/participant', { params: options, observe: 'response' });
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IApplicationUsers[]>(this.resourceUrl, { params: options, observe: 'response' });

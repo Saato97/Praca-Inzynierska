@@ -51,7 +51,8 @@
                                     <div class="card-body bg-secondary">
                                         <div class="card-title"><h4>{{ teams.teamName }}</h4></div>
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <span>{{ teams.captainName }}</span>
+                                            <h5 class="mb-1" jhiTranslate="esportsApp.tournaments.detail.captain">Captain</h5>
+                                            <h5 class="mb-1">{{ teams.captainName }}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -85,73 +86,31 @@
                 </ng-template>
             </li>
         </ul>
-      
+
         <div [ngbNavOutlet]="nav" class="mt-2"></div>
-  
-    </div>
-  </div>
-  
 
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="tournaments">
-            <h2><span jhiTranslate="esportsApp.tournaments.detail.title">Tournament</span> {{ tournaments.id }}</h2>
-
-            <hr>
-
-            <jhi-alert-error></jhi-alert-error>
-
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="esportsApp.tournaments.name">Name</span></dt>
-                <dd>
-                    <span>{{ tournaments.name }}</span>
-                </dd>
-                <dt><span jhiTranslate="esportsApp.tournaments.gameType">Game Type</span></dt>
-                <dd>
-                    <span jhiTranslate="{{ 'esportsApp.Games.' + tournaments.gameType }}">{{ tournaments.gameType }}</span>
-                </dd>
-                <dt><span jhiTranslate="esportsApp.tournaments.description">Description</span></dt>
-                <dd>
-                    <span>{{ tournaments.description }}</span>
-                </dd>
-                <dt><span jhiTranslate="esportsApp.tournaments.currentParticipants">Current Participants</span></dt>
-                <dd>
-                    <span>{{ tournaments.currentParticipants }}/{{ tournaments.maxParticipants }}</span>
-                </dd>
-                <dt><span jhiTranslate="esportsApp.tournaments.startDate">Start Date</span></dt>
-                <dd>
-                    <span>{{ tournaments.startDate }}</span>
-                </dd>
-                <dt><span jhiTranslate="esportsApp.tournaments.tournamentLogo">Tournament Logo</span></dt>
-                <dd>
-                    <div *ngIf="tournaments.tournamentLogo">
-                        <a (click)="openFile(tournaments.tournamentLogoContentType, tournaments.tournamentLogo)">
-                            <img [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" style="max-width: 100%;" alt="tournaments image"/>
-                        </a>
-                        {{ tournaments.tournamentLogoContentType }}, {{ byteSize(tournaments.tournamentLogo) }}
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="esportsApp.tournaments.organizers">Organizers</span></dt>
-                <dd>
-                    <div *ngIf="tournaments.organizers">
-                        <a [routerLink]="['/organizers', tournaments.organizers?.id, 'view']">{{ tournaments.organizers?.id }}</a>
-                    </div>
-                </dd>
-            </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
-            </button>
-
-            <div *ngIf="this.tournaments?.organizers?.applicationUsers?.id === this.user.id">
-                <button type="button"
-                        [routerLink]="['/tournaments', tournaments.id, 'edit']"
-                        class="btn btn-primary">
-                    <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+        <div class="row justify-content-center">
+            <div class="back-btn">
+                <button type="submit" (click)="previousState()" class="btn btn-info btn-lg">
+                    <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
                 </button>
             </div>
-        </div>
+
+            <div *ngIf="this.tournaments?.organizers?.applicationUsers?.id === this.user?.id" class="edit-btn">
+                <button type="button" [routerLink]="['/tournaments', tournaments.id, 'edit']" class="btn btn-primary btn-lg">
+                    <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+
+                <button type="button" class="btn btn-primary btn-lg" (click)="startTournament()">
+                    <fa-icon icon="play"></fa-icon>&nbsp;<span jhiTranslate="entity.action.start">Start tournament</span>
+                </button>
+            </div>
+
+            <div *ngIf="this.tournaments?.organizers?.applicationUsers?.id !== this.user?.id && !this.participant" class="join-btn">
+                <button type="button" id="jh-create-entity" (click)="joinTournament()" class="btn btn-primary btn-lg jh-create-entity create-tournaments">
+                    <fa-icon icon="sign-in-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.join">Join Tournament</span>
+                </button>
+            </div>
+        </div>    
     </div>
 </div>

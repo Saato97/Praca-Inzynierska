@@ -3,9 +3,9 @@
     "tournaments": {
       "home": {
         "title": "Turnieje",
-        "upcoming": "Nadchodzące turnieje",
+        "upcoming": "Nadchodzące Turnieje",
         "createLabel": "Utwórz nowy Turniej",
-        "createOrEditLabel": "Utwórz nowy Turniej",
+        "createOrEditLabel": "Utwórz lub edytuj Turniej",
         "notFound": "Nie znaleziono Turniejów"
       },
       "created": "Utworzono nowy Turniej z identyfikatorem {{ param }}",
@@ -15,15 +15,23 @@
         "question": "Czy na pewno chcesz usunąć ten Turniej?!"
       },
       "detail": {
-        "title": "Turniej"
+        "details": "Szczegóły",
+        "title": "Turniej",
+        "bracket": "Drabinka",
+        "noBracket": "Drabinka jest obecnie niedostępna",
+        "contact": "Kontakt",
+        "email": "Email",
+        "discord": "Discord",
+        "captain": "Kapitan:",
+        "teamsNotFound": "Nie znaleziono drużyn"
       },
       "name": "Nazwa",
       "gameType": "Rodzaj gry",
       "description": "Opis",
       "maxParticipants": "Maksymalna liczba uczestników",
-      "currentParticipants": "Aktualna liczba uczestników",
+      "currentParticipants": "Uczestnicy",
       "startDate": "Data rozpoczęcia",
-      "tournamentLogo": "Logo Turnieju",
+      "tournamentLogo": "Logo turnieju",
       "teams": "Drużyny",
       "matches": "Mecze",
       "organizers": "Organizator"

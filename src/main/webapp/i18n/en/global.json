@@ -104,6 +104,8 @@
       "edit": "Edit",
       "open": "Open",
       "save": "Save",
+      "join": "Join Tournament",
+      "start": "Start Tournament",
       "view": "View"
     },
     "detail": {
