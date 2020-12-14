@@ -62,12 +62,12 @@ export class RegisterComponent implements AfterViewInit {
     if (password !== this.registerForm.get(['confirmPassword'])!.value) {
       this.doNotMatch = true;
     } else {
-      const username = this.registerForm.get(['username'])!.value;
+      const userName = this.registerForm.get(['username'])!.value;
       const login = this.registerForm.get(['login'])!.value;
       const email = this.registerForm.get(['email'])!.value;
       // eslint-disable-next-line object-shorthand
       this.registerService
-        .save({ login, email, password, langKey: this.languageService.getCurrentLanguage() }, { username: username })
+        .save({ login, email, password, langKey: this.languageService.getCurrentLanguage() }, { username: userName })
         .subscribe(
           () => (this.success = true),
           response => this.processError(response)
