@@ -25,6 +25,10 @@
                         {{ applicationUsers.userLogoContentType }}, {{ byteSize(applicationUsers.userLogo) }}
                     </div>
                 </dd>
+                <dt><span jhiTranslate="esportsApp.applicationUsers.username">Username</span></dt>
+                <dd>
+                    <span>{{ applicationUsers.username }}</span>
+                </dd>
                 <dt><span jhiTranslate="esportsApp.applicationUsers.internalUser">Internal User</span></dt>
                 <dd>
                     {{ applicationUsers.internalUser?.id }}

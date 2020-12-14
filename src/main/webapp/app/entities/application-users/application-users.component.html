@@ -26,6 +26,7 @@
                     <th scope="col"  jhiSortBy="level"><span jhiTranslate="esportsApp.applicationUsers.level">Level</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="points"><span jhiTranslate="esportsApp.applicationUsers.points">Points</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="userLogo"><span jhiTranslate="esportsApp.applicationUsers.userLogo">User Logo</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="username"><span jhiTranslate="esportsApp.applicationUsers.username">Username</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="internalUser.id"><span jhiTranslate="esportsApp.applicationUsers.internalUser">Internal User</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
@@ -41,6 +42,7 @@
                         </a>
                         <span *ngIf="applicationUsers.userLogo">{{ applicationUsers.userLogoContentType }}, {{ byteSize(applicationUsers.userLogo) }}</span>
                     </td>
+                    <td>{{ applicationUsers.username }}</td>
                     <td>
                         {{ applicationUsers.internalUser?.id }}
                     </td>

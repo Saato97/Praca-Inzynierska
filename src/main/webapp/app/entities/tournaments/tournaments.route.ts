@@ -11,6 +11,7 @@ import { TournamentsService } from './tournaments.service';
 import { TournamentsComponent } from './tournaments.component';
 import { TournamentsDetailComponent } from './tournaments-detail.component';
 import { TournamentsUpdateComponent } from './tournaments-update.component';
+import { TeamsUpdateComponent } from '../teams/teams-update.component';
 
 @Injectable({ providedIn: 'root' })
 export class TournamentsResolve implements Resolve<ITournaments> {
@@ -59,6 +60,18 @@ export const tournamentsRoute: Routes = [
   {
     path: 'new',
     component: TournamentsUpdateComponent,
+    resolve: {
+      tournaments: TournamentsResolve,
+    },
+    data: {
+      authorities: [Authority.USER],
+      pageTitle: 'esportsApp.tournaments.home.title',
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/teams/new',
+    component: TeamsUpdateComponent,
     resolve: {
       tournaments: TournamentsResolve,
     },

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { JhiDataUtils, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JhiAlertService, JhiDataUtils, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
 import { ITournaments } from 'app/shared/model/tournaments.model';
 import { IUser } from 'app/core/user/user.model';
@@ -13,6 +13,7 @@ import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { ITeams } from 'app/shared/model/teams.model';
 import { TeamsService } from '../teams/teams.service';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
+import * as moment from 'moment';
 
 @Component({
   selector: 'jhi-tournaments-detail',
@@ -40,7 +41,9 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
     protected accountService: AccountService,
     protected applicationUsersService: ApplicationUsersService,
     protected userService: UserService,
+    protected alertService: JhiAlertService,
     protected parseLinks: JhiParseLinks,
+    protected router: Router,
     protected eventManager: JhiEventManager
   ) {
     this.teams = [];
@@ -54,9 +57,21 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
     this.participant = false;
   }
 
-  startTournament(): void {}
+  startTournament(): void {
+    if (this.tournaments?.startDate?.isAfter(moment())) {
+      this.showAlert('esportsApp.tournaments.startError');
+    } else {
+      // do something
+    }
+  }
 
-  joinTournament(): void {}
+  joinTournament(): void {
+    if (this.tournaments?.currentParticipants! < this.tournaments?.maxParticipants!) {
+      if (this.tournaments?.startDate?.isAfter(moment())) {
+        this.router.navigate(['/tournaments', this.tournaments.id, 'teams', 'new']);
+      } else this.showAlert('esportsApp.tournaments.joinDateError');
+    } else this.showAlert('esportsApp.tournaments.maxParticipantsError');
+  }
 
   checkParticipant(userId: number): void {
     if (this.tournaments && this.tournaments.id) {
@@ -67,8 +82,6 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
         })
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(res => {
-          // eslint-disable-next-line no-console
-          console.log('Res body:' + res.body);
           if (res.body != null) this.participant = true;
           else this.participant = false;
         });
@@ -133,6 +146,21 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
 
   byteSize(base64String: string): string {
     return this.dataUtils.byteSize(base64String);
+  }
+
+  showAlert(alert: string): void {
+    this.alertService.get().push(
+      this.alertService.addAlert(
+        {
+          type: 'warning',
+          msg: alert,
+          timeout: 5000,
+          toast: false,
+          scoped: true,
+        },
+        this.alertService.get()
+      )
+    );
   }
 
   openFile(contentType = '', base64String: string): void {

@@ -26,6 +26,7 @@ export class ApplicationUsersUpdateComponent implements OnInit {
     points: [],
     userLogo: [],
     userLogoContentType: [],
+    username: [null, [Validators.minLength(6)]],
     internalUser: [],
   });
 
@@ -54,6 +55,7 @@ export class ApplicationUsersUpdateComponent implements OnInit {
       points: applicationUsers.points,
       userLogo: applicationUsers.userLogo,
       userLogoContentType: applicationUsers.userLogoContentType,
+      username: applicationUsers.username,
       internalUser: applicationUsers.internalUser,
     });
   }
@@ -106,6 +108,7 @@ export class ApplicationUsersUpdateComponent implements OnInit {
       points: this.editForm.get(['points'])!.value,
       userLogoContentType: this.editForm.get(['userLogoContentType'])!.value,
       userLogo: this.editForm.get(['userLogo'])!.value,
+      username: this.editForm.get(['username'])!.value,
       internalUser: this.editForm.get(['internalUser'])!.value,
     };
   }

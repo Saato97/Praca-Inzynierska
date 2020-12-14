@@ -1,11 +1,11 @@
-id;level;points;user_logo;user_logo_content_type
-1;63;18507;../fake-data/blob/hipster.png;image/png
-2;34;9583;../fake-data/blob/hipster.png;image/png
-3;16;53841;../fake-data/blob/hipster.png;image/png
-4;15;16422;../fake-data/blob/hipster.png;image/png
-5;15;60202;../fake-data/blob/hipster.png;image/png
-6;46;44762;../fake-data/blob/hipster.png;image/png
-7;90;61079;../fake-data/blob/hipster.png;image/png
-8;40;88752;../fake-data/blob/hipster.png;image/png
-9;34;79118;../fake-data/blob/hipster.png;image/png
-10;26;70902;../fake-data/blob/hipster.png;image/png
+id;level;points;user_logo;user_logo_content_type;username
+1;63;18507;../fake-data/blob/hipster.png;image/png;Rustic
+2;54;14408;../fake-data/blob/hipster.png;image/png;SoapXX
+3;46;44762;../fake-data/blob/hipster.png;image/png;Investment Account FTP open-source
+4;71;85913;../fake-data/blob/hipster.png;image/png;MetalX
+5;74;51955;../fake-data/blob/hipster.png;image/png;optimize Industrial Assistant
+6;11;35105;../fake-data/blob/hipster.png;image/png;disintermediate port
+7;11;12605;../fake-data/blob/hipster.png;image/png;full-range Beauty responsive
+8;67;55043;../fake-data/blob/hipster.png;image/png;New York
+9;22;4562;../fake-data/blob/hipster.png;image/png;XSS Chips Extended
+10;53;3322;../fake-data/blob/hipster.png;image/png;Operations bi-directional back-end
