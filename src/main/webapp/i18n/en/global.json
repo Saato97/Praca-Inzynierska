@@ -41,6 +41,8 @@
       "language": "Language"
     },
     "form": {
+      "login.label": "Login",
+      "login.placeholder": "Your login",
       "username.label": "Username",
       "username.placeholder": "Your username",
       "currentpassword.label": "Current password",
@@ -83,6 +85,10 @@
           "invalid": "Your email is invalid.",
           "minlength": "Your email is required to be at least 5 characters.",
           "maxlength": "Your email cannot be longer than 50 characters."
+        },
+        "username": {
+          "required": "Your username is required.",
+          "minlength": "Your username is required to be at least 6 characters."
         }
       }
     },

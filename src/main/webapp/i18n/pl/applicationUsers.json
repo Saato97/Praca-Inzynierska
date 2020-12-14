@@ -2,7 +2,7 @@
   "esportsApp": {
     "applicationUsers": {
       "home": {
-        "title": "Użytkownik",
+        "title": "Użytkownicy Aplikacji",
         "createLabel": "Dodaj nowego Użytkownika",
         "createOrEditLabel": "Dodaj lub edytuj Użyktownika",
         "notFound": "Nie znaleziono użytkownika"
@@ -14,7 +14,7 @@
         "question": "Czy na pewno chcesz usunąć Użytkownika {{ id }}?"
       },
       "detail": {
-        "title": "Użytkownik"
+        "title": "Użytkownik aplikacji"
       },
       "level": "Poziom",
       "points": "Punkty",

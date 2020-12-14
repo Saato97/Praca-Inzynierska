@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { JhiLanguageService } from 'ng-jhipster';
 
-import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE } from 'app/shared/constants/error.constants';
+import { EMAIL_ALREADY_USED_TYPE, LOGIN_ALREADY_USED_TYPE, USERNAME_ALREADY_USED_TYPE } from 'app/shared/constants/error.constants';
 import { LoginModalService } from 'app/core/login/login-modal.service';
 import { RegisterService } from './register.service';
 
@@ -19,6 +19,7 @@ export class RegisterComponent implements AfterViewInit {
   error = false;
   errorEmailExists = false;
   errorUserExists = false;
+  errorUsernameExists = false;
   success = false;
 
   registerForm = this.fb.group({
@@ -31,6 +32,7 @@ export class RegisterComponent implements AfterViewInit {
         Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
       ],
     ],
+    username: ['', [Validators.required, Validators.minLength(6)]],
     email: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(254), Validators.email]],
     password: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
@@ -54,17 +56,22 @@ export class RegisterComponent implements AfterViewInit {
     this.error = false;
     this.errorEmailExists = false;
     this.errorUserExists = false;
+    this.errorUsernameExists = false;
 
     const password = this.registerForm.get(['password'])!.value;
     if (password !== this.registerForm.get(['confirmPassword'])!.value) {
       this.doNotMatch = true;
     } else {
+      const username = this.registerForm.get(['username'])!.value;
       const login = this.registerForm.get(['login'])!.value;
       const email = this.registerForm.get(['email'])!.value;
-      this.registerService.save({ login, email, password, langKey: this.languageService.getCurrentLanguage() }).subscribe(
-        () => (this.success = true),
-        response => this.processError(response)
-      );
+      // eslint-disable-next-line object-shorthand
+      this.registerService
+        .save({ login, email, password, langKey: this.languageService.getCurrentLanguage() }, { username: username })
+        .subscribe(
+          () => (this.success = true),
+          response => this.processError(response)
+        );
     }
   }
 
@@ -77,6 +84,8 @@ export class RegisterComponent implements AfterViewInit {
       this.errorUserExists = true;
     } else if (response.status === 400 && response.error.type === EMAIL_ALREADY_USED_TYPE) {
       this.errorEmailExists = true;
+    } else if (response.status === 400 && response.error.type === USERNAME_ALREADY_USED_TYPE) {
+      this.errorUsernameExists = true;
     } else {
       this.error = true;
     }
