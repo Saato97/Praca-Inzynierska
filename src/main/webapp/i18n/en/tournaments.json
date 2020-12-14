@@ -3,9 +3,9 @@
     "tournaments": {
       "home": {
         "title": "Tournaments",
-        "upcoming": "Upcoming tournaments",
+        "upcoming": "Upcoming Tournaments",
         "createLabel": "Create a new Tournament",
-        "createOrEditLabel": "Create a new Tournament",
+        "createOrEditLabel": "Create or edit Tournament",
         "notFound": "No Tournaments found"
       },
       "created": "A new Tournament is created with identifier {{ param }}",
@@ -22,13 +22,14 @@
         "contact": "Contact",
         "email": "Email",
         "discord": "Discord",
+        "captain": "Captain:",
         "teamsNotFound": "No Teams found"
       },
       "name": "Name",
       "gameType": "Game Type",
       "description": "Description",
       "maxParticipants": "Max Participants",
-      "currentParticipants": "Current Participants",
+      "currentParticipants": "Participants",
       "startDate": "Start Date",
       "tournamentLogo": "Tournament Logo",
       "teams": "Teams",

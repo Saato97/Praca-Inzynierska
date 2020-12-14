@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject, Subscription } from 'rxjs';
 import { AccountService } from 'app/core/auth/account.service';
 import { UserService } from 'app/core/user/user.service';
+import { ApplicationUsersService } from '../application-users/application-users.service';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { ITeams } from 'app/shared/model/teams.model';
 import { TeamsService } from '../teams/teams.service';
@@ -30,12 +31,14 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject();
   predicate: string;
   ascending: boolean;
+  participant: boolean;
 
   constructor(
     protected dataUtils: JhiDataUtils,
     protected teamsService: TeamsService,
     protected activatedRoute: ActivatedRoute,
     protected accountService: AccountService,
+    protected applicationUsersService: ApplicationUsersService,
     protected userService: UserService,
     protected parseLinks: JhiParseLinks,
     protected eventManager: JhiEventManager
@@ -48,6 +51,28 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
     };
     this.predicate = 'id';
     this.ascending = true;
+    this.participant = false;
+  }
+
+  startTournament(): void {}
+
+  joinTournament(): void {}
+
+  checkParticipant(userId: number): void {
+    if (this.tournaments && this.tournaments.id) {
+      this.applicationUsersService
+        .findParticipant({
+          appUserId: userId,
+          tournamentId: this.tournaments.id,
+        })
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(res => {
+          // eslint-disable-next-line no-console
+          console.log('Res body:' + res.body);
+          if (res.body != null) this.participant = true;
+          else this.participant = false;
+        });
+    }
   }
 
   ngOnInit(): void {
@@ -62,6 +87,7 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
             .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe(user => {
               this.user = user;
+              this.checkParticipant(this.user.id);
             });
         }
       });
@@ -81,6 +107,7 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.teams = [];
     this.loadTeams();
+    this.checkParticipant(this.user.id);
   }
 
   loadTeams(): void {

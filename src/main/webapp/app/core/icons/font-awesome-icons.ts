@@ -38,6 +38,7 @@ import {
   faAngleRight,
   // jhipster-needle-add-icon-import
   faHome,
+  faPlay,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const fontAwesomeIcons = [
@@ -78,6 +79,7 @@ export const fontAwesomeIcons = [
   faTrophy,
   faCog,
   faAngleRight,
+  faPlay,
   // jhipster-needle-add-icon-import
   faAsterisk,
 ];

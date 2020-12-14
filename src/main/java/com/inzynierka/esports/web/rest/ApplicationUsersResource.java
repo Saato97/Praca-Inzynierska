@@ -1,6 +1,7 @@
 package com.inzynierka.esports.web.rest;
 
 import com.inzynierka.esports.domain.ApplicationUsers;
+import com.inzynierka.esports.domain.Teams;
 import com.inzynierka.esports.repository.ApplicationUsersRepository;
 import com.inzynierka.esports.web.rest.errors.BadRequestAlertException;
 
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +24,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * REST controller for managing {@link com.inzynierka.esports.domain.ApplicationUsers}.
@@ -111,6 +112,32 @@ public class ApplicationUsersResource {
         log.debug("REST request to get ApplicationUsers : {}", id);
         Optional<ApplicationUsers> applicationUsers = applicationUsersRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(applicationUsers);
+    }
+
+    /**
+     * {@code GET  /application-users/participant} : get the applicationUsers that is a participant.
+     *
+     * @param appUserId the id of the applicationUsers to retrieve.
+     * @param tournamentId the id of the tournament ID to compare.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the applicationUsers, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/application-users/participant")
+    public ResponseEntity<ApplicationUsers> getParticipant(@RequestParam Long appUserId, @RequestParam Long tournamentId) {
+        log.debug("REST request to get Tournaments Participant : {}", appUserId);
+        Optional<ApplicationUsers> applicationUsers = applicationUsersRepository.findById(appUserId);
+        Set<Teams> teams = applicationUsers.get().getTeams();
+        Boolean[] participant = {false};
+        teams.stream().forEach(t -> {
+            if (t.getTournaments().getId().equals(tournamentId)) {
+                participant[0] = true;
+            }
+        });
+        if (participant[0]) {
+            return ResponseUtil.wrapOrNotFound(applicationUsers);
+        }
+        else {
+            return ResponseEntity.ok().body(null);
+        }
     }
 
     /**
