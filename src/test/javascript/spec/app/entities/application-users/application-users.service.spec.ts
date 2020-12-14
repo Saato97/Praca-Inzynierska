@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(ApplicationUsersService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new ApplicationUsers(0, 0, 0, 'image/png', 'AAAAAAA');
+      elemDefault = new ApplicationUsers(0, 0, 0, 'image/png', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -57,6 +57,7 @@ describe('Service Tests', () => {
             level: 1,
             points: 1,
             userLogo: 'BBBBBB',
+            username: 'BBBBBB',
           },
           elemDefault
         );
@@ -76,6 +77,7 @@ describe('Service Tests', () => {
             level: 1,
             points: 1,
             userLogo: 'BBBBBB',
+            username: 'BBBBBB',
           },
           elemDefault
         );

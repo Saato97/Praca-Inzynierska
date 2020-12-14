@@ -7,6 +7,7 @@ export interface IApplicationUsers {
   points?: number;
   userLogoContentType?: string;
   userLogo?: any;
+  username?: string;
   internalUser?: IUser;
   teams?: ITeams[];
 }
@@ -18,6 +19,7 @@ export class ApplicationUsers implements IApplicationUsers {
     public points?: number,
     public userLogoContentType?: string,
     public userLogo?: any,
+    public username?: string,
     public internalUser?: IUser,
     public teams?: ITeams[]
   ) {}

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -114,7 +115,7 @@ public class ApplicationUsersResource {
         return ResponseUtil.wrapOrNotFound(applicationUsers);
     }
 
-    /**
+        /**
      * {@code GET  /application-users/participant} : get the applicationUsers that is a participant.
      *
      * @param appUserId the id of the applicationUsers to retrieve.

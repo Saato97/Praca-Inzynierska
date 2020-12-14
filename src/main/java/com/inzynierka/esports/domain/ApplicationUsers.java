@@ -3,7 +3,6 @@ package com.inzynierka.esports.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -23,6 +22,8 @@ public class ApplicationUsers implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
+    @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
     @Min(value = 1L)
@@ -39,6 +40,10 @@ public class ApplicationUsers implements Serializable {
 
     @Column(name = "user_logo_content_type")
     private String userLogoContentType;
+
+    @Size(min = 6)
+    @Column(name = "username", unique = true)
+    private String username;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -110,6 +115,19 @@ public class ApplicationUsers implements Serializable {
         this.userLogoContentType = userLogoContentType;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public ApplicationUsers username(String username) {
+        this.username = username;
+        return this;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public User getInternalUser() {
         return internalUser;
     }
@@ -174,6 +192,7 @@ public class ApplicationUsers implements Serializable {
             ", points=" + getPoints() +
             ", userLogo='" + getUserLogo() + "'" +
             ", userLogoContentType='" + getUserLogoContentType() + "'" +
+            ", username='" + getUsername() + "'" +
             "}";
     }
 }

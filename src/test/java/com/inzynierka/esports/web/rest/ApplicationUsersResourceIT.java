@@ -41,6 +41,9 @@ public class ApplicationUsersResourceIT {
     private static final String DEFAULT_USER_LOGO_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_USER_LOGO_CONTENT_TYPE = "image/png";
 
+    private static final String DEFAULT_USERNAME = "AAAAAAAAAA";
+    private static final String UPDATED_USERNAME = "BBBBBBBBBB";
+
     @Autowired
     private ApplicationUsersRepository applicationUsersRepository;
 
@@ -63,7 +66,8 @@ public class ApplicationUsersResourceIT {
             .level(DEFAULT_LEVEL)
             .points(DEFAULT_POINTS)
             .userLogo(DEFAULT_USER_LOGO)
-            .userLogoContentType(DEFAULT_USER_LOGO_CONTENT_TYPE);
+            .userLogoContentType(DEFAULT_USER_LOGO_CONTENT_TYPE)
+            .username(DEFAULT_USERNAME);
         return applicationUsers;
     }
     /**
@@ -77,7 +81,8 @@ public class ApplicationUsersResourceIT {
             .level(UPDATED_LEVEL)
             .points(UPDATED_POINTS)
             .userLogo(UPDATED_USER_LOGO)
-            .userLogoContentType(UPDATED_USER_LOGO_CONTENT_TYPE);
+            .userLogoContentType(UPDATED_USER_LOGO_CONTENT_TYPE)
+            .username(UPDATED_USERNAME);
         return applicationUsers;
     }
 
@@ -104,6 +109,7 @@ public class ApplicationUsersResourceIT {
         assertThat(testApplicationUsers.getPoints()).isEqualTo(DEFAULT_POINTS);
         assertThat(testApplicationUsers.getUserLogo()).isEqualTo(DEFAULT_USER_LOGO);
         assertThat(testApplicationUsers.getUserLogoContentType()).isEqualTo(DEFAULT_USER_LOGO_CONTENT_TYPE);
+        assertThat(testApplicationUsers.getUsername()).isEqualTo(DEFAULT_USERNAME);
     }
 
     @Test
@@ -140,7 +146,8 @@ public class ApplicationUsersResourceIT {
             .andExpect(jsonPath("$.[*].level").value(hasItem(DEFAULT_LEVEL.intValue())))
             .andExpect(jsonPath("$.[*].points").value(hasItem(DEFAULT_POINTS.intValue())))
             .andExpect(jsonPath("$.[*].userLogoContentType").value(hasItem(DEFAULT_USER_LOGO_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].userLogo").value(hasItem(Base64Utils.encodeToString(DEFAULT_USER_LOGO))));
+            .andExpect(jsonPath("$.[*].userLogo").value(hasItem(Base64Utils.encodeToString(DEFAULT_USER_LOGO))))
+            .andExpect(jsonPath("$.[*].username").value(hasItem(DEFAULT_USERNAME)));
     }
     
     @Test
@@ -157,7 +164,8 @@ public class ApplicationUsersResourceIT {
             .andExpect(jsonPath("$.level").value(DEFAULT_LEVEL.intValue()))
             .andExpect(jsonPath("$.points").value(DEFAULT_POINTS.intValue()))
             .andExpect(jsonPath("$.userLogoContentType").value(DEFAULT_USER_LOGO_CONTENT_TYPE))
-            .andExpect(jsonPath("$.userLogo").value(Base64Utils.encodeToString(DEFAULT_USER_LOGO)));
+            .andExpect(jsonPath("$.userLogo").value(Base64Utils.encodeToString(DEFAULT_USER_LOGO)))
+            .andExpect(jsonPath("$.username").value(DEFAULT_USERNAME));
     }
     @Test
     @Transactional
@@ -183,7 +191,8 @@ public class ApplicationUsersResourceIT {
             .level(UPDATED_LEVEL)
             .points(UPDATED_POINTS)
             .userLogo(UPDATED_USER_LOGO)
-            .userLogoContentType(UPDATED_USER_LOGO_CONTENT_TYPE);
+            .userLogoContentType(UPDATED_USER_LOGO_CONTENT_TYPE)
+            .username(UPDATED_USERNAME);
 
         restApplicationUsersMockMvc.perform(put("/api/application-users")
             .contentType(MediaType.APPLICATION_JSON)
@@ -198,6 +207,7 @@ public class ApplicationUsersResourceIT {
         assertThat(testApplicationUsers.getPoints()).isEqualTo(UPDATED_POINTS);
         assertThat(testApplicationUsers.getUserLogo()).isEqualTo(UPDATED_USER_LOGO);
         assertThat(testApplicationUsers.getUserLogoContentType()).isEqualTo(UPDATED_USER_LOGO_CONTENT_TYPE);
+        assertThat(testApplicationUsers.getUsername()).isEqualTo(UPDATED_USERNAME);
     }
 
     @Test
