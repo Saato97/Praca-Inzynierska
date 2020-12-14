@@ -34,7 +34,10 @@
       "tournamentLogo": "Tournament Logo",
       "teams": "Teams",
       "matches": "Matches",
-      "organizers": "Organizer"
+      "organizers": "Organizer",
+      "startError": "You cannot start the tournament before its Start Date!",
+      "joinDateError": "You cannot join the tournament after its Start Date!",
+      "maxParticipantsError": "The participant limit for this tournament has been reached!"
     }
   }
 }

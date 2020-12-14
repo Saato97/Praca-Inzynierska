@@ -53,7 +53,7 @@ export class TeamsUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ teams }) => {
-      this.updateForm(teams);
+      if (teams) this.updateForm(teams);
 
       this.applicationUsersService.query().subscribe((res: HttpResponse<IApplicationUsers[]>) => (this.applicationusers = res.body || []));
 

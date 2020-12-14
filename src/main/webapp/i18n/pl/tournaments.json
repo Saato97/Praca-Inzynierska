@@ -34,7 +34,10 @@
       "tournamentLogo": "Logo turnieju",
       "teams": "Drużyny",
       "matches": "Mecze",
-      "organizers": "Organizator"
+      "organizers": "Organizator",
+      "startError": "Nie można rozpocząć turnieju przed jego Datą Rozpoczęcia!",
+      "joinDateError": "Nie można dołączyć do turnieju po jego Dacie Rozpoczęcia!",
+      "maxParticipantsError": "Osiągnięto limit uczestników dla tego turnieju!"
     }
   }
 }
