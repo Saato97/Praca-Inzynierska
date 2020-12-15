@@ -2,26 +2,26 @@
   "esportsApp": {
     "teams": {
       "home": {
-        "title": "Teams",
-        "createLabel": "Dodaj Teams",
-        "createOrEditLabel": "Dodaj lub edytuj: Teams",
+        "title": "Drużyny",
+        "createLabel": "Dodaj Drużynę",
+        "createOrEditLabel": "Dodaj lub edytuj drużynę",
         "notFound": "No Teams found"
       },
-      "created": "Utworzono nowy obiekt typu Teams z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Teams z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Teams z identyfikatorem {{ param }}",
+      "created": "Utworzono nowy obiekt typu Drużyna z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Drużyna z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Drużyna z identyfikatorem {{ param }}",
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Teams {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć Drużynę {{ id }}?"
       },
       "detail": {
-        "title": "Teams"
+        "title": "Drużyna"
       },
-      "teamName": "Team Name",
-      "captainName": "Captain Name",
-      "teamLogo": "Team Logo",
-      "applicationUsers": "Application Users",
-      "tournaments": "Tournaments",
-      "matches": "Matches"
+      "teamName": "Nazwa drużyny",
+      "captainName": "Nazwa kapitana",
+      "teamLogo": "Logo drużyny",
+      "applicationUsers": "Wybierz siebie oraz innych członków drużyny",
+      "tournaments": "Turniej",
+      "matches": "Mecz"
     }
   }
 }

@@ -56,24 +56,26 @@
                 <div class="form-group">
                     <label jhiTranslate="esportsApp.teams.applicationUsers" for="field_applicationUsers">Application Users</label>
                     <select class="form-control" id="field_applicationUsers" multiple name="applicationUsers" formControlName="applicationUsers">
-                        <option [ngValue]="getSelected(editForm.get('applicationUsers')!.value, applicationUsersOption)" *ngFor="let applicationUsersOption of applicationusers; trackBy: trackById">{{ applicationUsersOption.id }}</option>
+                        <option [ngValue]="getSelected(editForm.get('applicationUsers')!.value, applicationUsersOption)" *ngFor="let applicationUsersOption of applicationusers; trackBy: trackById">{{ applicationUsersOption.username }}</option>
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="esportsApp.teams.tournaments" for="field_tournaments">Tournaments</label>
-                    <select class="form-control" id="field_tournaments" name="tournaments" formControlName="tournaments">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="tournamentsOption.id === editForm.get('tournaments')!.value?.id ? editForm.get('tournaments')!.value : tournamentsOption" *ngFor="let tournamentsOption of tournaments; trackBy: trackById">{{ tournamentsOption.id }}</option>
-                    </select>
-                </div>
+                <div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="esportsApp.teams.tournaments" for="field_tournaments">Tournaments</label>
+                        <select class="form-control" id="field_tournaments" name="tournaments" formControlName="tournaments">
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="tournamentsOption.id === editForm.get('tournaments')!.value?.id ? editForm.get('tournaments')!.value : tournamentsOption" *ngFor="let tournamentsOption of tournaments; trackBy: trackById">{{ tournamentsOption.id }}</option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="esportsApp.teams.matches" for="field_matches">Matches</label>
-                    <select class="form-control" id="field_matches" name="matches" formControlName="matches">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="matchesOption.id === editForm.get('matches')!.value?.id ? editForm.get('matches')!.value : matchesOption" *ngFor="let matchesOption of matches; trackBy: trackById">{{ matchesOption.id }}</option>
-                    </select>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="esportsApp.teams.matches" for="field_matches">Matches</label>
+                        <select class="form-control" id="field_matches" name="matches" formControlName="matches">
+                            <option [ngValue]="null"></option>
+                            <option [ngValue]="matchesOption.id === editForm.get('matches')!.value?.id ? editForm.get('matches')!.value : matchesOption" *ngFor="let matchesOption of matches; trackBy: trackById">{{ matchesOption.id }}</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
