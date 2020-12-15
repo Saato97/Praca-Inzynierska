@@ -162,7 +162,7 @@
                 </button>
             </div>
 
-            <div *ngIf="this.tournaments?.organizers?.applicationUsers?.id !== this.user?.id && !this.participant" class="join-btn">
+            <div *ngIf="this.tournaments?.organizers?.applicationUsers?.id !== this.user?.id && !this.participant && !tournamentStarted" class="join-btn">
                 <button type="button" id="jh-create-entity" (click)="joinTournament()" class="btn btn-primary btn-lg jh-create-entity create-tournaments">
                     <fa-icon icon="sign-in-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.join">Join Tournament</span>
                 </button>
