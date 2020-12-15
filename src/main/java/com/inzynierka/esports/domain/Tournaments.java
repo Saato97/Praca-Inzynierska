@@ -61,6 +61,9 @@ public class Tournaments implements Serializable {
     @Column(name = "tournament_logo_content_type")
     private String tournamentLogoContentType;
 
+    @Column(name = "status")
+    private String status;
+
     @OneToMany(mappedBy = "tournaments")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     private Set<Teams> teams = new HashSet<>();
@@ -186,6 +189,19 @@ public class Tournaments implements Serializable {
         this.tournamentLogoContentType = tournamentLogoContentType;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public Tournaments status(String status) {
+        this.status = status;
+        return this;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Set<Teams> getTeams() {
         return teams;
     }
@@ -279,6 +295,7 @@ public class Tournaments implements Serializable {
             ", startDate='" + getStartDate() + "'" +
             ", tournamentLogo='" + getTournamentLogo() + "'" +
             ", tournamentLogoContentType='" + getTournamentLogoContentType() + "'" +
+            ", status='" + getStatus() + "'" +
             "}";
     }
 }

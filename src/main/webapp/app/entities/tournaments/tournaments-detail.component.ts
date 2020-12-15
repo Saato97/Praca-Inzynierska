@@ -15,6 +15,8 @@ import { TeamsService } from '../teams/teams.service';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
 import { IMatches } from 'app/shared/model/matches.model';
+import { TournamentsService } from './tournaments.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'jhi-tournaments-detail',
@@ -33,6 +35,8 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
   page: number;
   pageM: number;
   round: number;
+  status: string;
+  statusTranslated: string;
   private ngUnsubscribe = new Subject();
   predicate: string;
   ascending: boolean;
@@ -45,6 +49,8 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
     protected activatedRoute: ActivatedRoute,
     protected accountService: AccountService,
     protected applicationUsersService: ApplicationUsersService,
+    protected tournamentsService: TournamentsService,
+    protected translateService: TranslateService,
     protected userService: UserService,
     protected alertService: JhiAlertService,
     protected parseLinks: JhiParseLinks,
@@ -57,6 +63,8 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
     this.page = 0;
     this.pageM = 0;
     this.round = 0;
+    this.status = '';
+    this.statusTranslated = '';
     this.links = {
       last: 0,
     };
@@ -70,7 +78,8 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
     if (this.tournaments?.startDate?.isAfter(moment())) {
       this.showAlert('esportsApp.tournaments.startError');
     } else {
-      // do something
+      this.tournaments!.status = 'started';
+      this.tournamentsService.update(this.tournaments!).subscribe();
       this.tournamentStarted = true;
     }
   }
@@ -99,7 +108,12 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ tournaments }) => (this.tournaments = tournaments));
+    this.activatedRoute.data.subscribe(({ tournaments }) => {
+      this.tournaments = tournaments;
+      if (this.tournaments?.status === 'started') {
+        this.tournamentStarted = true;
+      }
+    });
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -116,6 +130,7 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
       });
     this.loadTeams();
     this.registerChangeInTeams();
+    this.translateStatus();
   }
 
   ngOnDestroy(): void {
@@ -185,6 +200,14 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
         this.alertService.get()
       )
     );
+  }
+
+  translateStatus(): void {
+    const status = this.tournaments?.status!;
+    if (status == null || status === 'created')
+      this.statusTranslated = this.translateService.instant('esportsApp.tournaments.detail.statusNotStarted');
+    else if (status === 'started') this.statusTranslated = this.translateService.instant('esportsApp.tournaments.detail.statusStarted');
+    else if (status === 'ended') this.statusTranslated = this.translateService.instant('esportsApp.tournaments.detail.statusEnded');
   }
 
   openFile(contentType = '', base64String: string): void {

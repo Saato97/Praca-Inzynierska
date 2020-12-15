@@ -18,6 +18,10 @@
             <ng-template ngbNavContent>
                 <ul class="list-group">
                     <li class="list-group-item d-flex flex-column">
+                        <p class="mb-1" jhiTranslate="esportsApp.tournaments.status">Status</p>
+                        <h5 class="mb-1">{{ statusTranslated }}</h5>
+                    </li>
+                    <li class="list-group-item d-flex flex-column">
                         <p class="mb-1" jhiTranslate="esportsApp.tournaments.currentParticipants">Participants</p>
                         <h5 class="mb-1">{{ tournaments.currentParticipants }} / {{ tournaments.maxParticipants }}</h5>
                     </li>

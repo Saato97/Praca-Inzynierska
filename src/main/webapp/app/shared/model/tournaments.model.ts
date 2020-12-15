@@ -14,6 +14,7 @@ export interface ITournaments {
   startDate?: Moment;
   tournamentLogoContentType?: string;
   tournamentLogo?: any;
+  status?: string;
   teams?: ITeams[];
   matches?: IMatches[];
   organizers?: IOrganizers;
@@ -30,6 +31,7 @@ export class Tournaments implements ITournaments {
     public startDate?: Moment,
     public tournamentLogoContentType?: string,
     public tournamentLogo?: any,
+    public status?: string,
     public teams?: ITeams[],
     public matches?: IMatches[],
     public organizers?: IOrganizers

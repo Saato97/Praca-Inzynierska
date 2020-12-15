@@ -56,6 +56,7 @@
                         <th scope="col"  jhiSortBy="currentParticipants"><span jhiTranslate="esportsApp.tournaments.currentParticipants">Current Participants</span> <fa-icon icon="sort"></fa-icon></th>
                         <th scope="col"  jhiSortBy="startDate"><span jhiTranslate="esportsApp.tournaments.startDate">Start Date</span> <fa-icon icon="sort"></fa-icon></th>
                         <th scope="col"  jhiSortBy="tournamentLogo"><span jhiTranslate="esportsApp.tournaments.tournamentLogo">Tournament Logo</span> <fa-icon icon="sort"></fa-icon></th>
+                        <th scope="col"  jhiSortBy="status"><span jhiTranslate="esportsApp.tournaments.status">Status</span> <fa-icon icon="sort"></fa-icon></th>
                         <th scope="col"  jhiSortBy="organizers.id"><span jhiTranslate="esportsApp.tournaments.organizers">Organizers</span> <fa-icon icon="sort"></fa-icon></th>
                         <th scope="col"></th>
                     </tr>
@@ -74,6 +75,7 @@
                                 <img [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" style="max-height: 30px;" alt="tournaments image"/>
                             </a>
                         </td>
+                        <td>{{ tournaments.status }}</td>
                         <td>
                             <div *ngIf="tournaments.organizers">
                                 <a [routerLink]="['/organizers', tournaments.organizers?.id, 'view']" >{{ tournaments.organizers?.email }}</a>
