@@ -75,7 +75,7 @@ export const organizersRoute: Routes = [
       organizers: OrganizersResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'esportsApp.organizers.home.title',
     },
     canActivate: [UserRouteAccessService],

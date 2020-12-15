@@ -75,7 +75,7 @@ export const teamsRoute: Routes = [
       teams: TeamsResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'esportsApp.teams.home.title',
     },
     canActivate: [UserRouteAccessService],
