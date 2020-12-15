@@ -128,6 +128,7 @@ public class ApplicationUsersResource {
         Optional<ApplicationUsers> applicationUsers = applicationUsersRepository.findById(appUserId);
         Set<Teams> teams = applicationUsers.get().getTeams();
         Boolean[] participant = {false};
+        log.debug("TEAMS: "+teams);
         teams.stream().forEach(t -> {
             if (t.getTournaments().getId().equals(tournamentId)) {
                 participant[0] = true;

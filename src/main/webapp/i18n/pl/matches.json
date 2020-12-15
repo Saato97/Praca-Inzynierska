@@ -2,19 +2,19 @@
   "esportsApp": {
     "matches": {
       "home": {
-        "title": "Matches",
-        "createLabel": "Dodaj Matches",
-        "createOrEditLabel": "Dodaj lub edytuj: Matches",
-        "notFound": "No Matches found"
+        "title": "Mecze",
+        "createLabel": "Dodaj Mecz",
+        "createOrEditLabel": "Dodaj lub edytuj Mecz",
+        "notFound": "Nie znaleziono meczy"
       },
-      "created": "Utworzono nowy obiekt typu Matches z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Matches z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Matches z identyfikatorem {{ param }}",
+      "created": "Utworzono nowy obiekt typu Mecz z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Mecz z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Mecz z identyfikatorem {{ param }}",
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Matches {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć Mecz {{ id }}?"
       },
       "detail": {
-        "title": "Matches"
+        "title": "Mecz"
       },
       "startDate": "Date rozpoczęcia",
       "teamA": "Drużyna A",

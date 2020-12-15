@@ -2,7 +2,7 @@
   "user-profile": {
     "title": "My Profile",
     "myTournaments": "My Tournaments",
-    "myMatches": "My Matches",
+    "myMatches": "My upcoming matches",
     "tabs": {
       "player": "Player",
       "organizer": "Organizer"

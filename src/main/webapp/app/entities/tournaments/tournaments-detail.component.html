@@ -70,7 +70,55 @@
             <li [ngbNavItem]="3">
                 <a ngbNavLink jhiTranslate="esportsApp.tournaments.detail.bracket">Bracket</a>
                 <ng-template ngbNavContent>
-                    <h2 class="text-center" jhiTranslate="esportsApp.tournaments.detail.noBracket">Bracket is currently unavailable</h2>
+                    <h3 *ngIf="!tournamentStarted" class="text-center" jhiTranslate="esportsApp.tournaments.detail.noBracket">Bracket is currently unavailable</h3>
+                    <div *ngIf="tournamentStarted">
+                        <div class="alert alert-warning" id="no-result" *ngIf="matches?.length === 0">
+                            <span jhiTranslate="esportsApp.matches.home.notFound">No matches found</span>
+                        </div>
+                        <h3>Round: {{ round }}</h3>
+                        <div class="table-responsive" id="entities" *ngIf="matches && matches.length > 0">
+                            <table class="table table-striped" aria-describedby="page-heading">
+                                <thead>
+                                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+                                        <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                                        <th scope="col"  jhiSortBy="startDate"><span jhiTranslate="esportsApp.matches.startDate">Start Date</span> <fa-icon icon="sort"></fa-icon></th>
+                                        <th scope="col"  jhiSortBy="teamA"><span jhiTranslate="esportsApp.matches.teamA">Team A</span> <fa-icon icon="sort"></fa-icon></th>
+                                        <th scope="col"  jhiSortBy="teamB"><span jhiTranslate="esportsApp.matches.teamB">Team B</span> <fa-icon icon="sort"></fa-icon></th>
+                                        <th scope="col"  jhiSortBy="winner"><span jhiTranslate="esportsApp.matches.winner">Winner</span> <fa-icon icon="sort"></fa-icon></th>
+                                        <th scope="col"  jhiSortBy="matchUrl"><span jhiTranslate="esportsApp.matches.matchUrl">Match Url</span> <fa-icon icon="sort"></fa-icon></th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody infinite-scroll (scrolled)="loadPageM(pageM + 1)" [infiniteScrollDisabled]="pageM >= links['last']" [infiniteScrollDistance]="0">
+                                    <tr *ngFor="let matches of matches ;trackBy: trackIdM">
+                                        <td><a [routerLink]="['/matches', matches.id, 'view']">{{ matches.id }}</a></td>
+                                        <td>{{ matches.startDate | date:'dd/MM/yyyy HH:mm' }}</td>
+                                        <td>{{ matches.teamA }}</td>
+                                        <td>{{ matches.teamB }}</td>
+                                        <td>{{ matches.winner }}</td>
+                                        <td>{{ matches.matchUrl }}</td>
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <button type="submit"
+                                                        [routerLink]="['/matches', matches.id, 'view']"
+                                                        class="btn btn-info btn-sm">
+                                                    <fa-icon icon="eye"></fa-icon>
+                                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                                </button>
+                    
+                                                <button *ngIf="this.tournaments?.organizers?.applicationUsers?.id === this.user?.id" type="submit"
+                                                        [routerLink]="['/matches', matches.id, 'edit']"
+                                                        class="btn btn-primary btn-sm">
+                                                    <fa-icon icon="pencil-alt"></fa-icon>
+                                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </ng-template>
             </li>
 
@@ -100,7 +148,7 @@
                 </button>
             </div>
 
-            <div *ngIf="this.tournaments?.organizers?.applicationUsers?.id === this.user?.id" class="edit-btn">
+            <div *ngIf="this.tournaments?.organizers?.applicationUsers?.id === this.user?.id && !tournamentStarted" class="edit-btn">
                 <button type="button" [routerLink]="['/tournaments', tournaments.id, 'edit']" class="btn btn-primary btn-lg">
                     <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
                 </button>

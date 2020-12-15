@@ -75,7 +75,7 @@ export const matchesRoute: Routes = [
       matches: MatchesResolve,
     },
     data: {
-      authorities: [Authority.USER],
+      authorities: [Authority.ADMIN],
       pageTitle: 'esportsApp.matches.home.title',
     },
     canActivate: [UserRouteAccessService],

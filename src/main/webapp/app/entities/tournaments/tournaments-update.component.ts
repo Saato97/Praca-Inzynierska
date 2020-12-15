@@ -128,6 +128,7 @@ export class TournamentsUpdateComponent implements OnInit, OnDestroy {
   save(): void {
     this.isSaving = true;
     this.tournaments = this.createFromForm();
+    if (this.tournaments.currentParticipants === null) this.tournaments.currentParticipants = 0;
     if (this.tournaments.id !== undefined) {
       this.subscribeToSaveResponse(this.tournamentsService.update(this.tournaments));
     } else {

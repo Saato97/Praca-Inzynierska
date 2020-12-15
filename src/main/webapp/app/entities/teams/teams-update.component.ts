@@ -120,9 +120,9 @@ export class TeamsUpdateComponent implements OnInit {
     this.isSaving = true;
     const teams = this.createFromForm();
     if (teams.id !== undefined && teams.id !== null) {
-      this.subscribeToSaveResponse(this.teamsService.update(teams));
+      this.subscribeToSaveResponseUpdate(this.teamsService.update(teams));
     } else {
-      this.subscribeToSaveResponse(this.teamsService.create(teams));
+      this.subscribeToSaveResponseCreate(this.teamsService.create(teams));
     }
   }
 
@@ -140,14 +140,27 @@ export class TeamsUpdateComponent implements OnInit {
     };
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<ITeams>>): void {
+  protected subscribeToSaveResponseCreate(result: Observable<HttpResponse<ITeams>>): void {
     result.subscribe(
-      () => this.onSaveSuccess(),
+      () => this.onSaveSuccessCreate(),
       () => this.onSaveError()
     );
   }
 
-  protected onSaveSuccess(): void {
+  protected subscribeToSaveResponseUpdate(result: Observable<HttpResponse<ITeams>>): void {
+    result.subscribe(
+      () => this.onSaveSuccessUpdate(),
+      () => this.onSaveError()
+    );
+  }
+
+  protected onSaveSuccessCreate(): void {
+    this.tournament.currentParticipants!++;
+    this.tournamentsService.update(this.tournament).subscribe();
+    this.isSaving = false;
+    this.previousState();
+  }
+  protected onSaveSuccessUpdate(): void {
     this.isSaving = false;
     this.previousState();
   }
