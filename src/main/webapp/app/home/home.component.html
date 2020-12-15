@@ -6,8 +6,8 @@
                 <br>
                 <div *ngSwitchCase="true">
                     <h2>
-                        <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message"
-                        [translateValues]="{ username: account.login }">Welcome "{{ account.login }}"! Join one of the tournaments and win amazing prizes today!</span>
+                        <span id="home-logged-message" *ngIf="appUser" jhiTranslate="home.logged.message"
+                        [translateValues]="{ username: appUser.username }">Welcome "{{ appUser.username }}"! Join one of the tournaments and win amazing prizes today!</span>
                     </h2>
                     <br>
                     <a routerLink="/tournaments" class="btn btn-primary btn-lg" role="button" jhiTranslate="home.logged.tournaments">Browse tournaments</a>

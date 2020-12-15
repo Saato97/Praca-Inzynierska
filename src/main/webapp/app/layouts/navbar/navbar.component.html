@@ -5,11 +5,11 @@
     </a>
     <div [ngSwitch]="isAuthenticated()">
         <div *ngSwitchCase="true" class="navbar-nav">
-            <span *ngIf="account" class="nav-item">
+            <span *ngIf="appUser" class="nav-item">
                 <span>
                     <fa-icon icon="angle-right"></fa-icon>
                     <strong>
-                    <span jhiTranslate="global.loggedAs" [translateValues]="{ username: account.login }">Logged As: {{account.login}}</span>
+                    <span jhiTranslate="global.loggedAs" [translateValues]="{ username: appUser.username }">Logged As: {{ appUser.username }}</span>
                     </strong>
                 </span>
             </span>

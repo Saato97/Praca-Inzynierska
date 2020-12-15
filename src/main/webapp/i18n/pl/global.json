@@ -9,12 +9,11 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Encje",
-        "applicationUsers": "Użytkownicy",
+        "applicationUsers": "Użytkownicy Aplikacji",
         "organizers": "Organizatorzy",
         "tournaments": "Turnieje",
         "teams": "Drużyny",
         "matches": "Mecze",
-        "applicationUsers": "Application Users",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -43,7 +42,9 @@
     },
     "form": {
       "username.label": "Nazwa użytkownika",
-      "username.placeholder": "Twój login",
+      "username.placeholder": "Twoja nazwa użytkownika",
+      "login.label": "Login",
+      "login.placeholder": "Twój login",
       "currentpassword.label": "Aktualne hasło",
       "currentpassword.placeholder": "Aktualne hasło",
       "newpassword.label": "Nowe hasło",
@@ -84,6 +85,10 @@
           "invalid": "Twój email jest błędny.",
           "minlength": "Twój email musi mieć przynajmniej 5 znaków",
           "maxlength": "Twój email nie może być dłuższy niż 50 znaków"
+        },
+        "username": {
+          "required": "Twoja nazwa użytkownika jest wymagana.",
+          "minlength": "Twoja nazwa użytkownika musi mieć przynajmniej 6 znaków."
         }
       }
     },

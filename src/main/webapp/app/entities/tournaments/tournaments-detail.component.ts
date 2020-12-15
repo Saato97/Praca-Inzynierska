@@ -14,6 +14,7 @@ import { ITeams } from 'app/shared/model/teams.model';
 import { TeamsService } from '../teams/teams.service';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import * as moment from 'moment';
+import { IMatches } from 'app/shared/model/matches.model';
 
 @Component({
   selector: 'jhi-tournaments-detail',
@@ -24,15 +25,19 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
   tournaments: ITournaments | null = null;
   eventSubscriber?: Subscription;
   teams: ITeams[];
+  matches: IMatches[];
   user!: IUser;
   active = 1;
   itemsPerPage: number;
   links: any;
   page: number;
+  pageM: number;
+  round: number;
   private ngUnsubscribe = new Subject();
   predicate: string;
   ascending: boolean;
   participant: boolean;
+  tournamentStarted: boolean;
 
   constructor(
     protected dataUtils: JhiDataUtils,
@@ -47,14 +52,18 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
     protected eventManager: JhiEventManager
   ) {
     this.teams = [];
+    this.matches = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.page = 0;
+    this.pageM = 0;
+    this.round = 0;
     this.links = {
       last: 0,
     };
     this.predicate = 'id';
     this.ascending = true;
     this.participant = false;
+    this.tournamentStarted = false;
   }
 
   startTournament(): void {
@@ -62,6 +71,7 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
       this.showAlert('esportsApp.tournaments.startError');
     } else {
       // do something
+      this.tournamentStarted = true;
     }
   }
 
@@ -119,6 +129,8 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
   reset(): void {
     this.page = 0;
     this.teams = [];
+    this.pageM = 0;
+    this.matches = [];
     this.loadTeams();
     this.checkParticipant(this.user.id);
   }
@@ -134,12 +146,24 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
       .subscribe((res: HttpResponse<ITeams[]>) => this.paginateTeams(res.body, res.headers));
   }
 
+  loadMatches(): void {}
+
   loadPage(page: number): void {
     this.page = page;
     this.loadTeams();
   }
 
+  loadPageM(page: number): void {
+    this.pageM = page;
+    this.loadMatches();
+  }
+
   trackId(index: number, item: ITeams): number {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    return item.id!;
+  }
+
+  trackIdM(index: number, item: IMatches): number {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
   }

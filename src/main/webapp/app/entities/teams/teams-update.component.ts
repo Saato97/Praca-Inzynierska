@@ -27,6 +27,8 @@ export class TeamsUpdateComponent implements OnInit {
   applicationusers: IApplicationUsers[] = [];
   tournaments: ITournaments[] = [];
   matches: IMatches[] = [];
+  tournamentId: number;
+  tournament!: ITournaments;
 
   editForm = this.fb.group({
     id: [],
@@ -49,7 +51,9 @@ export class TeamsUpdateComponent implements OnInit {
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) {}
+  ) {
+    this.tournamentId = 0;
+  }
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ teams }) => {
@@ -57,7 +61,13 @@ export class TeamsUpdateComponent implements OnInit {
 
       this.applicationUsersService.query().subscribe((res: HttpResponse<IApplicationUsers[]>) => (this.applicationusers = res.body || []));
 
-      this.tournamentsService.query().subscribe((res: HttpResponse<ITournaments[]>) => (this.tournaments = res.body || []));
+      this.tournamentsService.query().subscribe((res: HttpResponse<ITournaments[]>) => {
+        this.tournaments = res.body || [];
+        this.tournamentId = +this.activatedRoute.snapshot.paramMap.get('id')!;
+        this.tournamentsService.find(this.tournamentId).subscribe(tournament => {
+          if (tournament.body) this.tournament = tournament.body;
+        });
+      });
 
       this.matchesService.query().subscribe((res: HttpResponse<IMatches[]>) => (this.matches = res.body || []));
     });
@@ -109,10 +119,10 @@ export class TeamsUpdateComponent implements OnInit {
   save(): void {
     this.isSaving = true;
     const teams = this.createFromForm();
-    if (teams.id !== undefined) {
-      this.subscribeToSaveResponse(this.teamsService.update(teams));
+    if (teams.id !== undefined && teams.id !== null) {
+      this.subscribeToSaveResponseUpdate(this.teamsService.update(teams));
     } else {
-      this.subscribeToSaveResponse(this.teamsService.create(teams));
+      this.subscribeToSaveResponseCreate(this.teamsService.create(teams));
     }
   }
 
@@ -125,19 +135,32 @@ export class TeamsUpdateComponent implements OnInit {
       teamLogoContentType: this.editForm.get(['teamLogoContentType'])!.value,
       teamLogo: this.editForm.get(['teamLogo'])!.value,
       applicationUsers: this.editForm.get(['applicationUsers'])!.value,
-      tournaments: this.editForm.get(['tournaments'])!.value,
+      tournaments: this.tournament,
       matches: this.editForm.get(['matches'])!.value,
     };
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<ITeams>>): void {
+  protected subscribeToSaveResponseCreate(result: Observable<HttpResponse<ITeams>>): void {
     result.subscribe(
-      () => this.onSaveSuccess(),
+      () => this.onSaveSuccessCreate(),
       () => this.onSaveError()
     );
   }
 
-  protected onSaveSuccess(): void {
+  protected subscribeToSaveResponseUpdate(result: Observable<HttpResponse<ITeams>>): void {
+    result.subscribe(
+      () => this.onSaveSuccessUpdate(),
+      () => this.onSaveError()
+    );
+  }
+
+  protected onSaveSuccessCreate(): void {
+    this.tournament.currentParticipants!++;
+    this.tournamentsService.update(this.tournament).subscribe();
+    this.isSaving = false;
+    this.previousState();
+  }
+  protected onSaveSuccessUpdate(): void {
     this.isSaving = false;
     this.previousState();
   }

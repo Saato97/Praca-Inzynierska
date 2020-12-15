@@ -92,7 +92,7 @@ public class UserService {
             });
     }
 
-    public User registerUser(UserDTO userDTO, String password) {
+    public User registerUser(UserDTO userDTO, String password, String username) {
         userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
             boolean removed = removeNonActivatedUser(existingUser);
             if (!removed) {
@@ -130,6 +130,7 @@ public class UserService {
 
         ApplicationUsers newApplicationUser = new ApplicationUsers();
         newApplicationUser.setInternalUser(newUser);
+        newApplicationUser.setUsername(username);
         newApplicationUser.setId(newUser.getId());
         newApplicationUser.setLevel(1L);
         newApplicationUser.setPoints(0L);

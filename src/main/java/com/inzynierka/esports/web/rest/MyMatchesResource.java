@@ -61,7 +61,7 @@ public class MyMatchesResource {
         Teams[] teamArray = appUserTeams.stream().toArray(n -> new Teams[n]);
         List <Matches> myMatches = new ArrayList<Matches>();
         for (Teams team : teamArray) {
-            myMatches.add(team.getMatches());
+            if (team.getMatches() != null) myMatches.add(team.getMatches());
         }
         myMatches.sort(Comparator.comparing(Matches::getStartDate));
         Page<Matches> page = new PageImpl<>(myMatches);

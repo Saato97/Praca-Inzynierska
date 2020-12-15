@@ -11,7 +11,12 @@ import { LoginService } from 'app/core/login/login.service';
 import { ProfileService } from 'app/layouts/profiles/profile.service';
 import { Authority } from 'app/shared/constants/authority.constants';
 import { Account } from 'app/core/user/account.model';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { UserService } from 'app/core/user/user.service';
+import { ApplicationUsersService } from 'app/entities/application-users/application-users.service';
+import { takeUntil } from 'rxjs/operators';
+import { IUser } from 'app/core/user/user.model';
+import { IApplicationUsers } from 'app/shared/model/application-users.model';
 
 @Component({
   selector: 'jhi-navbar',
@@ -26,6 +31,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
   version: string;
   account: Account | null = null;
   authSubscription?: Subscription;
+  user!: IUser;
+  appUser!: IApplicationUsers;
+  private ngUnsubscribe = new Subject();
 
   constructor(
     private loginService: LoginService,
@@ -34,13 +42,33 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private accountService: AccountService,
     private loginModalService: LoginModalService,
     private profileService: ProfileService,
+    protected applicationUsersService: ApplicationUsersService,
+    protected userService: UserService,
     private router: Router
   ) {
     this.version = VERSION ? (VERSION.toLowerCase().startsWith('v') ? VERSION : 'v' + VERSION) : '';
   }
 
   ngOnInit(): void {
-    this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
+    this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => {
+      this.account = account;
+      if (account) {
+        this.userService
+          .find(account.login)
+          .pipe(takeUntil(this.ngUnsubscribe))
+          .subscribe(user => {
+            this.user = user;
+            this.applicationUsersService
+              .find(this.user.id)
+              .pipe(takeUntil(this.ngUnsubscribe))
+              .subscribe(res => {
+                if (res.body) {
+                  this.appUser = res.body;
+                }
+              });
+          });
+      }
+    });
 
     this.profileService.getProfileInfo().subscribe(profileInfo => {
       this.inProduction = profileInfo.inProduction;
