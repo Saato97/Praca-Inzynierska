@@ -7,9 +7,10 @@ import { TeamsDetailComponent } from './teams-detail.component';
 import { TeamsUpdateComponent } from './teams-update.component';
 import { TeamsDeleteDialogComponent } from './teams-delete-dialog.component';
 import { teamsRoute } from './teams.route';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
-  imports: [EsportsAppSharedModule, RouterModule.forChild(teamsRoute)],
+  imports: [EsportsAppSharedModule, RouterModule.forChild(teamsRoute), NgSelectModule],
   declarations: [TeamsComponent, TeamsDetailComponent, TeamsUpdateComponent, TeamsDeleteDialogComponent],
   entryComponents: [TeamsDeleteDialogComponent],
 })

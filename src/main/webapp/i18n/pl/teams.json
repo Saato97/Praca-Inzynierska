@@ -4,7 +4,7 @@
       "home": {
         "title": "Drużyny",
         "createLabel": "Dodaj Drużynę",
-        "createOrEditLabel": "Dodaj lub edytuj drużynę",
+        "createOrEditLabel": "Dodaj Drużynę",
         "notFound": "No Teams found"
       },
       "created": "Utworzono nowy obiekt typu Drużyna z identyfikatorem {{ param }}",
@@ -19,7 +19,8 @@
       "teamName": "Nazwa drużyny",
       "captainName": "Nazwa kapitana",
       "teamLogo": "Logo drużyny",
-      "applicationUsers": "Wybierz siebie oraz innych członków drużyny",
+      "applicationUsers": "Wybierz wszystkich 5 członków drużyny",
+      "maxUsers": "Wszyscy członkowie drużyny zostali wybrani",
       "tournaments": "Turniej",
       "matches": "Mecz"
     }

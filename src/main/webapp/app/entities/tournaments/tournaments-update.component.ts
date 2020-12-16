@@ -39,6 +39,7 @@ export class TournamentsUpdateComponent implements OnInit, OnDestroy {
     startDate: [null, [Validators.required]],
     tournamentLogo: [],
     tournamentLogoContentType: [],
+    status: [],
     organizers: [],
   });
 
@@ -167,6 +168,7 @@ export class TournamentsUpdateComponent implements OnInit, OnDestroy {
       startDate: this.editForm.get(['startDate'])!.value ? moment(this.editForm.get(['startDate'])!.value, DATE_TIME_FORMAT) : undefined,
       tournamentLogoContentType: this.editForm.get(['tournamentLogoContentType'])!.value,
       tournamentLogo: this.editForm.get(['tournamentLogo'])!.value,
+      status: 'created',
       organizers: this.editForm.get(['organizers'])!.value,
     };
   }

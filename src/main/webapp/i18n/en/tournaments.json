@@ -23,6 +23,9 @@
         "email": "Email",
         "discord": "Discord",
         "captain": "Captain:",
+        "statusNotStarted": "This tournament has not started yet",
+        "statusStarted": "Ongoing",
+        "statusEnded": "Ended",
         "teamsNotFound": "No Teams found"
       },
       "name": "Name",
@@ -34,6 +37,7 @@
       "tournamentLogo": "Tournament Logo",
       "teams": "Teams",
       "matches": "Matches",
+      "status": "Status",
       "organizers": "Organizer",
       "startError": "You cannot start the tournament before its Start Date!",
       "joinDateError": "You cannot join the tournament after its Start Date!",

@@ -56,6 +56,9 @@ public class TournamentsResourceIT {
     private static final String DEFAULT_TOURNAMENT_LOGO_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_TOURNAMENT_LOGO_CONTENT_TYPE = "image/png";
 
+    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBB";
+
     @Autowired
     private TournamentsRepository tournamentsRepository;
 
@@ -82,7 +85,8 @@ public class TournamentsResourceIT {
             .currentParticipants(DEFAULT_CURRENT_PARTICIPANTS)
             .startDate(DEFAULT_START_DATE)
             .tournamentLogo(DEFAULT_TOURNAMENT_LOGO)
-            .tournamentLogoContentType(DEFAULT_TOURNAMENT_LOGO_CONTENT_TYPE);
+            .tournamentLogoContentType(DEFAULT_TOURNAMENT_LOGO_CONTENT_TYPE)
+            .status(DEFAULT_STATUS);
         return tournaments;
     }
     /**
@@ -100,7 +104,8 @@ public class TournamentsResourceIT {
             .currentParticipants(UPDATED_CURRENT_PARTICIPANTS)
             .startDate(UPDATED_START_DATE)
             .tournamentLogo(UPDATED_TOURNAMENT_LOGO)
-            .tournamentLogoContentType(UPDATED_TOURNAMENT_LOGO_CONTENT_TYPE);
+            .tournamentLogoContentType(UPDATED_TOURNAMENT_LOGO_CONTENT_TYPE)
+            .status(UPDATED_STATUS);
         return tournaments;
     }
 
@@ -131,6 +136,7 @@ public class TournamentsResourceIT {
         assertThat(testTournaments.getStartDate()).isEqualTo(DEFAULT_START_DATE);
         assertThat(testTournaments.getTournamentLogo()).isEqualTo(DEFAULT_TOURNAMENT_LOGO);
         assertThat(testTournaments.getTournamentLogoContentType()).isEqualTo(DEFAULT_TOURNAMENT_LOGO_CONTENT_TYPE);
+        assertThat(testTournaments.getStatus()).isEqualTo(DEFAULT_STATUS);
     }
 
     @Test
@@ -228,7 +234,8 @@ public class TournamentsResourceIT {
             .andExpect(jsonPath("$.[*].currentParticipants").value(hasItem(DEFAULT_CURRENT_PARTICIPANTS)))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].tournamentLogoContentType").value(hasItem(DEFAULT_TOURNAMENT_LOGO_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].tournamentLogo").value(hasItem(Base64Utils.encodeToString(DEFAULT_TOURNAMENT_LOGO))));
+            .andExpect(jsonPath("$.[*].tournamentLogo").value(hasItem(Base64Utils.encodeToString(DEFAULT_TOURNAMENT_LOGO))))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
     }
     
     @Test
@@ -249,7 +256,8 @@ public class TournamentsResourceIT {
             .andExpect(jsonPath("$.currentParticipants").value(DEFAULT_CURRENT_PARTICIPANTS))
             .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()))
             .andExpect(jsonPath("$.tournamentLogoContentType").value(DEFAULT_TOURNAMENT_LOGO_CONTENT_TYPE))
-            .andExpect(jsonPath("$.tournamentLogo").value(Base64Utils.encodeToString(DEFAULT_TOURNAMENT_LOGO)));
+            .andExpect(jsonPath("$.tournamentLogo").value(Base64Utils.encodeToString(DEFAULT_TOURNAMENT_LOGO)))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS));
     }
     @Test
     @Transactional
@@ -279,7 +287,8 @@ public class TournamentsResourceIT {
             .currentParticipants(UPDATED_CURRENT_PARTICIPANTS)
             .startDate(UPDATED_START_DATE)
             .tournamentLogo(UPDATED_TOURNAMENT_LOGO)
-            .tournamentLogoContentType(UPDATED_TOURNAMENT_LOGO_CONTENT_TYPE);
+            .tournamentLogoContentType(UPDATED_TOURNAMENT_LOGO_CONTENT_TYPE)
+            .status(UPDATED_STATUS);
 
         restTournamentsMockMvc.perform(put("/api/tournaments")
             .contentType(MediaType.APPLICATION_JSON)
@@ -298,6 +307,7 @@ public class TournamentsResourceIT {
         assertThat(testTournaments.getStartDate()).isEqualTo(UPDATED_START_DATE);
         assertThat(testTournaments.getTournamentLogo()).isEqualTo(UPDATED_TOURNAMENT_LOGO);
         assertThat(testTournaments.getTournamentLogoContentType()).isEqualTo(UPDATED_TOURNAMENT_LOGO_CONTENT_TYPE);
+        assertThat(testTournaments.getStatus()).isEqualTo(UPDATED_STATUS);
     }
 
     @Test

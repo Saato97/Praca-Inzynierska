@@ -1,9 +1,9 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, OnDestroy } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { JhiDataUtils, JhiFileLoadError, JhiEventManager, JhiEventWithContent } from 'ng-jhipster';
 
 import { ITeams, Teams } from 'app/shared/model/teams.model';
@@ -15,16 +15,20 @@ import { ITournaments } from 'app/shared/model/tournaments.model';
 import { TournamentsService } from 'app/entities/tournaments/tournaments.service';
 import { IMatches } from 'app/shared/model/matches.model';
 import { MatchesService } from 'app/entities/matches/matches.service';
+import { takeUntil } from 'rxjs/operators';
 
 type SelectableEntity = IApplicationUsers | ITournaments | IMatches;
 
 @Component({
   selector: 'jhi-teams-update',
   templateUrl: './teams-update.component.html',
+  styleUrls: ['teams-update-component.scss'],
 })
-export class TeamsUpdateComponent implements OnInit {
+export class TeamsUpdateComponent implements OnInit, OnDestroy {
   isSaving = false;
+  private ngUnsubscribe = new Subject();
   applicationusers: IApplicationUsers[] = [];
+  selectedUsers: IApplicationUsers[] = [];
   tournaments: ITournaments[] = [];
   matches: IMatches[] = [];
   tournamentId: number;
@@ -59,18 +63,35 @@ export class TeamsUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ teams }) => {
       if (teams) this.updateForm(teams);
 
-      this.applicationUsersService.query().subscribe((res: HttpResponse<IApplicationUsers[]>) => (this.applicationusers = res.body || []));
+      this.applicationUsersService
+        .query()
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((res: HttpResponse<IApplicationUsers[]>) => (this.applicationusers = res.body || []));
 
-      this.tournamentsService.query().subscribe((res: HttpResponse<ITournaments[]>) => {
-        this.tournaments = res.body || [];
-        this.tournamentId = +this.activatedRoute.snapshot.paramMap.get('id')!;
-        this.tournamentsService.find(this.tournamentId).subscribe(tournament => {
-          if (tournament.body) this.tournament = tournament.body;
+      this.tournamentsService
+        .query()
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((res: HttpResponse<ITournaments[]>) => {
+          this.tournaments = res.body || [];
+          this.tournamentId = +this.activatedRoute.snapshot.paramMap.get('id')!;
+          this.tournamentsService
+            .find(this.tournamentId)
+            .pipe(takeUntil(this.ngUnsubscribe))
+            .subscribe(tournament => {
+              if (tournament.body) this.tournament = tournament.body;
+            });
         });
-      });
 
-      this.matchesService.query().subscribe((res: HttpResponse<IMatches[]>) => (this.matches = res.body || []));
+      this.matchesService
+        .query()
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((res: HttpResponse<IMatches[]>) => (this.matches = res.body || []));
     });
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   updateForm(teams: ITeams): void {
@@ -127,6 +148,7 @@ export class TeamsUpdateComponent implements OnInit {
   }
 
   private createFromForm(): ITeams {
+    if (this.tournament === undefined || this.tournament === null) this.tournament = this.editForm.get(['tournaments'])!.value;
     return {
       ...new Teams(),
       id: this.editForm.get(['id'])!.value,
@@ -134,7 +156,7 @@ export class TeamsUpdateComponent implements OnInit {
       captainName: this.editForm.get(['captainName'])!.value,
       teamLogoContentType: this.editForm.get(['teamLogoContentType'])!.value,
       teamLogo: this.editForm.get(['teamLogo'])!.value,
-      applicationUsers: this.editForm.get(['applicationUsers'])!.value,
+      applicationUsers: this.selectedUsers,
       tournaments: this.tournament,
       matches: this.editForm.get(['matches'])!.value,
     };
@@ -156,7 +178,7 @@ export class TeamsUpdateComponent implements OnInit {
 
   protected onSaveSuccessCreate(): void {
     this.tournament.currentParticipants!++;
-    this.tournamentsService.update(this.tournament).subscribe();
+    this.tournamentsService.update(this.tournament).pipe(takeUntil(this.ngUnsubscribe)).subscribe();
     this.isSaving = false;
     this.previousState();
   }

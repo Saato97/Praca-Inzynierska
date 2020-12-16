@@ -1,11 +1,11 @@
-id;name;game_type;description;max_participants;current_participants;start_date;tournament_logo;tournament_logo_content_type
-1;bus Intelligent hacking;CSGO;../fake-data/blob/hipster.txt;83628;34043;2020-11-22T23:00:36;../fake-data/blob/hipster.png;image/png
-2;Ergonomic Soft Salad Outdoors National;CSGO;../fake-data/blob/hipster.txt;76807;41424;2020-11-23T16:55:37;../fake-data/blob/hipster.png;image/png
-3;connect Pennsylvania;CSGO;../fake-data/blob/hipster.txt;46457;11264;2020-11-23T00:16:32;../fake-data/blob/hipster.png;image/png
-4;Gorgeous Steel Fish process improvement Jewelery;LOL;../fake-data/blob/hipster.txt;63540;81435;2020-11-23T18:59:25;../fake-data/blob/hipster.png;image/png
-5;Danish Krone turquoise;CSGO;../fake-data/blob/hipster.txt;2730;10224;2020-11-22T20:32:27;../fake-data/blob/hipster.png;image/png
-6;port North Dakota;CSGO;../fake-data/blob/hipster.txt;7560;50502;2020-11-23T11:36:20;../fake-data/blob/hipster.png;image/png
-7;Samoa synthesize action-items;CSGO;../fake-data/blob/hipster.txt;10505;2322;2020-11-23T02:43:16;../fake-data/blob/hipster.png;image/png
-8;Pre-emptive;LOL;../fake-data/blob/hipster.txt;38102;9660;2020-11-23T12:00:35;../fake-data/blob/hipster.png;image/png
-9;portals Metrics impactful;LOL;../fake-data/blob/hipster.txt;56089;61974;2020-11-22T21:09:23;../fake-data/blob/hipster.png;image/png
-10;back up fuchsia Knolls;LOL;../fake-data/blob/hipster.txt;51016;3896;2020-11-23T18:03:27;../fake-data/blob/hipster.png;image/png
+id;name;game_type;description;max_participants;current_participants;start_date;tournament_logo;tournament_logo_content_type;status
+1;bus Intelligent hacking;CSGO;../fake-data/blob/hipster.txt;83628;34043;2020-11-22T23:00:36;../fake-data/blob/hipster.png;image/png;Ergonomic Soft Salad Outdoors National
+2;Pants deliver;CSGO;../fake-data/blob/hipster.txt;74377;97807;2020-11-23T18:55:53;../fake-data/blob/hipster.png;image/png;24/7 wireless
+3;Fresh;LOL;../fake-data/blob/hipster.txt;542;74841;2020-11-23T12:10:11;../fake-data/blob/hipster.png;image/png;Jewelery CSS B2B
+4;azure;LOL;../fake-data/blob/hipster.txt;61929;66945;2020-11-23T15:03:09;../fake-data/blob/hipster.png;image/png;Streets
+5;Adaptive;CSGO;../fake-data/blob/hipster.txt;72121;27014;2020-11-23T06:20:35;../fake-data/blob/hipster.png;image/png;Handmade Timor-Leste Sleek
+6;Infrastructure input;LOL;../fake-data/blob/hipster.txt;55930;57811;2020-11-23T00:12:33;../fake-data/blob/hipster.png;image/png;Clothing
+7;Pre-emptive;LOL;../fake-data/blob/hipster.txt;38102;9660;2020-11-23T12:00:35;../fake-data/blob/hipster.png;image/png;portals Metrics impactful
+8;Views Home Loan Account;CSGO;../fake-data/blob/hipster.txt;91100;77695;2020-11-23T19:05:32;../fake-data/blob/hipster.png;image/png;RSS
+9;CSS Soft;LOL;../fake-data/blob/hipster.txt;8411;50226;2020-11-23T00:04:53;../fake-data/blob/hipster.png;image/png;synergize Mouse
+10;Forest;CSGO;../fake-data/blob/hipster.txt;23933;53305;2020-11-22T21:54:11;../fake-data/blob/hipster.png;image/png;Quality

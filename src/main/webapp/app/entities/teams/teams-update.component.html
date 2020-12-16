@@ -5,6 +5,7 @@
 
             <div>
                 <jhi-alert-error></jhi-alert-error>
+                <jhi-alert></jhi-alert>
 
                 <div class="form-group" [hidden]="!editForm.get('id')!.value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
@@ -52,13 +53,27 @@
                     <input type="hidden" class="form-control" name="teamLogoContentType" id="field_teamLogoContentType"
                            formControlName="teamLogoContentType" />
                 </div>
-
-                <div class="form-group">
-                    <label jhiTranslate="esportsApp.teams.applicationUsers" for="field_applicationUsers">Application Users</label>
-                    <select class="form-control" id="field_applicationUsers" multiple name="applicationUsers" formControlName="applicationUsers">
-                        <option [ngValue]="getSelected(editForm.get('applicationUsers')!.value, applicationUsersOption)" *ngFor="let applicationUsersOption of applicationusers; trackBy: trackById">{{ applicationUsersOption.username }}</option>
-                    </select>
+                
+                <div class="alert alert-success" *ngIf="selectedUsers.length === 5">
+                    <span jhiTranslate="esportsApp.teams.maxUsers">All team members were selected</span>
                 </div>
+
+                <label jhiTranslate="esportsApp.teams.applicationUsers">Select all 5 team members:</label>
+                <ng-select
+                    #select
+                    [items]="applicationusers"
+                    [multiple]="true"
+                    [maxSelectedItems]="5"
+                    bindLabel="username"
+                    [closeOnSelect]="false"
+                    [(ngModel)]="selectedUsers"
+                    [ngModelOptions]="{standalone: true}"
+                    class="appUserSelect rounded">
+                        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+                            <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" [ngModelOptions]="{standalone: true}"/> {{ item.username }}
+                        </ng-template>
+                </ng-select>
+                <br>
 
                 <div *jhiHasAnyAuthority="'ROLE_ADMIN'">
                     <div class="form-group">
@@ -84,7 +99,7 @@
                     <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
 
-                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving || selectedUsers.length !== 5" class="btn btn-primary">
                     <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

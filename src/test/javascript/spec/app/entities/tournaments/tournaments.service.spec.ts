@@ -25,7 +25,7 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new Tournaments(0, 'AAAAAAA', Games.LOL, 'AAAAAAA', 0, 0, currentDate, 'image/png', 'AAAAAAA');
+      elemDefault = new Tournaments(0, 'AAAAAAA', Games.LOL, 'AAAAAAA', 0, 0, currentDate, 'image/png', 'AAAAAAA', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -77,6 +77,7 @@ describe('Service Tests', () => {
             currentParticipants: 1,
             startDate: currentDate.format(DATE_TIME_FORMAT),
             tournamentLogo: 'BBBBBB',
+            status: 'BBBBBB',
           },
           elemDefault
         );
@@ -105,6 +106,7 @@ describe('Service Tests', () => {
             currentParticipants: 1,
             startDate: currentDate.format(DATE_TIME_FORMAT),
             tournamentLogo: 'BBBBBB',
+            status: 'BBBBBB',
           },
           elemDefault
         );
