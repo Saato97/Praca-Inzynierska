@@ -85,6 +85,7 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
   }
 
   joinTournament(): void {
+    this.checkParticipant(this.user.id);
     if (this.tournaments?.currentParticipants! < this.tournaments?.maxParticipants!) {
       if (this.tournaments?.startDate?.isAfter(moment())) {
         this.router.navigate(['/tournaments', this.tournaments.id, 'teams', 'new']);
@@ -101,6 +102,8 @@ export class TournamentsDetailComponent implements OnInit, OnDestroy {
         })
         .pipe(takeUntil(this.ngUnsubscribe))
         .subscribe(res => {
+          // eslint-disable-next-line no-console
+          console.log(res.body);
           if (res.body != null) this.participant = true;
           else this.participant = false;
         });

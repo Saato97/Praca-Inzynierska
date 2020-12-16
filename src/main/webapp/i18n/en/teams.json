@@ -4,7 +4,7 @@
       "home": {
         "title": "Teams",
         "createLabel": "Create a new Team",
-        "createOrEditLabel": "Create or edit a Team",
+        "createOrEditLabel": "Create a Team",
         "notFound": "No Teams found"
       },
       "created": "A new Team is created with identifier {{ param }}",
@@ -19,7 +19,8 @@
       "teamName": "Team Name",
       "captainName": "Captain Name",
       "teamLogo": "Team Logo",
-      "applicationUsers": "Choose yourself and other team members:",
+      "applicationUsers": "Select all 5 team members:",
+      "maxUsers": "All team members were selected",
       "tournaments": "Tournament",
       "matches": "Match"
     }
