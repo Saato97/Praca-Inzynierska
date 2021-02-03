@@ -29,13 +29,4 @@ public class MyMatchesResourceIT {
             .standaloneSetup(myMatchesResource)
             .build();
     }
-
-    /**
-     * Test loadMyMatches
-     */
-    @Test
-    public void testLoadMyMatches() throws Exception {
-        restMockMvc.perform(get("/api/my-matches/load-my-matches"))
-            .andExpect(status().isOk());
-    }
 }

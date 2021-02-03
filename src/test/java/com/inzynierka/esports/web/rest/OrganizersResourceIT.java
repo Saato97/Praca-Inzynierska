@@ -78,24 +78,6 @@ public class OrganizersResourceIT {
 
     @Test
     @Transactional
-    public void createOrganizers() throws Exception {
-        int databaseSizeBeforeCreate = organizersRepository.findAll().size();
-        // Create the Organizers
-        restOrganizersMockMvc.perform(post("/api/organizers")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(organizers)))
-            .andExpect(status().isCreated());
-
-        // Validate the Organizers in the database
-        List<Organizers> organizersList = organizersRepository.findAll();
-        assertThat(organizersList).hasSize(databaseSizeBeforeCreate + 1);
-        Organizers testOrganizers = organizersList.get(organizersList.size() - 1);
-        assertThat(testOrganizers.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testOrganizers.getDiscord()).isEqualTo(DEFAULT_DISCORD);
-    }
-
-    @Test
-    @Transactional
     public void createOrganizersWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = organizersRepository.findAll().size();
 

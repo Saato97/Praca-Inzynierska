@@ -36,6 +36,8 @@
                     <label class="form-control-label" jhiTranslate="esportsApp.tournaments.maxParticipants" for="field_maxParticipants">Max Participants</label>
                     <select class="form-control" name="maxParticipants" id="field_maxParticipants" formControlName="maxParticipants">
                         <option [ngValue]="null"></option>
+                        <option [ngValue]="2">2</option>
+                        <option [ngValue]="4">4</option>
                         <option [ngValue]="8">8</option>
                         <option [ngValue]="16">16</option>
                         <option [ngValue]="32">32</option>

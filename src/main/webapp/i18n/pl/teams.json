@@ -5,7 +5,7 @@
         "title": "Drużyny",
         "createLabel": "Dodaj Drużynę",
         "createOrEditLabel": "Dodaj Drużynę",
-        "notFound": "No Teams found"
+        "notFound": "Nie znaleziono drużyn"
       },
       "created": "Utworzono nowy obiekt typu Drużyna z identyfikatorem {{ param }}",
       "updated": "Uaktualniono obiekt typu Drużyna z identyfikatorem {{ param }}",
