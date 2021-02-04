@@ -1,0 +1,31 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [
+    {
+      "relationshipName": "tournaments",
+      "otherEntityName": "tournaments",
+      "relationshipType": "one-to-many",
+      "otherEntityRelationshipName": "game"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "teamSize",
+      "fieldType": "Integer"
+    }
+  ],
+  "changelogDate": "20210203211234",
+  "dto": "no",
+  "searchEngine": false,
+  "service": "no",
+  "entityTableName": "game",
+  "databaseType": "sql",
+  "readOnly": false,
+  "jpaMetamodelFiltering": false,
+  "pagination": "infinite-scroll"
+}

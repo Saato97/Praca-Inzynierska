@@ -93,27 +93,6 @@ public class ApplicationUsersResourceIT {
 
     @Test
     @Transactional
-    public void createApplicationUsers() throws Exception {
-        int databaseSizeBeforeCreate = applicationUsersRepository.findAll().size();
-        // Create the ApplicationUsers
-        restApplicationUsersMockMvc.perform(post("/api/application-users")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(applicationUsers)))
-            .andExpect(status().isCreated());
-
-        // Validate the ApplicationUsers in the database
-        List<ApplicationUsers> applicationUsersList = applicationUsersRepository.findAll();
-        assertThat(applicationUsersList).hasSize(databaseSizeBeforeCreate + 1);
-        ApplicationUsers testApplicationUsers = applicationUsersList.get(applicationUsersList.size() - 1);
-        assertThat(testApplicationUsers.getLevel()).isEqualTo(DEFAULT_LEVEL);
-        assertThat(testApplicationUsers.getPoints()).isEqualTo(DEFAULT_POINTS);
-        assertThat(testApplicationUsers.getUserLogo()).isEqualTo(DEFAULT_USER_LOGO);
-        assertThat(testApplicationUsers.getUserLogoContentType()).isEqualTo(DEFAULT_USER_LOGO_CONTENT_TYPE);
-        assertThat(testApplicationUsers.getUsername()).isEqualTo(DEFAULT_USERNAME);
-    }
-
-    @Test
-    @Transactional
     public void createApplicationUsersWithExistingId() throws Exception {
         int databaseSizeBeforeCreate = applicationUsersRepository.findAll().size();
 
@@ -131,83 +110,12 @@ public class ApplicationUsersResourceIT {
         assertThat(applicationUsersList).hasSize(databaseSizeBeforeCreate);
     }
 
-
-    @Test
-    @Transactional
-    public void getAllApplicationUsers() throws Exception {
-        // Initialize the database
-        applicationUsersRepository.saveAndFlush(applicationUsers);
-
-        // Get all the applicationUsersList
-        restApplicationUsersMockMvc.perform(get("/api/application-users?sort=id,desc"))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.[*].id").value(hasItem(applicationUsers.getId().intValue())))
-            .andExpect(jsonPath("$.[*].level").value(hasItem(DEFAULT_LEVEL.intValue())))
-            .andExpect(jsonPath("$.[*].points").value(hasItem(DEFAULT_POINTS.intValue())))
-            .andExpect(jsonPath("$.[*].userLogoContentType").value(hasItem(DEFAULT_USER_LOGO_CONTENT_TYPE)))
-            .andExpect(jsonPath("$.[*].userLogo").value(hasItem(Base64Utils.encodeToString(DEFAULT_USER_LOGO))))
-            .andExpect(jsonPath("$.[*].username").value(hasItem(DEFAULT_USERNAME)));
-    }
-    
-    @Test
-    @Transactional
-    public void getApplicationUsers() throws Exception {
-        // Initialize the database
-        applicationUsersRepository.saveAndFlush(applicationUsers);
-
-        // Get the applicationUsers
-        restApplicationUsersMockMvc.perform(get("/api/application-users/{id}", applicationUsers.getId()))
-            .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(jsonPath("$.id").value(applicationUsers.getId().intValue()))
-            .andExpect(jsonPath("$.level").value(DEFAULT_LEVEL.intValue()))
-            .andExpect(jsonPath("$.points").value(DEFAULT_POINTS.intValue()))
-            .andExpect(jsonPath("$.userLogoContentType").value(DEFAULT_USER_LOGO_CONTENT_TYPE))
-            .andExpect(jsonPath("$.userLogo").value(Base64Utils.encodeToString(DEFAULT_USER_LOGO)))
-            .andExpect(jsonPath("$.username").value(DEFAULT_USERNAME));
-    }
     @Test
     @Transactional
     public void getNonExistingApplicationUsers() throws Exception {
         // Get the applicationUsers
         restApplicationUsersMockMvc.perform(get("/api/application-users/{id}", Long.MAX_VALUE))
             .andExpect(status().isNotFound());
-    }
-
-    @Test
-    @Transactional
-    public void updateApplicationUsers() throws Exception {
-        // Initialize the database
-        applicationUsersRepository.saveAndFlush(applicationUsers);
-
-        int databaseSizeBeforeUpdate = applicationUsersRepository.findAll().size();
-
-        // Update the applicationUsers
-        ApplicationUsers updatedApplicationUsers = applicationUsersRepository.findById(applicationUsers.getId()).get();
-        // Disconnect from session so that the updates on updatedApplicationUsers are not directly saved in db
-        em.detach(updatedApplicationUsers);
-        updatedApplicationUsers
-            .level(UPDATED_LEVEL)
-            .points(UPDATED_POINTS)
-            .userLogo(UPDATED_USER_LOGO)
-            .userLogoContentType(UPDATED_USER_LOGO_CONTENT_TYPE)
-            .username(UPDATED_USERNAME);
-
-        restApplicationUsersMockMvc.perform(put("/api/application-users")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(TestUtil.convertObjectToJsonBytes(updatedApplicationUsers)))
-            .andExpect(status().isOk());
-
-        // Validate the ApplicationUsers in the database
-        List<ApplicationUsers> applicationUsersList = applicationUsersRepository.findAll();
-        assertThat(applicationUsersList).hasSize(databaseSizeBeforeUpdate);
-        ApplicationUsers testApplicationUsers = applicationUsersList.get(applicationUsersList.size() - 1);
-        assertThat(testApplicationUsers.getLevel()).isEqualTo(UPDATED_LEVEL);
-        assertThat(testApplicationUsers.getPoints()).isEqualTo(UPDATED_POINTS);
-        assertThat(testApplicationUsers.getUserLogo()).isEqualTo(UPDATED_USER_LOGO);
-        assertThat(testApplicationUsers.getUserLogoContentType()).isEqualTo(UPDATED_USER_LOGO_CONTENT_TYPE);
-        assertThat(testApplicationUsers.getUsername()).isEqualTo(UPDATED_USERNAME);
     }
 
     @Test
@@ -224,23 +132,5 @@ public class ApplicationUsersResourceIT {
         // Validate the ApplicationUsers in the database
         List<ApplicationUsers> applicationUsersList = applicationUsersRepository.findAll();
         assertThat(applicationUsersList).hasSize(databaseSizeBeforeUpdate);
-    }
-
-    @Test
-    @Transactional
-    public void deleteApplicationUsers() throws Exception {
-        // Initialize the database
-        applicationUsersRepository.saveAndFlush(applicationUsers);
-
-        int databaseSizeBeforeDelete = applicationUsersRepository.findAll().size();
-
-        // Delete the applicationUsers
-        restApplicationUsersMockMvc.perform(delete("/api/application-users/{id}", applicationUsers.getId())
-            .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isNoContent());
-
-        // Validate the database contains one less item
-        List<ApplicationUsers> applicationUsersList = applicationUsersRepository.findAll();
-        assertThat(applicationUsersList).hasSize(databaseSizeBeforeDelete - 1);
     }
 }

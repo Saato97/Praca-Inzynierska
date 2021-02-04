@@ -26,8 +26,8 @@
                         <h5 class="mb-1">{{ tournaments.currentParticipants }} / {{ tournaments.maxParticipants }}</h5>
                     </li>
                     <li class="list-group-item d-flex flex-column">
-                        <p class="mb-1" jhiTranslate="esportsApp.tournaments.gameType">Game Type</p>
-                        <h5 class="mb-1" jhiTranslate="{{ 'esportsApp.Games.' + tournaments.gameType }}">{{ tournaments.gameType }}</h5>
+                        <p class="mb-1" jhiTranslate="esportsApp.tournaments.game">Game</p>
+                        <h5 class="mb-1">{{ tournaments.game?.name }}</h5>
                     </li>
                     <li class="list-group-item d-flex flex-column">
                         <p class="mb-1" jhiTranslate="esportsApp.tournaments.startDate">Start Date</p>

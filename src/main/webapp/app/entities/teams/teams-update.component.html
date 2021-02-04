@@ -54,16 +54,18 @@
                            formControlName="teamLogoContentType" />
                 </div>
                 
-                <div class="alert alert-success" *ngIf="selectedUsers.length === 5">
+                <div class="alert alert-success" *ngIf="selectedUsers.length === tournament.game!.teamSize!">
                     <span jhiTranslate="esportsApp.teams.maxUsers">All team members were selected</span>
                 </div>
 
-                <label jhiTranslate="esportsApp.teams.applicationUsers">Select all 5 team members:</label>
+                <label jhiTranslate="esportsApp.teams.applicationUsers1">Select all</label>
+                <label>{{ tournament.game!.teamSize! }} </label>
+                <label jhiTranslate="esportsApp.teams.applicationUsers2"> team members:</label>
                 <ng-select
                     #select
                     [items]="applicationusers"
                     [multiple]="true"
-                    [maxSelectedItems]="5"
+                    [maxSelectedItems]="tournament.game!.teamSize!"
                     bindLabel="username"
                     [closeOnSelect]="false"
                     [(ngModel)]="selectedUsers"
@@ -99,7 +101,7 @@
                     <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
 
-                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving || selectedUsers.length !== 5" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving || selectedUsers.length !== tournament.game!.teamSize!" class="btn btn-primary">
                     <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

@@ -19,10 +19,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.gameType" for="field_gameType">Game Type</label>
-                    <select class="form-control" name="gameType" formControlName="gameType" id="field_gameType">
-                        <option value="LOL">{{ 'esportsApp.Games.LOL' | translate }}</option>
-                        <option value="CSGO">{{ 'esportsApp.Games.CSGO' | translate }}</option>
+                    <label class="form-control-label" jhiTranslate="esportsApp.tournaments.game" for="field_game">Game</label>
+                    <select class="form-control" id="field_game" name="game" formControlName="game">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="gameOption.id === editForm.get('game')!.value?.id ? editForm.get('game')!.value : gameOption" *ngFor="let gameOption of games; trackBy: trackByIdG">{{ gameOption.name }}</option>
                     </select>
                 </div>
 
@@ -36,6 +36,8 @@
                     <label class="form-control-label" jhiTranslate="esportsApp.tournaments.maxParticipants" for="field_maxParticipants">Max Participants</label>
                     <select class="form-control" name="maxParticipants" id="field_maxParticipants" formControlName="maxParticipants">
                         <option [ngValue]="null"></option>
+                        <option [ngValue]="2">2</option>
+                        <option [ngValue]="4">4</option>
                         <option [ngValue]="8">8</option>
                         <option [ngValue]="16">16</option>
                         <option [ngValue]="32">32</option>

@@ -2,6 +2,7 @@ import { Moment } from 'moment';
 import { ITeams } from 'app/shared/model/teams.model';
 import { IMatches } from 'app/shared/model/matches.model';
 import { IOrganizers } from 'app/shared/model/organizers.model';
+import { IGame } from 'app/shared/model/game.model';
 import { Games } from 'app/shared/model/enumerations/games.model';
 
 export interface ITournaments {
@@ -18,6 +19,7 @@ export interface ITournaments {
   teams?: ITeams[];
   matches?: IMatches[];
   organizers?: IOrganizers;
+  game?: IGame;
 }
 
 export class Tournaments implements ITournaments {
@@ -34,6 +36,7 @@ export class Tournaments implements ITournaments {
     public status?: string,
     public teams?: ITeams[],
     public matches?: IMatches[],
-    public organizers?: IOrganizers
+    public organizers?: IOrganizers,
+    public game?: IGame
   ) {}
 }
