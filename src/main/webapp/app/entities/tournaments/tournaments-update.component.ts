@@ -17,6 +17,8 @@ import { IUser } from 'app/core/user/user.model';
 import { UserService } from 'app/core/user/user.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { takeUntil } from 'rxjs/operators';
+import { IGame } from 'app/shared/model/game.model';
+import { GameService } from 'app/entities/game/game.service';
 
 @Component({
   selector: 'jhi-tournaments-update',
@@ -25,6 +27,7 @@ import { takeUntil } from 'rxjs/operators';
 export class TournamentsUpdateComponent implements OnInit, OnDestroy {
   isSaving = false;
   organizers: IOrganizers[] = [];
+  games: IGame[] = [];
   tournaments!: ITournaments;
   user!: IUser;
   private ngUnsubscribe = new Subject();
@@ -41,6 +44,7 @@ export class TournamentsUpdateComponent implements OnInit, OnDestroy {
     tournamentLogoContentType: [],
     status: [],
     organizers: [],
+    game: [],
   });
 
   constructor(
@@ -48,6 +52,7 @@ export class TournamentsUpdateComponent implements OnInit, OnDestroy {
     protected eventManager: JhiEventManager,
     protected tournamentsService: TournamentsService,
     protected organizersService: OrganizersService,
+    protected gameService: GameService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
@@ -62,6 +67,11 @@ export class TournamentsUpdateComponent implements OnInit, OnDestroy {
         const today = moment().startOf('day');
         tournaments.startDate = today;
       }
+
+      this.gameService
+        .query()
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe((res: HttpResponse<IGame[]>) => (this.games = res.body || []));
 
       this.updateForm(tournaments);
 
@@ -89,6 +99,7 @@ export class TournamentsUpdateComponent implements OnInit, OnDestroy {
       tournamentLogo: tournaments.tournamentLogo,
       tournamentLogoContentType: tournaments.tournamentLogoContentType,
       organizers: tournaments.organizers,
+      game: tournaments.game,
     });
   }
 
@@ -170,6 +181,7 @@ export class TournamentsUpdateComponent implements OnInit, OnDestroy {
       tournamentLogo: this.editForm.get(['tournamentLogo'])!.value,
       status: 'created',
       organizers: this.editForm.get(['organizers'])!.value,
+      game: this.editForm.get(['game'])!.value,
     };
   }
 
@@ -190,6 +202,10 @@ export class TournamentsUpdateComponent implements OnInit, OnDestroy {
   }
 
   trackById(index: number, item: IOrganizers): any {
+    return item.id;
+  }
+
+  trackByIdG(index: number, item: IGame): any {
     return item.id;
   }
 }

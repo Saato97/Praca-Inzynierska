@@ -39,6 +39,7 @@
       "matches": "Mecze",
       "status": "Status",
       "organizers": "Organizator",
+      "game": "Gra",
       "startError": "Nie można rozpocząć turnieju przed jego Datą Rozpoczęcia!",
       "joinDateError": "Nie można dołączyć do turnieju po jego Dacie Rozpoczęcia!",
       "maxParticipantsError": "Osiągnięto limit uczestników dla tego turnieju!"

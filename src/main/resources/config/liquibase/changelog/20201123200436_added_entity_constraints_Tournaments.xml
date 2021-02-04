@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="organizers"/>
 
+        <addForeignKeyConstraint baseColumnNames="game_id"
+                                 baseTableName="tournaments"
+                                 constraintName="fk_tournaments_game_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="game"/>
+
     </changeSet>
 </databaseChangeLog>

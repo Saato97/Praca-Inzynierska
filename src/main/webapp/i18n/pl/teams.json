@@ -19,7 +19,8 @@
       "teamName": "Nazwa drużyny",
       "captainName": "Nazwa kapitana",
       "teamLogo": "Logo drużyny",
-      "applicationUsers": "Wybierz wszystkich 5 członków drużyny",
+      "applicationUsers1": "Wybierz wszystkich ",
+      "applicationUsers2": " członków drużyny:",
       "maxUsers": "Wszyscy członkowie drużyny zostali wybrani",
       "tournaments": "Turniej",
       "matches": "Mecz"

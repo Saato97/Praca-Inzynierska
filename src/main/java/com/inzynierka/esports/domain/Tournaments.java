@@ -76,6 +76,10 @@ public class Tournaments implements Serializable {
     @JsonIgnoreProperties(value = "tournaments", allowSetters = true)
     private Organizers organizers;
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = "tournaments", allowSetters = true)
+    private Game game;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -263,6 +267,19 @@ public class Tournaments implements Serializable {
 
     public void setOrganizers(Organizers organizers) {
         this.organizers = organizers;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public Tournaments game(Game game) {
+        this.game = game;
+        return this;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

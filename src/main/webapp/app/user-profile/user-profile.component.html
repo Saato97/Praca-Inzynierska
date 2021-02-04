@@ -74,7 +74,7 @@
                     <img [src]="'data:' + tournaments.tournamentLogoContentType + ';base64,' + tournaments.tournamentLogo" style="max-height: 30px;" alt="tournaments image"/>
                   </td>
                   <td>{{ tournaments.name }}</td>
-                  <td jhiTranslate="{{ 'esportsApp.Games.' + tournaments.gameType }}">{{ tournaments.gameType }}</td>
+                  <td>{{ tournaments.game?.name }}</td>
                   <td>{{ tournaments.startDate | date:'dd/MM/yyyy HH:mm' }}</td>
                   <td class="text-right">
                     <div class="btn-group">

@@ -59,6 +59,13 @@
       "otherEntityRelationshipName": "tournaments",
       "relationshipName": "organizers",
       "otherEntityField": "id"
+    },
+    {
+      "relationshipName": "game",
+      "otherEntityName": "game",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "name",
+      "otherEntityRelationshipName": "tournaments"
     }
   ],
   "changelogDate": "20201123200436",

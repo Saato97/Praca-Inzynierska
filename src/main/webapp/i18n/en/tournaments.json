@@ -39,6 +39,7 @@
       "matches": "Matches",
       "status": "Status",
       "organizers": "Organizer",
+      "game": "Game",
       "startError": "You cannot start the tournament before its Start Date!",
       "joinDateError": "You cannot join the tournament after its Start Date!",
       "maxParticipantsError": "The participant limit for this tournament has been reached!"

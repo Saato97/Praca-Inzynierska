@@ -1,0 +1,24 @@
+{
+  "esportsApp": {
+    "game": {
+      "home": {
+        "title": "Gra",
+        "createLabel": "Dodaj grę",
+        "createOrEditLabel": "Dodaj lub edytuj grę",
+        "notFound": "Nie znaleziono gier"
+      },
+      "created": "Utworzono nowy obiekt typu Game z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Game z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Game z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć grę {{ id }}?"
+      },
+      "detail": {
+        "title": "Gra"
+      },
+      "name": "Nazwa",
+      "teamSize": "Ilość członków drużyny",
+      "tournaments": "Tournaments"
+    }
+  }
+}
